@@ -1,0 +1,59 @@
+:root {
+  font-family: -apple-system, BlinkMackSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html,
+body,
+.App {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-size: 14px;
+  color: var(--c-text);
+}
+
+.App {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: auto;
+}
+
+:root {
+  --c-brand-light: rgb(237, 199, 195);
+  --c-brand: rgb(195, 70, 58);
+
+  --c-origin: rgb(240, 134, 80);
+  --c-origin-light: rgb(253, 242, 237);
+
+  --c-text-lighter: rgb(203, 203, 203);
+  --c-text-light: rgb(155, 155, 155);
+  --c-text: rgb(83, 83, 83);
+  --c-text-dark: rgb(51, 51, 51);
+  --c-text-darker: rgb(0, 0, 0);
+
+  --c-bg: rgb(237, 237, 237);
+  --c-bg-dark: rgb(225, 225, 225);
+
+  --c-bg-navbar: rgba(245, 245, 245, 0.95);
+  --c-bg-sidebar: var(--c-bg);
+  --c-bg-search: rgb(236, 236, 236);
+  --c-bg-search-hover: rgb(241, 241, 241);
+
+  --navbar-height: 50px;
+  --sidebar-width: 200px;
+  --audio-height: 60px;
+}
