@@ -26,6 +26,10 @@ body,
   color: var(--c-text);
 }
 
+p {
+  margin: 0;
+}
+
 .App {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -50,6 +54,7 @@ body,
 
   --c-bg-navbar: rgba(245, 245, 245, 0.95);
   --c-bg-sidebar: var(--c-bg);
+  --c-bg-sidebar-active: var(--c-bg-dark);
   --c-bg-search: rgb(236, 236, 236);
   --c-bg-search-hover: rgb(241, 241, 241);
 
