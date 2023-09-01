@@ -1,4 +1,5 @@
 import { request } from '~/apis/helper'
+import type { UserAccount, UserProfile } from '~/typing/user'
 
 /**
  * 登录后调用此接口 , 传入用户 id, 可以获取用户详情
@@ -10,7 +11,14 @@ export const userDetail = request.post<{
 /**
  * 登录后调用此接口 ,可获取用户账号信息
  */
-export const userAccount = request.post('/user/account')
+export const userAccount = request.post<
+  never,
+  {
+    code: number
+    account: UserAccount
+    profile: UserProfile
+  }
+>('/user/account')
 
 /**
  * 获取用户信息 , 歌单，收藏，mv, dj 数量

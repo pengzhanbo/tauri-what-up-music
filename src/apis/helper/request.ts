@@ -4,6 +4,7 @@
  */
 import { createHttp } from './http'
 import { FETCH_BASE_URL } from '~/constants'
+import { getState } from '~/store'
 
 export const request = createHttp(FETCH_BASE_URL, {
   withCredentials: true,
@@ -15,3 +16,20 @@ export const request = createHttp(FETCH_BASE_URL, {
  */
 // 添加 拦截器
 // request.http.interceptors.response.use((response) => response)
+request.http.interceptors.request.use((config) => {
+  const method = config.method?.toUpperCase()
+  const cookie = getState().global.token
+  if (method === 'GET' && cookie) {
+    config.params = {
+      cookie: encodeURIComponent(cookie),
+      ...(config.params || {}),
+    }
+  }
+  if (method === 'POST' && cookie) {
+    config.data = {
+      cookie,
+      ...(config.data || {}),
+    }
+  }
+  return config
+})

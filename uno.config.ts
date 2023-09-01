@@ -19,6 +19,7 @@ export default defineConfig({
       'text-darker': 'var(--c-text-darker)',
       'navbar': 'var(--c-bg-navbar)',
       'sidebar': 'var(--c-bg-sidebar)',
+      'border': 'var(--c-border)',
     },
     height: {
       navbar: 'var(--navbar-height)',

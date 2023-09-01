@@ -4,36 +4,6 @@ import axios from 'axios'
 import { HttpError } from './httpError'
 import { FETCH_BASE_URL } from '~/constants'
 
-export interface HttpResponseOption {
-  /**
-   * 响应体用于判断请求结果状态的字段名
-   *
-   * @default 'code'
-   */
-  codeKey?: string
-
-  /**
-   * 响应体用于判断请求结果状态的字段值
-   *
-   * @default 100
-   */
-  successValue?: string | number
-
-  /**
-   * 响应体用于保存请求结果的字段名
-   *
-   * @default 'result'
-   */
-  resultKey?: string
-
-  /**
-   * 响应体信息字段名
-   *
-   * @default 'message'
-   */
-  messageKey?: string
-}
-
 export type RequestQuery<
   T extends Record<string | number, string | number> = {},
   K extends keyof T = keyof T,
@@ -118,12 +88,6 @@ export const axiosApi = (instance: Axios, subUrl = '') => {
 export const createHttp = (
   baseURL = FETCH_BASE_URL,
   config: AxiosRequestConfig = {},
-  {
-    codeKey = 'code',
-    successValue = 200,
-    resultKey = 'result',
-    messageKey = 'message',
-  }: HttpResponseOption = {},
 ) => {
   const http = axios.create({
     baseURL,
@@ -135,21 +99,15 @@ export const createHttp = (
     // fulfilled response
     (response) => {
       const data = response.data
-      // 对于非 json 形式的响应数据，认为是可能得其他格式响应体，直接返回数据
-      // 可能是 接收的 arraybuffer 等
-      if (!isObject(data)) return data
-      if (data[codeKey] === successValue) {
-        return data[resultKey]
-      }
-      return Promise.reject(response)
+      return data
     },
     (response: AxiosResponse) => {
       const name = `[httpError]: ${response.config.url}`
       if (response.data && isObject(response.data)) {
         throw new HttpError({
-          message: response.data[messageKey] as string,
+          message: response.data.message as string,
           name,
-          code: response.data[codeKey] as string | number,
+          code: response.data.code as string | number,
         })
       }
       throw new HttpError({

@@ -1,6 +1,7 @@
 :root {
   font-family: 'Noto Sans SC', -apple-system, BlinkMackSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;;
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 500;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -48,6 +49,8 @@ p {
   --c-text: rgb(83, 83, 83);
   --c-text-dark: rgb(51, 51, 51);
   --c-text-darker: rgb(0, 0, 0);
+
+  --c-border: rgb(230, 230, 230);
 
   --c-bg: rgb(237, 237, 237);
   --c-bg-dark: rgb(225, 225, 225);
