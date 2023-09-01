@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <>
       <div
-        className="flex flex-1 items-center justify-start"
+        className="flex flex-1 cursor-default items-center justify-start"
         onMouseDown={onDrag}
       >
         <NavLink link="/" text="个性推荐" active />

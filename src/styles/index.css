@@ -1,5 +1,5 @@
 :root {
-  font-family: -apple-system, BlinkMackSystemFont, 'Segoe UI', Roboto, Oxygen,
+  font-family: 'Noto Sans SC', -apple-system, BlinkMackSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -52,7 +52,7 @@ p {
   --c-bg: rgb(237, 237, 237);
   --c-bg-dark: rgb(225, 225, 225);
 
-  --c-bg-navbar: rgba(245, 245, 245, 0.95);
+  --c-bg-navbar: rgba(245, 245, 245, 0.8);
   --c-bg-sidebar: var(--c-bg);
   --c-bg-sidebar-active: var(--c-bg-dark);
   --c-bg-search: rgb(236, 236, 236);

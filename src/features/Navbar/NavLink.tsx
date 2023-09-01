@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom'
 function NavLink({ link, text, active }: NavLinkProps) {
   const className = cn(
     'text-text decoration-none select-none cursor-pointer transition-colors duration-300',
-    'hover:text-text-darker hover:font-bold',
+    'font-500 hover:text-text-darker hover:font-semibold',
     {
-      'text-text-darker font-bold': active,
+      'text-text-darker font-semibold': active,
     },
   )
   const navigate = useNavigate()

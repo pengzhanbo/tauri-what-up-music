@@ -14,6 +14,7 @@
   },
   "prettier": "@pengzhanbo/prettier-config",
   "dependencies": {
+    "@fontsource/noto-sans-sc": "^5.0.10",
     "@iconify/react": "^4.1.1",
     "@pengzhanbo/utils": "^1.0.9",
     "@reduxjs/toolkit": "^1.9.5",

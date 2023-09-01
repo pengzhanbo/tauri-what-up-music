@@ -12,7 +12,7 @@ function SidebarItem({
   children,
 }: SidebarItemProps) {
   const className = cn(
-    'flex-center px-4 py-2.5 transition-colors duration-300',
+    'flex-center px-4 py-2.8 transition-colors duration-300',
     {
       'bg-sidebar-active': active,
       'text-brand': active,
@@ -31,7 +31,7 @@ function SidebarItem({
         </span>
       )}
       <p
-        className="m-0 w-1px flex-1 cursor-pointer text-ellipsis px-2 font-medium"
+        className="m-0 w-1px flex-1 cursor-pointer text-ellipsis px-2 text-13px font-medium"
         onClick={linkTo}
       >
         {children || text}
