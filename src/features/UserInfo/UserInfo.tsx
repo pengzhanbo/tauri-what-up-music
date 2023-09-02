@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import useSwr from 'swr'
-import { setUserInfo } from './userInfoSlice'
+import { selectUserProfile, setUserInfo } from './userInfoSlice'
 import { userAccount } from '~/apis'
 import { setShowAuth } from '~/features/Auth/authSlice'
 import { selectToken } from '~/features/Global/globalSlice'
@@ -9,13 +9,14 @@ import { useAppDispatch, useAppSelector } from '~/hooks'
 function UserInfo() {
   const token = useAppSelector(selectToken)
   const dispatch = useAppDispatch()
-  const { data } = useSwr(token ? 'user-info' : null, userAccount, {
+  const profile = useAppSelector(selectUserProfile)
+  useSwr(token ? 'user-info' : null, userAccount, {
     onSuccess(data) {
       dispatch(setUserInfo(data))
     },
   })
 
-  const avatar = data?.profile.avatarUrl
+  const avatar = profile.avatarUrl
 
   const handleClick = () => {
     if (!token) {
@@ -42,7 +43,7 @@ function UserInfo() {
         onClick={handleClick}
       >
         <span className="text-text-dark">
-          {token ? data?.profile.nickname : '未登录'}
+          {token ? profile.nickname : '未登录'}
         </span>
         <span className="icon text-3xl text-text-light">
           <Icon icon="ic:round-arrow-right" />

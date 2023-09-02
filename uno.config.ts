@@ -1,3 +1,5 @@
+import presetRemToPx from '@unocss/preset-rem-to-px'
+import type { Preset } from 'unocss'
 import {
   defineConfig,
   presetUno,
@@ -45,8 +47,8 @@ export default defineConfig({
     'border-l': 'b-l b-l-solid b-border',
     'flex-center': 'flex justify-center items-center',
     'fixed-0': 'fixed top-0 left-0',
-    'icon': 'w-1em h-1em text-1em vertical-middle leading-1em m-auto',
+    'icon': 'inline-block w-1em h-1em text-1em vertical-middle leading-1em',
   },
-  presets: [presetUno()],
+  presets: [presetRemToPx({ baseFontSize: 14 }) as Preset<any>, presetUno()],
   transformers: [transformerDirectives(), transformerVariantGroup()],
 })

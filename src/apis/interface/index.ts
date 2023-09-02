@@ -1,4 +1,5 @@
 export * from './basic'
+export * from './recommend'
 
 export * from './auth'
 

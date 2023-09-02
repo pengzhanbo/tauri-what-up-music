@@ -1,12 +1,17 @@
-import { Route, Routes } from 'react-router-dom'
-import Discover from '~/pages/Discover'
+import type { RouteObject } from 'react-router-dom'
+import { Navigate, useRoutes } from 'react-router-dom'
+import discover from './discover'
+
+const routes: RouteObject[] = [
+  discover,
+  {
+    path: '*',
+    element: <Navigate to="/discover/recommend" />,
+  },
+]
 
 function Router() {
-  return (
-    <Routes>
-      <Route path="/" element={<Discover />} />
-    </Routes>
-  )
+  return useRoutes(routes)
 }
 
 export default Router

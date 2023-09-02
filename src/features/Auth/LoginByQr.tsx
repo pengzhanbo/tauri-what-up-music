@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
-import { useEffect, useState } from 'react'
+import { useInterval } from 'ahooks'
+import { useState } from 'react'
 import useSwr from 'swr'
 import { setToken } from '../Global/globalSlice'
 import { setLoginType } from './authSlice'
@@ -27,21 +28,15 @@ function LoginByQr() {
     dispatch(setLoginType('phone'))
   }
 
-  useEffect(() => {
-    const timer = setInterval(async () => {
-      if (!key) return
-      const { cookie, code } = await checkQRKey({ key })
-      if (code === 800) mutate()
-      if (code === 803) {
-        clearInterval(timer)
-        dispatch(setToken(cookie))
-      }
-    }, 5000)
-
-    return () => {
-      timer && clearInterval(timer)
+  const clear = useInterval(async () => {
+    if (!key) return
+    const { cookie, code } = await checkQRKey({ key })
+    if (code === 800) mutate()
+    if (code === 803) {
+      clear()
+      dispatch(setToken(cookie))
     }
-  }, [key])
+  }, 5000)
 
   return (
     <div className="h-full w-full flex-center flex-col">
