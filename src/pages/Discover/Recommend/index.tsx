@@ -2,6 +2,9 @@
  * 发现音乐 / 个性推荐
  */
 import Banner from './Banner'
+import NewMV from './NewMV'
+import NewSong from './NewSong'
+import Podcast from './Podcast'
 import PrivateContent from './PrivateContent'
 import SongList from './SongList'
 
@@ -11,6 +14,9 @@ function Recommend() {
       <Banner />
       <SongList />
       <PrivateContent />
+      <NewSong />
+      <NewMV />
+      <Podcast />
     </div>
   )
 }

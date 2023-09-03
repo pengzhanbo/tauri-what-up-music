@@ -18,7 +18,7 @@ export default function PrivateContent() {
 
   return (
     <Content title="独家放送">
-      <div className="grid grid-cols-4 gap-5 pb-6">
+      <div className="grid grid-cols-4 gap-5 pb-8">
         {list.map((item) => (
           <section key={item.id}>
             <Rectangle
