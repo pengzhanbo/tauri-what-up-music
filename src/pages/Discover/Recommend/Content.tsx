@@ -11,7 +11,7 @@ export default function Content({ title, titleClick, children }: ContentProps) {
           {title}
         </span>
         <span
-          className="icon cursor-pointer text-2xl"
+          className="relative icon cursor-pointer text-2xl -top-1px"
           onClick={handleTitleClick}
         >
           <Icon icon="eva:arrow-ios-forward-fill" />

@@ -1,11 +1,12 @@
 import { isNumber } from '@pengzhanbo/utils'
 import cn from 'classnames'
 
-export default function SquareBox({
+export default function Rectangle({
   size = '100%',
+  ratio = 1,
   children,
   className,
-}: SquareBoxProps) {
+}: RectangleProps) {
   size = (isNumber(size) ? `${size}px` : size) as string
 
   const isPx = size.endsWith('px')
@@ -14,7 +15,7 @@ export default function SquareBox({
   const style = {
     width,
     height,
-    paddingTop: isPx ? 0 : '100%',
+    paddingTop: isPx ? 0 : `${ratio * 100}%`,
   }
   const childClass = cn('absolute left-0 top-0 h-full w-full', className)
   return (
@@ -25,8 +26,9 @@ export default function SquareBox({
   )
 }
 
-export interface SquareBoxProps {
+export interface RectangleProps {
   children?: React.ReactNode
   size?: number | string
+  ratio?: number
   className?: string
 }

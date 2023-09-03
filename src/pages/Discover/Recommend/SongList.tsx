@@ -1,8 +1,11 @@
+/**
+ * 推荐歌单
+ */
 import { Icon } from '@iconify/react'
 import useSwr from 'swr'
 import Content from './Content'
 import { getRecommendSongList, getRecommendSongOfDay } from '~/apis'
-import SquareBox from '~/components/SquareBox'
+import Rectangle from '~/components/Rectangle'
 import { numUnit } from '~/utils'
 
 export default function SongList() {
@@ -17,7 +20,7 @@ export default function SongList() {
         <SongOfDay />
         {songList.map((item) => (
           <section className="pb-6" key={item.id}>
-            <SquareBox className="group cursor-pointer overflow-hidden rounded-md">
+            <Rectangle className="group cursor-pointer overflow-hidden rounded-md">
               <p className="absolute right-0 top-0 flex-center pr-2 text-sm text-white">
                 <span className="relative top-2px icon mr-1">
                   <Icon icon="iconamoon:player-play" />
@@ -34,7 +37,7 @@ export default function SongList() {
               <span className="absolute bottom-4 right-4 icon h-9 w-9 flex-center rounded-full bg-white/50 text-xl text-brand opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <Icon icon="iconamoon:player-play-fill" />
               </span>
-            </SquareBox>
+            </Rectangle>
             <p className="line-clamp-2 mt-1 text-13px leading-relaxed text-text-dark">
               <span className="cursor-pointer">{item.name}</span>
             </p>
@@ -55,7 +58,7 @@ function SongOfDay() {
   const day = new Date().getDate()
   return (
     <section className="pb-4">
-      <SquareBox className="group cursor-pointer overflow-hidden rounded-md">
+      <Rectangle className="group cursor-pointer overflow-hidden rounded-md">
         <p className="absolute left-0 top-0 z-3 w-full bg-black bg-opacity-50 px-2 py-2 text-sm text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           根据您的音乐口味生成每日更新
         </p>
@@ -79,7 +82,7 @@ function SongOfDay() {
         <span className="absolute bottom-4 right-4 icon h-9 w-9 flex-center rounded-full bg-white/50 text-xl text-brand opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <Icon icon="iconamoon:player-play-fill" />
         </span>
-      </SquareBox>
+      </Rectangle>
       <p className="mt-1 text-13px leading-relaxed text-text-dark">
         <span className="cursor-pointer">每日歌曲推荐</span>
       </p>

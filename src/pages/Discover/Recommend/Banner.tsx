@@ -1,3 +1,6 @@
+/**
+ * banner 资源位
+ */
 import useSWR from 'swr'
 import type { DiscoverBannerResponseItem } from '~/apis'
 import { getDiscoverBanner } from '~/apis'
