@@ -8,9 +8,8 @@ import { getPersonalizedPrivateContent } from '~/apis'
 import Rectangle from '~/components/Rectangle'
 
 export default function PrivateContent() {
-  const { isLoading, data } = useSwr(
-    'discover/recommend/private-content',
-    getPersonalizedPrivateContent,
+  const { isLoading, data } = useSwr('discover/recommend/private-content', () =>
+    getPersonalizedPrivateContent(),
   )
   if (isLoading) return null
 

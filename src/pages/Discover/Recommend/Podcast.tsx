@@ -7,9 +7,8 @@ import { getRecommendPodcast } from '~/apis'
  * 播客
  */
 export default function Podcast() {
-  const { isLoading, data } = useSwr(
-    'discover/recommend/podcast',
-    getRecommendPodcast,
+  const { isLoading, data } = useSwr('discover/recommend/podcast', () =>
+    getRecommendPodcast(),
   )
 
   if (isLoading) return null

@@ -45,6 +45,7 @@ p {
 
   --c-origin: rgb(240, 134, 80);
   --c-origin-light: rgb(253, 242, 237);
+  --c-king: rgb(222, 172, 103);
 
   --c-text-lighter: rgb(203, 203, 203);
   --c-text-light: rgb(155, 155, 155);
@@ -57,7 +58,7 @@ p {
   --c-bg: rgb(237, 237, 237);
   --c-bg-dark: rgb(225, 225, 225);
 
-  --c-bg-navbar: rgba(245, 245, 245, 0.8);
+  --c-bg-navbar: rgba(245, 245, 245, 0.75);
   --c-bg-sidebar: var(--c-bg);
   --c-bg-sidebar-active: var(--c-bg-dark);
   --c-bg-search: rgb(236, 236, 236);

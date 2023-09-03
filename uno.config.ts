@@ -13,6 +13,7 @@ export default defineConfig({
       'brand': 'var(--c-brand)',
       'brand-light': 'var(--c-brand-light)',
       'origin': 'var(--c-origin)',
+      'king': 'var(--c-king)',
       'origin-light': 'var(--c-origin-light)',
       'text': 'var(--c-text)',
       'text-light': 'var(--c-text-light)',

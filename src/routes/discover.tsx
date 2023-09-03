@@ -1,9 +1,10 @@
 import type { RouteObject } from 'react-router-dom'
+import HighQualityPlayList from '~/pages/Discover/HighQualityPlayList'
 import LastMusic from '~/pages/Discover/LastMusic'
+import PlayList from '~/pages/Discover/PlayList'
 import Rank from '~/pages/Discover/Rank'
 import Recommend from '~/pages/Discover/Recommend'
 import Singer from '~/pages/Discover/Singer'
-import SongList from '~/pages/Discover/SongList'
 
 export default {
   path: '/discover',
@@ -14,8 +15,12 @@ export default {
       index: true,
     },
     {
-      path: 'songList',
-      element: <SongList />,
+      path: 'playList',
+      element: <PlayList />,
+    },
+    {
+      path: 'playList/highQuality',
+      element: <HighQualityPlayList />,
     },
     {
       path: 'rank',

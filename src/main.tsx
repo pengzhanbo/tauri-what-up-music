@@ -5,8 +5,8 @@ import { BrowserRouter } from 'react-router-dom'
 import '~/styles'
 import { SWRConfig } from 'swr'
 import App from '~/App'
+import { swrConfig } from '~/constants'
 import { store } from '~/store'
-import { localStorageProvider } from '~/utils'
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
@@ -14,14 +14,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <SWRConfig
-          value={{
-            provider: localStorageProvider,
-            revalidateOnFocus: false,
-            revalidateOnReconnect: false,
-            dedupingInterval: 5000 * 60,
-          }}
-        >
+        <SWRConfig value={swrConfig}>
           <App />
         </SWRConfig>
       </Provider>

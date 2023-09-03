@@ -8,7 +8,9 @@ import Swipe from '~/components/Swipe'
 import SwipeItem from '~/components/Swipe/SwipeItem'
 
 export default function Banner() {
-  const { isLoading, data } = useSWR('discover/banner', getDiscoverBanner)
+  const { isLoading, data } = useSWR('discover/banner', () =>
+    getDiscoverBanner(),
+  )
 
   const handleClick = (banner: DiscoverBannerResponseItem) => {
     console.warn(banner)

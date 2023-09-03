@@ -3,7 +3,7 @@ import { request } from '~/apis/helper'
 /**
  * 获取 发现页 轮播图
  */
-export const getDiscoverBanner = request.get<
+export const getDiscoverBanner = request.post<
   never,
   {
     code: number

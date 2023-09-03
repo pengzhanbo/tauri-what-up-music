@@ -10,9 +10,8 @@ import Rectangle from '~/components/Rectangle'
 import { numUnit } from '~/utils'
 
 export default function NewMV() {
-  const { isLoading, data } = useSwr(
-    'discover/recommend/new-mv',
-    getRecommendMV,
+  const { isLoading, data } = useSwr('discover/recommend/new-mv', () =>
+    getRecommendMV(),
   )
   if (isLoading) return null
   const list = data?.result || []

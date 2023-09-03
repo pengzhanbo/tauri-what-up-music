@@ -8,7 +8,7 @@ import Podcast from './Podcast'
 import PrivateContent from './PrivateContent'
 import SongList from './SongList'
 
-function Recommend() {
+export default function Recommend() {
   return (
     <div className="px-8 py-6">
       <Banner />
@@ -20,5 +20,3 @@ function Recommend() {
     </div>
   )
 }
-
-export default Recommend

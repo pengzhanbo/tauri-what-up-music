@@ -3,7 +3,7 @@
  */
 import { request } from '~/apis/helper'
 
-export const getRecommendMV = request.get<never, GetRecommendMVResponse>(
+export const getRecommendMV = request.post<never, GetRecommendMVResponse>(
   '/personalized/mv',
 )
 

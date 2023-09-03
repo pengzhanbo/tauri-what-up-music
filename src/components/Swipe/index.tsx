@@ -4,7 +4,7 @@ import { useState } from 'react'
 import SwipeContext from './swipeContext'
 
 export default function Swipe({ children }: SwipeProps) {
-  const items = children as React.ReactNode[]
+  const items = (children as React.ReactNode[]) || []
   const total = items.length
   const dots = new Array(total).fill(0)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -57,5 +57,5 @@ export default function Swipe({ children }: SwipeProps) {
 }
 
 export interface SwipeProps {
-  children: React.ReactNode
+  children?: React.ReactNode
 }

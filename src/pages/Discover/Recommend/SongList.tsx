@@ -49,9 +49,8 @@ export default function SongList() {
 }
 
 function SongOfDay() {
-  const { isLoading, data } = useSwr(
-    'discover/recommend/song-of-day',
-    getRecommendSongOfDay,
+  const { isLoading, data } = useSwr('discover/recommend/song-of-day', () =>
+    getRecommendSongOfDay(),
   )
   if (isLoading) return null
   const songImg = data?.data.dailySongs[0].al.picUrl || ''

@@ -3,7 +3,7 @@
  */
 import { request } from '~/apis/helper'
 
-export const getRecommendPodcast = request.get<
+export const getRecommendPodcast = request.post<
   never,
   GetRecommendPodcastResponse
 >('/personalized/djprogram')

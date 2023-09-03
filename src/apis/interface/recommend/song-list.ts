@@ -1,7 +1,7 @@
 import { request } from '~/apis/helper'
 
 // 获取推荐歌单
-export const getRecommendSongList = request.get<
+export const getRecommendSongList = request.post<
   {
     limit: number
   },

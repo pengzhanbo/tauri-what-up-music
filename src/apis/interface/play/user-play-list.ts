@@ -1,3 +1,6 @@
+/**
+ * 用户歌单
+ */
 import { request } from '~/apis/helper'
 
 export interface UserPlayListParams {
@@ -18,4 +21,5 @@ export interface UserPlayListParams {
 /**
  * 传入用户 id, 可以获取用户歌单
  */
-export const userPlayList = request.get<UserPlayListParams>('/user/playlist')
+export const getUserPlayList =
+  request.post<UserPlayListParams>('/user/playlist')

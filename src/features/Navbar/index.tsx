@@ -12,7 +12,7 @@ export default function Navbar() {
         onMouseDown={onDrag}
       >
         <NavLink link="/discover/recommend" text="个性推荐" active />
-        <NavLink link="/discover/songList" text="歌单" />
+        <NavLink link="/discover/playList" text="歌单" />
         <NavLink link="/discover/rank" text="排行榜" />
         <NavLink link="/discover/singer" text="歌手" />
         <NavLink link="/discover/lastMusic" text="最新音乐" />

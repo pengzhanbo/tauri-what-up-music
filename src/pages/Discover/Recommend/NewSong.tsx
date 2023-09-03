@@ -8,9 +8,8 @@ import { getRecommendNewSong } from '~/apis'
 import Artists from '~/components/Artists'
 
 export default function NewSong() {
-  const { isLoading, data } = useSwr(
-    'discover/recommend/new-song',
-    getRecommendNewSong,
+  const { isLoading, data } = useSwr('discover/recommend/new-song', () =>
+    getRecommendNewSong(),
   )
   const [selectId, setSelectId] = useState<number>(0)
 
@@ -67,7 +66,7 @@ export default function NewSong() {
                         </span>
                       )}
                     </p>
-                    <p className="flex items-center pt-1">
+                    <div className="flex items-center pt-1">
                       {item.tag && (
                         <span className="relative top-1px mr-1 inline-block border border-origin rounded-sm text-sm leading-1em text-origin">
                           {item.tag}
@@ -77,7 +76,7 @@ export default function NewSong() {
                         className="w-1px flex-1 text-sm"
                         artists={item.artists}
                       />
-                    </p>
+                    </div>
                   </div>
                   {item.hasMv && (
                     <span className="icon mr-4 text-brand">

@@ -10,11 +10,8 @@ function UserInfo() {
   const token = useAppSelector(selectToken)
   const dispatch = useAppDispatch()
   const profile = useAppSelector(selectUserProfile)
-  useSwr(token ? 'user-info' : null, userAccount, {
-    onSuccess(data) {
-      dispatch(setUserInfo(data))
-    },
-  })
+  const { data } = useSwr(token ? 'user-info' : null, () => userAccount())
+  data && dispatch(setUserInfo(data))
 
   const avatar = profile.avatarUrl
 

@@ -3,7 +3,7 @@
  */
 import { request } from '~/apis/helper'
 
-export const getPersonalizedPrivateContent = request.get<
+export const getPersonalizedPrivateContent = request.post<
   never,
   GetPersonalizedPrivateContentResponse
 >('/personalized/privatecontent?limit=4')

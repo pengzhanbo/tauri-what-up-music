@@ -1,12 +1,13 @@
 import cn from 'classnames'
-import { useNavigate } from 'react-router-dom'
+import { useMatch, useNavigate } from 'react-router-dom'
 
-function NavLink({ link, text, active }: NavLinkProps) {
+function NavLink({ link, text }: NavLinkProps) {
+  const pathMath = useMatch({ path: link, caseSensitive: true, end: false })
   const className = cn(
     'text-text decoration-none select-none cursor-pointer transition-colors duration-300',
     'font-500 hover:text-text-darker hover:font-semibold',
     {
-      'text-text-darker font-semibold': active,
+      'text-text-darker font-semibold': pathMath,
     },
   )
   const navigate = useNavigate()

@@ -1,16 +1,17 @@
 import cn from 'classnames'
+import { Fragment } from 'react'
 
 export default function Artists({ artists, className }: ArtistsProps) {
   const len = artists.length
   return (
-    <div className={cn('truncate', className)}>
+    <p className={cn('truncate', className)}>
       {artists.map((item, i) => (
-        <>
-          <Artist key={item.id} {...item} />
+        <Fragment key={item.id}>
+          <Artist {...item} />
           {len - 1 !== i && <span className="mx-0.5">/</span>}
-        </>
+        </Fragment>
       ))}
-    </div>
+    </p>
   )
 }
 

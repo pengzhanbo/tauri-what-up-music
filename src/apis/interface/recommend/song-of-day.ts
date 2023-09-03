@@ -1,7 +1,7 @@
 import { request } from '~/apis/helper'
 
 // 获取 每日歌曲推荐
-export const getRecommendSongOfDay = request.get<
+export const getRecommendSongOfDay = request.post<
   never,
   GetRecommendSongOfDayResponse
 >('/recommend/songs')
