@@ -40,6 +40,7 @@ p {
 }
 
 :root {
+  --c-brand-lighter: rgb(252, 246, 245);
   --c-brand-light: rgb(237, 199, 195);
   --c-brand: rgb(195, 70, 58);
 
@@ -49,6 +50,7 @@ p {
 
   --c-text-lighter: rgb(203, 203, 203);
   --c-text-light: rgb(155, 155, 155);
+  --c-text-light-dark: rgb(102, 102, 102);
   --c-text: rgb(83, 83, 83);
   --c-text-dark: rgb(51, 51, 51);
   --c-text-darker: rgb(0, 0, 0);
@@ -67,4 +69,6 @@ p {
   --navbar-height: 50px;
   --sidebar-width: 200px;
   --audio-height: 60px;
+
+  --shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
 }

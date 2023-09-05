@@ -12,11 +12,13 @@ export default defineConfig({
     colors: {
       'brand': 'var(--c-brand)',
       'brand-light': 'var(--c-brand-light)',
+      'brand-lighter': 'var(--c-brand-lighter)',
       'origin': 'var(--c-origin)',
       'king': 'var(--c-king)',
       'origin-light': 'var(--c-origin-light)',
       'text': 'var(--c-text)',
       'text-light': 'var(--c-text-light)',
+      'text-light-dark': 'var(--c-text-light-dark)',
       'text-lighter': 'var(--c-text-lighter)',
       'text-dark': 'var(--c-text-dark)',
       'text-darker': 'var(--c-text-darker)',
@@ -39,6 +41,7 @@ export default defineConfig({
     ['bg-search-hover', { 'background-color': 'var(--c-bg-search-hover)' }],
     ['bg-sidebar', { 'background-color': 'var(--c-bg-sidebar)' }],
     ['bg-sidebar-active', { 'background-color': 'var(--c-bg-sidebar-active)' }],
+    ['shadow-box', { 'box-shadow': 'var(--shadow)' }],
   ],
   shortcuts: {
     'border': 'b b-solid b-border',

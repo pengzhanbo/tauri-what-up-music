@@ -19,6 +19,8 @@ export const request = createHttp(FETCH_BASE_URL, {
 request.http.interceptors.request.use((config) => {
   const method = config.method?.toUpperCase()
   const cookie = getState().global.token
+  config.params ??= {}
+  config.params.t = Date.now()
   if (method === 'GET' && cookie) {
     config.params = {
       cookie: encodeURIComponent(cookie),

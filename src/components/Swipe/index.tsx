@@ -1,4 +1,4 @@
-import { useInterval } from 'ahooks'
+import { useRafInterval } from 'ahooks'
 import cn from 'classnames'
 import { useState } from 'react'
 import SwipeContext from './swipeContext'
@@ -10,7 +10,7 @@ export default function Swipe({ children }: SwipeProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [interval, setInterval] = useState<number | undefined>(5000)
 
-  useInterval(() => {
+  useRafInterval(() => {
     setCurrentIndex((i) => (i + 1) % total)
   }, interval)
 

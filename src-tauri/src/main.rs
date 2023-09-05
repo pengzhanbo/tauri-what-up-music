@@ -9,6 +9,9 @@ fn main() {
   let mut builder = tauri::Builder::default();
 
   builder = builder
+    .plugin(tauri_plugin_store::Builder::default().build());
+
+  builder = builder
     .invoke_handler(tauri::generate_handler![
       drag_window,
     ]);

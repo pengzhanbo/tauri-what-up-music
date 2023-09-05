@@ -5,12 +5,12 @@ import { Icon } from '@iconify/react'
 import useSwr from 'swr'
 import { getHighQualityPlayList } from '~/apis'
 
-export default function HighQuality({ cat = '' }: { cat?: string }) {
+export default function HighQuality({ cat = '' }: { cat?: string | number }) {
   const { isLoading, data } = useSwr(
     ['discover/playlist/high-quality-1', cat],
     ([, cat]) => getHighQualityPlayList({ limit: 1, cat }),
   )
-  if (isLoading) return null
+  if (isLoading) return <div className="h-170px w-full"></div>
   const list = data?.playlists || []
   const item = list[0]
   if (!item) return null

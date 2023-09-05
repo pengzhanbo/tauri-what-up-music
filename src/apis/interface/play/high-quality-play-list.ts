@@ -9,7 +9,7 @@ export interface GetHighQualityPlayListParams {
   /**
    * 歌单标签
    */
-  cat?: string
+  cat?: string | number
   /**
    * 取出歌单数量 , 默认为 50
    */

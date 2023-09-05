@@ -7,16 +7,43 @@ import { request } from '~/apis/helper'
 /**
  * 热门歌单分类
  */
-export const getHotCatList = request.get<never>('/playlist/hot')
+export const getHotCatList = request.post<never, GetHotCatListResponse>(
+  '/playlist/hot',
+)
 
 /**
  * 全部歌单分类
  */
-export const getAllCatList = request.get<never>('/playlist/catlist')
+export const getAllCatList = request.post<never, GetAllCatListResponse>(
+  '/playlist/catlist',
+)
 
 /**
  * 精品歌单分类标签
  */
-export const getHighQualityPlayListTags = request.get<never>(
+export const getHighQualityPlayListTags = request.post<never>(
   '/playlist/highquality/tags',
 )
+
+export interface GetHotCatListResponse {
+  code: number
+  tags: {
+    category: number
+    name: string
+    id: number
+  }[]
+}
+
+export interface GetAllCatListResponse {
+  code: number
+  categories: Record<number, string>
+  all: {
+    name: string
+    category: number
+  }
+  sub: {
+    category: number
+    name: string
+    hot: boolean
+  }[]
+}

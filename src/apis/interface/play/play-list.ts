@@ -4,10 +4,10 @@
 import { request } from '~/apis/helper'
 
 /**
- * 传入用户 id, 可以获取用户歌单
+ * 获取网友精选碟歌单
  */
-export const getPlayList = request.post<GetPlayListParams>(
-  '/top/playlist?limit=10&order=new',
+export const getPlayList = request.post<GetPlayListParams, GetPlayListResponse>(
+  '/top/playlist',
 )
 
 export interface GetPlayListParams {
@@ -18,7 +18,7 @@ export interface GetPlayListParams {
   /**
    * 歌单分类
    */
-  cat?: string
+  cat?: string | number
   /**
    * 返回数量 , 默认为 50
    */
@@ -27,4 +27,28 @@ export interface GetPlayListParams {
    * 偏移数量，用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
    */
   offset?: number
+}
+
+export interface GetPlayListResponse {
+  code: number
+  total: number
+  more: boolean
+  cat: string
+  playlists: PlaylistOption[]
+}
+
+export interface PlaylistOption {
+  id: number
+  name: string
+  coverImgUrl: string
+  description: string
+  tags: string[]
+  highQuality: boolean
+  playCount: number
+  shareCount: number
+  subscribed: boolean
+  creator: {
+    userId: number
+    nickname: string
+  }
 }

@@ -49,7 +49,6 @@ export const axiosApi = (instance: Axios, subUrl = '') => {
 
   const post = <D extends Record<string, any>, T = any>(url: string) => {
     url = combineURLs(subUrl, url)
-    url += url.includes('?') ? `&t=${Date.now()}` : `?t=${Date.now()}`
     return (
       data: D = Object.create(null),
       config: AxiosRequestConfig = {},

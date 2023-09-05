@@ -1,4 +1,5 @@
 import type { SWRConfiguration } from 'swr'
+import { appStoreHelper } from '~/modules/db'
 
 export const swrConfig = {
   provider: localStorageProvider,
@@ -9,11 +10,11 @@ export const swrConfig = {
   revalidateOnReconnect: false,
 } as SWRConfiguration
 
+const map = appStoreHelper()
+const EXPIRES_KEY = 'app-swr-cache-expires'
+
 function localStorageProvider() {
-  const map = new Map<string, any>(
-    JSON.parse(localStorage.getItem('app-swr-cache') || '[]'),
-  )
-  let cacheExpires = Number(localStorage.getItem('app-swr-cache-expires') || 0)
+  let cacheExpires = Number(localStorage.getItem(EXPIRES_KEY) || 0)
   const expired = () => Date.now() > cacheExpires
   const resetCache = () => {
     const current = new Date()
@@ -25,17 +26,12 @@ function localStorageProvider() {
       59,
       59,
     ).getTime()
-    localStorage.removeItem('app-swr-cache')
-    localStorage.setItem('app-swr-cache-expires', cacheExpires.toString())
+
+    localStorage.setItem(EXPIRES_KEY, cacheExpires.toString())
     map.clear()
   }
 
   if (expired()) resetCache()
-
-  const update = () => {
-    const appCache = JSON.stringify(Array.from(map.entries()))
-    localStorage.setItem('app-swr-cache', appCache)
-  }
 
   return {
     get: (key: string) => {
@@ -47,12 +43,12 @@ function localStorageProvider() {
     },
     set: (key: string, value: any) => {
       map.set(key, value)
-      update()
     },
     delete: (key: string) => {
       map.delete(key)
-      update()
     },
-    keys: () => map.keys(),
+    keys: () => {
+      return map.keys()
+    },
   }
 }
