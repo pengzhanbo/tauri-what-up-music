@@ -40,6 +40,8 @@
         "title": "What Up Music",
         "width": 1000,
         "height": 650,
+        "minWidth": 1000,
+        "minHeight": 650,
         "hiddenTitle": true,
         "titleBarStyle": "Overlay",
         "acceptFirstMouse": true,

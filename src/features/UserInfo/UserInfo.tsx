@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react'
+import { useEffect } from 'react'
 import useSwr from 'swr'
 import { selectUserProfile, setUserInfo } from './userInfoSlice'
 import { userAccount } from '~/apis'
@@ -9,9 +10,12 @@ import { useAppDispatch, useAppSelector } from '~/hooks'
 function UserInfo() {
   const token = useAppSelector(selectToken)
   const dispatch = useAppDispatch()
-  const profile = useAppSelector(selectUserProfile)
+
   const { data } = useSwr(token ? 'user-info' : null, () => userAccount())
-  data && dispatch(setUserInfo(data))
+  const profile = useAppSelector(selectUserProfile)
+  useEffect(() => {
+    data && dispatch(setUserInfo({ ...data }))
+  }, [data])
 
   const avatar = profile.avatarUrl
 
@@ -40,7 +44,7 @@ function UserInfo() {
         onClick={handleClick}
       >
         <span className="text-text-dark">
-          {token ? profile.nickname : '未登录'}
+          {token && profile.nickname ? profile.nickname : '未登录'}
         </span>
         <span className="icon text-3xl text-text-light">
           <Icon icon="ic:round-arrow-right" />

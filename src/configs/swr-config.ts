@@ -1,54 +1,42 @@
+import { unstable_serialize } from 'swr'
 import type { SWRConfiguration } from 'swr'
-import { appStoreHelper } from '~/modules/db'
+import { fetchStore } from '~/modules/db'
 
 export const swrConfig = {
-  provider: localStorageProvider,
-  dedupingInterval: 1000 * 5 * 60,
-  revalidateOnFocus: false,
   refreshInterval: 0,
-  revalidateIfStale: false,
-  revalidateOnReconnect: false,
+  use: [
+    function (useSWRNext) {
+      return function (key, _fetcher, config) {
+        const fetcher = async (args: any) => {
+          const _key = unstable_serialize(args)
+          const res = (await fetchStore.get(_key)) as any[]
+          if (res) {
+            const [data, expired] = res
+            if (Date.now() < expired) {
+              return data
+            } else {
+              await fetchStore.delete(_key)
+            }
+          }
+          const result = await _fetcher?.(args)
+          result && (await fetchStore.set(_key, [result, getExpires()]))
+
+          return result
+        }
+        return useSWRNext(key, fetcher, config as any)
+      }
+    },
+  ],
 } as SWRConfiguration
 
-const map = appStoreHelper()
-const EXPIRES_KEY = 'app-swr-cache-expires'
-
-function localStorageProvider() {
-  let cacheExpires = Number(localStorage.getItem(EXPIRES_KEY) || 0)
-  const expired = () => Date.now() > cacheExpires
-  const resetCache = () => {
-    const current = new Date()
-    cacheExpires = new Date(
-      current.getFullYear(),
-      current.getMonth(),
-      current.getDate(),
-      23,
-      59,
-      59,
-    ).getTime()
-
-    localStorage.setItem(EXPIRES_KEY, cacheExpires.toString())
-    map.clear()
-  }
-
-  if (expired()) resetCache()
-
-  return {
-    get: (key: string) => {
-      if (expired()) {
-        resetCache()
-        return
-      }
-      return map.get(key)
-    },
-    set: (key: string, value: any) => {
-      map.set(key, value)
-    },
-    delete: (key: string) => {
-      map.delete(key)
-    },
-    keys: () => {
-      return map.keys()
-    },
-  }
+function getExpires() {
+  const current = new Date()
+  return new Date(
+    current.getFullYear(),
+    current.getMonth(),
+    current.getDate(),
+    23,
+    59,
+    59,
+  ).getTime()
 }

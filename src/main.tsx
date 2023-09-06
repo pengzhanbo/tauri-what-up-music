@@ -6,7 +6,6 @@ import '~/styles'
 import { SWRConfig } from 'swr'
 import App from '~/App'
 import { swrConfig } from '~/configs'
-import { initFetchSore } from '~/modules/db'
 import { store } from '~/store'
 
 async function render() {
@@ -14,19 +13,18 @@ async function render() {
 
   root.render(
     <React.StrictMode>
-      <BrowserRouter>
-        <Provider store={store}>
-          <SWRConfig value={swrConfig}>
+      <Provider store={store}>
+        <SWRConfig value={swrConfig}>
+          <BrowserRouter>
             <App />
-          </SWRConfig>
-        </Provider>
-      </BrowserRouter>
+          </BrowserRouter>
+        </SWRConfig>
+      </Provider>
     </React.StrictMode>,
   )
 }
 
 async function bootstrap() {
-  await initFetchSore()
   render()
 }
 
