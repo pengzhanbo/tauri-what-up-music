@@ -1,10 +1,10 @@
 import type { RouteObject } from 'react-router-dom'
+import Artist from '~/pages/Discover/Artist'
 import HighQualityPlayList from '~/pages/Discover/HighQualityPlayList'
 import LastMusic from '~/pages/Discover/LastMusic'
 import PlayList from '~/pages/Discover/PlayList'
 import Rank from '~/pages/Discover/Rank'
 import Recommend from '~/pages/Discover/Recommend'
-import Singer from '~/pages/Discover/Singer'
 
 export default {
   path: '/discover',
@@ -27,8 +27,8 @@ export default {
       element: <Rank />,
     },
     {
-      path: 'singer',
-      element: <Singer />,
+      path: 'artist',
+      element: <Artist />,
     },
     {
       path: 'lastMusic',

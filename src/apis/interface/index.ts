@@ -1,5 +1,6 @@
 export * from './basic'
 export * from './recommend'
+export * from './rank'
 
 export * from './auth'
 
