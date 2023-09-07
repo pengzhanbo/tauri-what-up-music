@@ -15,7 +15,7 @@ export default function Navbar() {
         <NavLink link="/discover/playList" text="歌单" />
         <NavLink link="/discover/rank" text="排行榜" />
         <NavLink link="/discover/artist" text="歌手" />
-        <NavLink link="/discover/lastMusic" text="最新音乐" />
+        <NavLink link="/discover/latestMusic" text="最新音乐" />
       </div>
       <div className="flex-center pr-4" onMouseDown={onDrag}>
         <SearchInput></SearchInput>

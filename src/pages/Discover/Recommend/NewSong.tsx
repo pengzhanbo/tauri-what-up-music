@@ -6,6 +6,7 @@ import useSwr from 'swr'
 import Content from './Content'
 import { getRecommendNewSong } from '~/apis'
 import Artists from '~/components/Artists'
+import LazyImage from '~/components/LazyImage'
 
 export default function NewSong() {
   const { isLoading, data } = useSwr('discover/recommend/new-song', () =>
@@ -46,11 +47,9 @@ export default function NewSong() {
                     item.id === selectId ? 'bg-gray-100' : 'bg-transparent',
                   )}
                 >
-                  <div
-                    className="ml-4 h-17 w-17 flex cursor-pointer rounded-md bg-cover"
-                    style={{ backgroundImage: `url(${item.picUrl})` }}
-                  >
-                    <span className="icon m-auto h-7 w-7 flex-center rounded-full bg-white/50 text-brand">
+                  <div className="relative ml-4 h-17 w-17 flex cursor-pointer overflow-hidden rounded-md">
+                    <LazyImage className="h-full w-full" src={item.picUrl} />
+                    <span className="absolute left-50% top-50% z-1 icon h-7 w-7 flex-center rounded-full bg-white/50 text-brand -translate-50%">
                       <Icon icon="iconamoon:player-play-fill" />
                     </span>
                   </div>
@@ -79,7 +78,7 @@ export default function NewSong() {
                     </div>
                   </div>
                   {item.hasMv && (
-                    <span className="icon mr-4 text-brand">
+                    <span className="mr-4 icon text-brand">
                       <Icon icon="octicon:video-16" />
                     </span>
                   )}

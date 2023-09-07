@@ -1,7 +1,7 @@
 import type { RouteObject } from 'react-router-dom'
 import Artist from '~/pages/Discover/Artist'
 import HighQualityPlayList from '~/pages/Discover/HighQualityPlayList'
-import LastMusic from '~/pages/Discover/LastMusic'
+import LatestMusic from '~/pages/Discover/LatestMusic'
 import PlayList from '~/pages/Discover/PlayList'
 import Rank from '~/pages/Discover/Rank'
 import Recommend from '~/pages/Discover/Recommend'
@@ -31,8 +31,8 @@ export default {
       element: <Artist />,
     },
     {
-      path: 'lastMusic',
-      element: <LastMusic />,
+      path: 'latestMusic',
+      element: <LatestMusic />,
     },
   ],
 } as RouteObject

@@ -40,6 +40,7 @@ export default defineConfig({
     ['bg-search', { 'background-color': 'var(--c-bg-search)' }],
     ['bg-search-hover', { 'background-color': 'var(--c-bg-search-hover)' }],
     ['bg-sidebar', { 'background-color': 'var(--c-bg-sidebar)' }],
+    ['bg-brand-gradient', { background: 'var(--gradient)' }],
     ['bg-sidebar-active', { 'background-color': 'var(--c-bg-sidebar-active)' }],
     ['shadow-box', { 'box-shadow': 'var(--shadow)' }],
   ],

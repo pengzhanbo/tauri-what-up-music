@@ -12,37 +12,6 @@ export type CacheMapItem = [
 ]
 const cache = new Map<string, CacheMapItem>()
 
-const IdleCallback =
-  window.requestIdleCallback || ((fn) => setTimeout(fn, 1000))
-let timer: any
-function checkCache() {
-  let current!: CacheMapItem
-  // 每次检查只取一个进行处理
-  for (const key of cache.keys()) {
-    const _cached = cache.get(key)!
-    if (!_cached[1]) {
-      current = _cached
-      break
-    }
-  }
-  if (current) {
-    timer && clearInterval(timer)
-    current[1] = current[0]()
-    current[1]
-      .then((blob) => {
-        current[2] = blob
-      })
-      .finally(() => {
-        // 仅在空闲的时候处理
-        IdleCallback(checkCache)
-      })
-  } else {
-    timer = setInterval(checkCache, 10000)
-  }
-}
-
-// IdleCallback(checkCache)
-
 const useLazyImage = (src: string, update: (blob: string) => void) => {
   const [blob, setBlob] = useState<string>()
   const [waiting, setWaiting] = useState(false)
@@ -57,9 +26,14 @@ const useLazyImage = (src: string, update: (blob: string) => void) => {
   } else {
     cache.set(src, [
       () =>
-        fetch(src)
-          .then((res) => res.blob())
-          .then((blob) => URL.createObjectURL(blob)),
+        new Promise((resolve) => {
+          let img: any = new Image()
+          img.onload = () => {
+            resolve(img.src)
+            img = null
+          }
+          img.src = src
+        }),
       null,
       '',
     ])
@@ -75,6 +49,8 @@ const useLazyImage = (src: string, update: (blob: string) => void) => {
     cached[1].then((url) => {
       setBlob(url)
       cached[2] = url
+      cached[1] = null
+      cached[0] = null as any
       setTimeout(() => update(url), 400)
     })
   }
@@ -127,7 +103,7 @@ export default function LazyImage(props: LazyImageProps) {
   const cached = cache.get(src)
   const [blob, setBlob] = useState(cached ? cached[2] : '')
   /**
-   * 如果有缓存的 图片 blob 资源，则直接渲染为一个带缓存的静态节点。
+   * 如果有缓存的 图片 资源，则直接渲染为一个带缓存的静态节点。
    * 否则使用带异步加载图片的组件，等待图片出现在视窗后进行加载，
    * 加载完成，并完成动画过渡显示图片后，替换为 静态节点，删除对节点的监听。
    * 避免在多图场景下，同时监听多个元素变化造成卡顿现象。

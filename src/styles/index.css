@@ -71,4 +71,5 @@ p {
   --audio-height: 60px;
 
   --shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+  --gradient: linear-gradient(90deg, rgb(230, 93, 77) 0%, rgb(216, 83, 69) 70%, rgb(195, 70, 58) 100%);
 }

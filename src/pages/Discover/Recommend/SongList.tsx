@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react'
 import useSwr from 'swr'
 import Content from './Content'
 import { getRecommendSongList, getRecommendSongOfDay } from '~/apis'
+import LazyImage from '~/components/LazyImage'
 import Rectangle from '~/components/Rectangle'
 import { numUnit } from '~/utils'
 
@@ -22,18 +23,12 @@ export default function SongList() {
           <section className="pb-6" key={item.id}>
             <Rectangle className="group cursor-pointer overflow-hidden rounded-md">
               <p className="absolute right-0 top-0 flex-center pr-2 text-sm text-white">
-                <span className="relative top-2px icon mr-1">
+                <span className="relative top-2px mr-1 icon">
                   <Icon icon="iconamoon:player-play" />
                 </span>
                 <span>{numUnit(item.playCount)}</span>
               </p>
-              <div
-                className="h-full w-full"
-                style={{
-                  backgroundImage: `url(${item.picUrl})`,
-                  backgroundSize: 'cover',
-                }}
-              ></div>
+              <LazyImage className="h-full w-full" src={item.picUrl} />
               <span className="absolute bottom-4 right-4 icon h-9 w-9 flex-center rounded-full bg-white/50 text-xl text-brand opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <Icon icon="iconamoon:player-play-fill" />
               </span>
@@ -74,7 +69,7 @@ function SongOfDay() {
           </div>
         )}
         <div className="absolute left-0 top-0 z-2 h-full w-full flex">
-          <span className="icon m-auto text-8xl text-white">
+          <span className="m-auto icon text-8xl text-white">
             <Icon icon={`arcticons:calendar-${day}`} />
           </span>
         </div>

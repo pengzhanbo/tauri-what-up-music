@@ -14,3 +14,6 @@ export * from './user-play-list'
 export * from './high-quality-play-list'
 
 export * from './play-list-detail'
+
+// 新歌速递
+export * from './top-song'

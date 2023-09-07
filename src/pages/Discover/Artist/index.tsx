@@ -1,9 +1,9 @@
 /**
  * 发现音乐 / 歌手
  */
+import { Icon } from '@iconify/react/dist/iconify.js'
 import type { UIEventHandler } from 'react'
 import { useState } from 'react'
-import { useSWRConfig } from 'swr'
 import useSwrInfinite from 'swr/infinite'
 import Condition from './Condition'
 import type { GetArtistListResponse } from '~/apis'
@@ -23,7 +23,7 @@ export default function Artist() {
   const [area, setArea] = useState(artistAreaOptions[0].value)
   const [initial, setInitial] = useState(artistConditionOptions[0].value)
 
-  const { data, setSize, isLoading, mutate } = useSwrInfinite(
+  const { data, setSize, isLoading } = useSwrInfinite(
     (page) => {
       return [
         'artists/list',
@@ -44,10 +44,6 @@ export default function Artist() {
     },
   )
 
-  const { cache } = useSWRConfig()
-
-  console.log(cache)
-
   const artists: GetArtistListResponse['artists'] = []
   data?.forEach((item) => {
     artists.push(...item.artists)
@@ -67,7 +63,7 @@ export default function Artist() {
 
   return (
     <div
-      className="translate-gpu h-full w-full overflow-y-auto scroll-smooth px-8 py-6 will-change-scroll"
+      className="h-full w-full transform-gpu overflow-y-auto scroll-smooth px-8 py-6 will-change-scroll"
       onScroll={handleScroll}
     >
       <Condition
@@ -75,9 +71,9 @@ export default function Artist() {
         current={area}
         list={artistAreaOptions}
         onChange={(area) => {
-          mutate(undefined, { revalidate: true })
+          // mutate(undefined, { revalidate: true })
           setArea(area)
-          setSize(0)
+          setSize(1)
         }}
       />
       <Condition
@@ -86,8 +82,7 @@ export default function Artist() {
         list={artistTypeOptions}
         onChange={(type) => {
           setType(type)
-          setSize(0)
-          mutate(undefined, { revalidate: true })
+          setSize(1)
         }}
       />
       <Condition
@@ -96,17 +91,25 @@ export default function Artist() {
         list={artistConditionOptions}
         onChange={(initial) => {
           setInitial(initial)
-          setSize(0)
-          mutate(undefined, { revalidate: true })
+          setSize(1)
         }}
       />
-      <div className="grid grid-cols-4 w-full gap-5 pt-6">
+      <div className="grid grid-cols-5 w-full gap-5 pt-6">
         {artists.map((item) => (
-          <section key={item.id} className="overflow-hidden rounded-md">
-            <Rectangle>
-              <LazyImage src={item.picUrl} className="h-full w-full" />
+          <section key={item.id} className="pb-4">
+            <Rectangle className="cursor-pointer overflow-hidden rounded-md">
+              <LazyImage src={item.img1v1Url} className="h-full w-full" />
             </Rectangle>
-            <p>{item.name}</p>
+            <p className="item-center flex justify-between pt-1">
+              <span className="cursor-pointer text-sm text-text-dark">
+                {item.name}
+              </span>
+              {item.accountId && (
+                <span className="relative top-2px h-16px w-16px flex-center cursor-pointer rounded-full bg-brand text-10px text-white">
+                  <Icon icon="octicon:person-16" className="m-auto" />
+                </span>
+              )}
+            </p>
           </section>
         ))}
       </div>

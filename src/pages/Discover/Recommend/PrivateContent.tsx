@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react'
 import useSwr from 'swr'
 import Content from './Content'
 import { getPersonalizedPrivateContent } from '~/apis'
+import LazyImage from '~/components/LazyImage'
 import Rectangle from '~/components/Rectangle'
 
 export default function PrivateContent() {
@@ -24,13 +25,7 @@ export default function PrivateContent() {
               ratio={0.5625}
               className="cursor-pointer overflow-hidden rounded-md"
             >
-              <div
-                className="h-full w-full"
-                style={{
-                  backgroundImage: `url(${item.sPicUrl})`,
-                  backgroundSize: 'cover',
-                }}
-              ></div>
+              <LazyImage className="h-full w-full" src={item.sPicUrl} />
               <span className="absolute left-2 top-2 icon h-7 w-7 flex-center border border-white/50 rounded-full bg-black bg-opacity-30 text-white">
                 <Icon icon="iconamoon:player-play" />
               </span>
