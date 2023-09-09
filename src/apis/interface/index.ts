@@ -5,6 +5,7 @@ export * from './rank'
 export * from './auth'
 
 export * from './user'
-export * from './play'
+export * from './playList'
 export * from './artist'
 export * from './album'
+export * from './song'

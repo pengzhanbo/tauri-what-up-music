@@ -3,6 +3,7 @@ import cn from 'classnames'
 import { usePlayListShortDetail } from './hooks'
 import type { GetAllTopListResponseItem } from '~/apis'
 import Rectangle from '~/components/Rectangle'
+import { usePlayer } from '~/hooks'
 
 // S 飙升  N 新歌榜  O 原创榜 H 热歌榜
 
@@ -11,11 +12,12 @@ export interface OfficialListProps {
 }
 
 export default function OfficialList({ list }: OfficialListProps) {
+  const { loadSong } = usePlayer()
   return (
     <div>
       <p className="pb-4 text-16px text-text-darker">官方榜</p>
       {list.map((item) => (
-        <OfficialItem key={item.id} rank={item} />
+        <OfficialItem key={item.id} rank={item} playSong={loadSong} />
       ))}
     </div>
   )
@@ -28,7 +30,13 @@ const bgColors = {
   H: 'bg-pink-6/60',
 }
 
-function OfficialItem({ rank }: { rank: GetAllTopListResponseItem }) {
+function OfficialItem({
+  rank,
+  playSong,
+}: {
+  rank: GetAllTopListResponseItem
+  playSong: (id: number) => void
+}) {
   const { isLoading, rankList } = usePlayListShortDetail(rank.id)
   if (isLoading) return null
 
@@ -121,7 +129,10 @@ function OfficialItem({ rank }: { rank: GetAllTopListResponseItem }) {
                 </span>
               )}
             </p>
-            <p className="line-clamp-1 flex-1 pr-4">
+            <p
+              className="line-clamp-1 flex-1 pr-4"
+              onClick={() => playSong(item.id)}
+            >
               <span className="text-text-dark">{item.name}</span>
               {item.tns && (
                 <span className="ml-1 text-text-light">{item.tns}</span>

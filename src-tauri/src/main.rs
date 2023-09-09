@@ -14,14 +14,21 @@ fn main() {
   builder = builder
     .invoke_handler(tauri::generate_handler![
       drag_window,
+      // get_app_dir,
     ]);
 
   builder
     .run(context)
     .expect("error while running tauri application");
+
 }
 
 #[tauri::command]
 fn drag_window(app: AppHandle) {
   app.get_window("main").unwrap().start_dragging().unwrap()
 }
+
+// #[tauri::command]
+// fn get_app_dir(app: AppHandle) -> String {
+//   app.path_resolver().app_data_dir().unwrap().to_str().unwrap().to_string()
+// }

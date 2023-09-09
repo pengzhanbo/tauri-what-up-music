@@ -1,8 +1,8 @@
 import type { Action, ThunkAction } from '@reduxjs/toolkit'
 import { configureStore } from '@reduxjs/toolkit'
 import auth from './features/Auth/authSlice'
-import counter from './features/Counter/CounterSlice'
 import global from './features/Global/globalSlice'
+import player from './features/MusicPlayer/PlayerSlice'
 import userInfo from './features/UserInfo/userInfoSlice'
 
 export const store = configureStore({
@@ -10,7 +10,7 @@ export const store = configureStore({
     global,
     auth,
     userInfo,
-    counter,
+    player,
   },
 })
 

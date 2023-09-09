@@ -80,12 +80,17 @@ function AsyncLazyImage({
   alt,
   className,
   style,
+  transparent,
   setBlob,
 }: LazyImageProps & { setBlob: (blob: string) => void }) {
   const { blob, ref } = useLazyImage(src, setBlob)
 
   return (
-    <div ref={ref} style={style} className={` bg-gray-50 ${className}`}>
+    <div
+      ref={ref}
+      style={style}
+      className={`${transparent ? '' : 'bg-gray-50'} ${className}`}
+    >
       <div
         aria-label={alt}
         className={cn(
@@ -119,5 +124,6 @@ export interface LazyImageProps {
   src: string
   alt?: string
   className?: string
+  transparent?: boolean
   style?: React.CSSProperties
 }

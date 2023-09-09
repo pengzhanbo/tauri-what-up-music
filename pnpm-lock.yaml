@@ -32,6 +32,9 @@ dependencies:
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
+  hls.js:
+    specifier: ^1.4.12
+    version: 1.4.12
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -61,6 +64,9 @@ devDependencies:
   '@tauri-apps/cli':
     specifier: ^1.4.0
     version: 1.4.0
+  '@types/howler':
+    specifier: ^2.2.8
+    version: 2.2.8
   '@types/react':
     specifier: ^18.2.21
     version: 18.2.21
@@ -1055,6 +1061,10 @@ packages:
       '@types/react': 18.2.21
       hoist-non-react-statics: 3.3.2
     dev: false
+
+  /@types/howler@2.2.8:
+    resolution: {integrity: sha512-7OK+cGHTWIDCOvBlEc61Lzj2tJhCpmeqiqdeNbZvTxLHluBMF6xz/2wjoQkK1M8mJIStp40OdPnkp8xIvwwsuw==}
+    dev: true
 
   /@types/http-cache-semantics@4.0.1:
     resolution: {integrity: sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==}
@@ -3203,6 +3213,10 @@ packages:
     dependencies:
       function-bind: 1.1.1
     dev: true
+
+  /hls.js@1.4.12:
+    resolution: {integrity: sha512-1RBpx2VihibzE3WE9kGoVCtrhhDWTzydzElk/kyRbEOLnb1WIE+3ZabM/L8BqKFTCL3pUy4QzhXgD1Q6Igr1JA==}
+    dev: false
 
   /hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}

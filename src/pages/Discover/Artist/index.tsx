@@ -5,11 +5,11 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import type { UIEventHandler } from 'react'
 import { useState } from 'react'
 import useSwrInfinite from 'swr/infinite'
-import Condition from './Condition'
 import type { GetArtistListResponse } from '~/apis'
 import { getArtistList } from '~/apis'
 import LazyImage from '~/components/LazyImage'
 import Rectangle from '~/components/Rectangle'
+import SelectMenu from '~/components/SelectMenu'
 import {
   artistAreaOptions,
   artistConditionOptions,
@@ -66,30 +66,30 @@ export default function Artist() {
       className="h-full w-full transform-gpu overflow-y-auto scroll-smooth px-8 py-6 will-change-scroll"
       onScroll={handleScroll}
     >
-      <Condition
+      <SelectMenu
         title="语种"
         current={area}
         list={artistAreaOptions}
-        onChange={(area) => {
+        onClick={(area) => {
           // mutate(undefined, { revalidate: true })
           setArea(area)
           setSize(1)
         }}
       />
-      <Condition
+      <SelectMenu
         title="分类"
         current={type}
         list={artistTypeOptions}
-        onChange={(type) => {
+        onClick={(type) => {
           setType(type)
           setSize(1)
         }}
       />
-      <Condition
+      <SelectMenu
         title="筛选"
         current={initial}
         list={artistConditionOptions}
-        onChange={(initial) => {
+        onClick={(initial) => {
           setInitial(initial)
           setSize(1)
         }}
