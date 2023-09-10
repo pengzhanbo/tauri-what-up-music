@@ -51,7 +51,7 @@ function Progress({
           ></span>
         </div>
         <div
-          className="absolute left-0 top-0 z-0 h-full bg-gray-200"
+          className="absolute left-0 top-0 z-0 h-full bg-white"
           style={{ width: preloadWidth }}
         ></div>
       </div>

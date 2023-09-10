@@ -12,12 +12,16 @@ export interface OfficialListProps {
 }
 
 export default function OfficialList({ list }: OfficialListProps) {
-  const { loadSong } = usePlayer()
+  const { loadSong, setShowDetail } = usePlayer()
+  const playSong = (id: number) => {
+    loadSong(id)
+    setShowDetail(true)
+  }
   return (
     <div>
       <p className="pb-4 text-16px text-text-darker">官方榜</p>
       {list.map((item) => (
-        <OfficialItem key={item.id} rank={item} playSong={loadSong} />
+        <OfficialItem key={item.id} rank={item} playSong={playSong} />
       ))}
     </div>
   )

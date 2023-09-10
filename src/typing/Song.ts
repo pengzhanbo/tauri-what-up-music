@@ -178,3 +178,13 @@ export interface SongPlayUrl {
     | 'jymaster'
   md5: string
 }
+
+export interface SongLyric {
+  lyric: string
+  version: number
+}
+
+export interface LyricItem {
+  timestamp: number
+  text: string
+}

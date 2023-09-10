@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <>
       <div
-        className="flex flex-1 cursor-default items-center justify-start"
+        className="relative z-2 flex flex-1 cursor-default items-center justify-start"
         onMouseDown={onDrag}
       >
         <NavLink link="/discover/recommend" text="个性推荐" active />
@@ -17,7 +17,7 @@ export default function Navbar() {
         <NavLink link="/discover/artist" text="歌手" />
         <NavLink link="/discover/latestMusic" text="最新音乐" />
       </div>
-      <div className="flex-center pr-4" onMouseDown={onDrag}>
+      <div className="relative z-2 flex-center pr-4" onMouseDown={onDrag}>
         <SearchInput></SearchInput>
         <div className="ml-2 flex-center -mr-3">
           <div className="mx-3 icon cursor-pointer select-none text-xl">

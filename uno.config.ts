@@ -43,6 +43,8 @@ export default defineConfig({
     ['bg-brand-gradient', { background: 'var(--gradient)' }],
     ['bg-sidebar-active', { 'background-color': 'var(--c-bg-sidebar-active)' }],
     ['shadow-box', { 'box-shadow': 'var(--shadow)' }],
+    ['top-navbar', { top: 'var(--navbar-height)' }],
+    ['bottom-footer', { bottom: 'var(--audio-height)' }],
   ],
   shortcuts: {
     'border': 'b b-solid b-border',

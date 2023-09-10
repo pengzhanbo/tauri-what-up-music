@@ -224,7 +224,7 @@ export default class AudioPlayer extends EventEmitter {
         this.emit('progress', lastBufferTime)
       }
     }
-    this.emit('timeupdate', ...args)
+    this.emit('timeupdate', ...args, this.currentTime)
   }
 
   private emitWaiting(

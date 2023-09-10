@@ -1,18 +1,21 @@
 import { useAppDispatch, useAppSelector } from './store'
-import { getSongDetail, getSongPlayUrl } from '~/apis'
+import { getSongDetail, getSongLyric, getSongPlayUrl } from '~/apis'
 import getPlayInstance from '~/features/MusicPlayer/Player'
 import {
   selectPlayer,
   setBuffered,
   setCurrentTime,
   setLoading,
+  setLyric,
   setPlaying,
+  setShowDetail,
   setSong,
   setSongUrl,
   setVolume,
 } from '~/features/MusicPlayer/PlayerSlice'
 import { songStore } from '~/modules/db'
-import type { Song, SongPlayUrl } from '~/typing/Song'
+import lyricParser from '~/modules/LyricParser'
+import type { Song, SongLyric, SongPlayUrl } from '~/typing/Song'
 
 const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 3
 let waitingId!: number
@@ -57,17 +60,18 @@ export const usePlayer = () => {
     waitingId = id
     if (playerState.song?.id === id) return
     dispatch(setLoading(true))
-    const { song, url, error } = await fetchSongDetail(id)
+    const { song, address, lyric, error } = await fetchSongDetail(id)
     if (error) return
     // 避免多次点击导致同时加载多首歌曲，导致异步结果不一致
     if (waitingId !== song?.id) return
     // 初始化歌曲信息
-    dispatch(setSongUrl(url!.url))
+    dispatch(setSongUrl(address!.url))
     dispatch(setSong(song!))
     dispatch(setPlaying(false))
     dispatch(setCurrentTime(0))
     dispatch(setBuffered(0))
-    loadSongBySource(id, url!.url)
+    dispatch(setLyric(lyricParser(lyric!.lrc.lyric)))
+    loadSongBySource(id, address!.url)
   }
 
   const togglePlay = () => {
@@ -91,41 +95,52 @@ export const usePlayer = () => {
     seek: (seek: number) => player.seek(seek),
     paused: () => player.paused(),
     duration: () => player.duration(),
+    setShowDetail: (show: boolean) => dispatch(setShowDetail(show)),
   }
 }
 
-type SongStoreItem = [Song, SongPlayUrl, number]
+type SongStoreItem = readonly [
+  Song,
+  SongPlayUrl,
+  { lrc: SongLyric; yrc: SongLyric },
+  number,
+]
 
 interface FetchSongDetailRes {
   song?: Song
-  url?: SongPlayUrl
+  address?: SongPlayUrl
+  lyric?: { lrc: SongLyric; yrc: SongLyric }
   error?: Error
 }
 
 async function fetchSongDetail(id: number): Promise<FetchSongDetailRes> {
   const res = (await songStore.get(String(id))) as SongStoreItem | null
-  if (res && res[2] + EXPIRE_TIME >= Date.now()) {
+  if (res && res[3] + EXPIRE_TIME >= Date.now()) {
     return {
       song: res[0],
-      url: res[1],
+      address: res[1],
+      lyric: res[2],
     }
   }
   try {
-    const [songRes, urlRes] = await Promise.all([
+    const [songRes, urlRes, lyricRes] = await Promise.all([
       getSongDetail({ ids: String(id) }),
       getSongPlayUrl({ id }),
+      getSongLyric({ id }),
     ])
     let song!: Song
-    let url!: SongPlayUrl
+    let address!: SongPlayUrl
     let error!: Error
-    if (songRes.code === 200 && urlRes.code === 200) {
+    let lyric!: { lrc: SongLyric; yrc: SongLyric }
+    if (songRes.code === 200 && urlRes.code === 200 && lyricRes.code === 200) {
       song = songRes.songs[0]
-      url = urlRes.data[0]
-      await songStore.set(String(id), [song, url, Date.now()])
+      address = urlRes.data[0]
+      lyric = { lrc: lyricRes.lrc, yrc: lyricRes.yrc }
+      await songStore.set(String(id), [song, address, lyric, Date.now()])
     } else {
       error = new Error('获取歌曲信息失败')
     }
-    return { song, url, error }
+    return { song, address, lyric, error }
   } catch (e: any) {
     return { error: e }
   }

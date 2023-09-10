@@ -4,7 +4,7 @@ import MusicInfo from './MusicInfo'
 import Progress from '~/components/Progress'
 import { usePlayer } from '~/hooks'
 
-function MusicController() {
+export default function MusicController() {
   const { playerState, seek } = usePlayer()
   const { currentTime, song, buffered } = playerState
   const total = song?.dt || 0
@@ -27,5 +27,3 @@ function MusicController() {
     </div>
   )
 }
-
-export default MusicController
