@@ -4,6 +4,7 @@
 import useSWR from 'swr'
 import type { DiscoverBannerResponseItem } from '~/apis'
 import { getDiscoverBanner } from '~/apis'
+import Loading from '~/components/Loading'
 import Swipe from '~/components/Swipe'
 import SwipeItem from '~/components/Swipe/SwipeItem'
 
@@ -17,7 +18,7 @@ export default function Banner() {
   }
 
   return isLoading ? (
-    <div className="h-220px w-full"></div>
+    <Loading className="h-220px w-full" />
   ) : (
     <Swipe>
       {data?.banners.map((item) => (

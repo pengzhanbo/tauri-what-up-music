@@ -50,5 +50,8 @@ export interface PlaylistOption {
   creator: {
     userId: number
     nickname: string
+    avatarDetail: {
+      identityIconUrl: string
+    }
   }
 }

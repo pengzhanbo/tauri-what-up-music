@@ -23,20 +23,20 @@ export default function MusicHeader() {
       )}
       <div className="flex-center pt-3 text-13px">
         <p className="line-clamp-1 w-1px flex flex-1 items-center">
-          <span className="pr-2 text-text-light-dark">专辑:</span>
-          <span className="line-clamp-1 w-1px flex-1 pr-2 text-blue-4">
+          <span className="select-auto pr-2 text-text-light-dark">专辑:</span>
+          <span className="line-clamp-1 w-1px flex-1 select-auto pr-2 text-blue-4">
             {song.al?.name}
           </span>
         </p>
         <p className="w-1px flex flex-1 items-center">
-          <span className="pr-2 text-text-light-dark">歌手:</span>
-          <span className="line-clamp-1 w-1px flex-1 pr-2 text-blue-4">
+          <span className="select-auto pr-2 text-text-light-dark">歌手:</span>
+          <span className="line-clamp-1 w-1px flex-1 select-auto pr-2 text-blue-4">
             {song.ar?.map((item) => item.name).join('/')}
           </span>
         </p>
         <p className="line-clamp-1 w-1px flex flex-1 items-center">
-          <span className="pr-2 text-text-light-dark">来源:</span>
-          <span className="line-clamp-1 w-1px flex-1 pr-2 text-blue-4">
+          <span className="select-auto pr-2 text-text-light-dark">来源:</span>
+          <span className="line-clamp-1 w-1px flex-1 select-auto pr-2 text-blue-4">
             {song.al?.name}
           </span>
         </p>

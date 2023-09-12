@@ -1,14 +1,19 @@
 import { Icon } from '@iconify/react'
+import cn from 'classnames'
 import NavLink from './NavLink'
 import SearchInput from '~/components/SearchInput'
-import { useWindowDrag } from '~/hooks'
+import { usePlayer, useWindowDrag } from '~/hooks'
 
 export default function Navbar() {
   const onDrag = useWindowDrag()
+  const { playerState } = usePlayer()
   return (
     <>
       <div
-        className="relative z-2 flex flex-1 cursor-default items-center justify-start"
+        className={cn(
+          'relative z-2 flex flex-1 cursor-default items-center justify-start transition',
+          playerState.showDetail ? 'opacity-0' : 'opacity-100',
+        )}
         onMouseDown={onDrag}
       >
         <NavLink link="/discover/recommend" text="个性推荐" active />

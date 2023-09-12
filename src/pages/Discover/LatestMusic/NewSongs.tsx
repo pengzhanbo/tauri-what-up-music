@@ -6,6 +6,7 @@ import { getNewTopSong } from '~/apis'
 import Artists from '~/components/Artists'
 import Button from '~/components/Button'
 import LazyImage from '~/components/LazyImage'
+import Loading from '~/components/Loading'
 import { topSongAreaList } from '~/constants'
 import { formatDuration } from '~/utils'
 
@@ -32,8 +33,7 @@ function Songs({ area }: { area: string }) {
     ([, type]) => getNewTopSong({ type }),
   )
 
-  if (isLoading)
-    return <div className="h-170px w-full text-center">加载中...</div>
+  if (isLoading) return <Loading className="h-170px" />
 
   const list = (data?.data || []).map((item, i) => ({
     id: item.id,

@@ -1,16 +1,20 @@
 import { Icon } from '@iconify/react'
 import cn from 'classnames'
+import { forwardRef } from 'react'
 
-export default function Button({
-  type = 'default',
-  size = 'basic',
-  text,
-  children,
-  icon,
-  className,
-  style,
-  onClick,
-}: ButtonProps) {
+export default forwardRef<HTMLDivElement, ButtonProps>(function Button(
+  {
+    type = 'default',
+    size = 'basic',
+    text,
+    children,
+    icon,
+    className,
+    style,
+    onClick,
+  },
+  ref,
+) {
   const isText = ['string', 'number'].includes(typeof children)
   const buttonStyle = {
     default: 'bg-white text-text hover:bg-light-500 border',
@@ -31,6 +35,7 @@ export default function Button({
         className,
       )}
       style={style}
+      ref={ref}
       onClick={onClick}
     >
       {icon && <Icon icon={icon} className="mr-1 icon text-1.2em" />}
@@ -38,7 +43,7 @@ export default function Button({
       {children && (!isText ? children : <span>{children}</span>)}
     </div>
   )
-}
+})
 
 export interface ButtonProps {
   type?: 'default' | 'primary'

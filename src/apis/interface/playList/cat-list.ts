@@ -21,9 +21,10 @@ export const getAllCatList = request.post<never, GetAllCatListResponse>(
 /**
  * 精品歌单分类标签
  */
-export const getHighQualityPlayListTags = request.post<never>(
-  '/playlist/highquality/tags',
-)
+export const getHighQualityPlayListTags = request.post<
+  never,
+  GetHighQualityPlayListTags
+>('/playlist/highquality/tags')
 
 export interface GetHotCatListResponse {
   code: number
@@ -45,5 +46,16 @@ export interface GetAllCatListResponse {
     category: number
     name: string
     hot: boolean
+  }[]
+}
+
+export interface GetHighQualityPlayListTags {
+  code: number
+  tags: {
+    id: number
+    name: string
+    hot: boolean
+    category: number
+    type: number
   }[]
 }

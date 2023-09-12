@@ -5,6 +5,7 @@ import SubNav from './SubNav'
 import { getNewAlbumList } from '~/apis'
 import type { NewAlbum as AlbumItem } from '~/apis'
 import LazyImage from '~/components/LazyImage'
+import Loading from '~/components/Loading'
 import Rectangle from '~/components/Rectangle'
 import SelectMenu from '~/components/SelectMenu'
 import { albumAreaList, albumTypeList } from '~/constants'
@@ -40,7 +41,7 @@ function Albums({ area, type }: { area: string; type: string }) {
     ([, params]) => getNewAlbumList(params),
   )
 
-  if (isLoading) return <div className="pt-6 text-center">加载中...</div>
+  if (isLoading) return <Loading className="pt-6" />
 
   const weekData = data?.weekData || []
   const monthData = data?.monthData || []

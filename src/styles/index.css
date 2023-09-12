@@ -40,8 +40,8 @@ p {
 }
 
 :root {
-  --c-brand-lighter: rgb(207, 132, 125);
-  --c-brand-light: rgb(195,70,58);
+  --c-brand-lighter: rgb(250, 238, 237);
+  --c-brand-light: rgb(207, 132, 125);
   --c-brand: rgb(195, 70, 58);
 
   --c-origin: rgb(240, 134, 80);

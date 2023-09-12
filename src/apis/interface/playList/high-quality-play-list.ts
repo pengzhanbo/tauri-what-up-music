@@ -44,6 +44,7 @@ export interface HighQualityPlayListItem {
   trackNumberUpdateTime: number
   trackUpdateTime: number
   tags: string[]
+  tag: string
   playCount: number
   specialType: number
   totalDuration: number
@@ -60,5 +61,8 @@ export interface HighQualityPlayListItem {
     signature: string
     avatarUrl: string
     backgroundUrl: string
+    avatarDetail: {
+      identityIconUrl: string
+    }
   }
 }

@@ -8,6 +8,7 @@ import useSwrInfinite from 'swr/infinite'
 import type { GetArtistListResponse } from '~/apis'
 import { getArtistList } from '~/apis'
 import LazyImage from '~/components/LazyImage'
+import Loading from '~/components/Loading'
 import Rectangle from '~/components/Rectangle'
 import SelectMenu from '~/components/SelectMenu'
 import {
@@ -113,7 +114,7 @@ export default function Artist() {
           </section>
         ))}
       </div>
-      {isLoading && <div className="pt-6 text-center">加载中...</div>}
+      {isLoading && <Loading className="h-100px" />}
     </div>
   )
 }

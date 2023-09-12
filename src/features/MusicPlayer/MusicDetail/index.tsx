@@ -13,7 +13,7 @@ export default function MusicDetail() {
     <div
       className={cn(
         'top-navbar bottom-footer fixed z-10 w-full bg-navbar transition-all duration-300',
-        playerState.showDetail ? 'translate-y-0' : 'translate-y-full',
+        playerState.showDetail ? 'translate-y-0' : 'translate-y-120%',
       )}
     >
       <div className="mx-auto w-800px">

@@ -82,9 +82,10 @@ export const usePlayList = (cat: string | number) => {
   const playlist = (data?.playlists || []).map((item) => ({
     id: item.id,
     name: item.name,
-    coverImgUrl: item.coverImgUrl,
+    coverImgUrl: `${item.coverImgUrl.split('?')[0]}?param=600y600`,
     playCount: numUnit(item.playCount),
     nickname: item.creator.nickname,
+    nickIcon: item.creator.avatarDetail?.identityIconUrl || '',
     description: item.description,
   }))
 
