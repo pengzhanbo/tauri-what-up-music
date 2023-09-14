@@ -2,6 +2,7 @@
  * 获取歌单详情，排行榜也属于歌单的一种，均使用相同的接口
  */
 import { request } from '~/apis/helper'
+import type { Song } from '~/typing/Song'
 
 export const getPlayListDetail = request.post<
   {
@@ -10,6 +11,20 @@ export const getPlayListDetail = request.post<
   },
   GetPlayListDetailResponse
 >('/playlist/detail')
+
+export const getPlayListAllTrack = request.post<
+  {
+    id: number
+    limit?: number
+    offset?: number
+  },
+  GetPlayListAllTrack
+>('/playlist/track/all')
+
+export interface GetPlayListAllTrack {
+  code: number
+  songs: Song[]
+}
 
 export interface GetPlayListDetailResponse {
   code: number
@@ -28,12 +43,23 @@ export interface PlaylistDetail {
   newImported: boolean
   playCount: number
   shareCount: number
+  subscribedCount: number
   ToplistType: string
   trackCount: number
   trackIds: TrackIdOptions[]
   tracks: TrackOptions[]
   trackUpdateTime: number
+  createTime: number
   updateTime: number
+  tags: string[]
+  creator: {
+    id: number
+    nickname: string
+    avatarUrl: string
+    avatarDetail: {
+      identityIconUrl: string
+    }
+  }
 }
 
 export interface TrackIdOptions {
@@ -56,6 +82,7 @@ export interface TrackOptions {
   name: string
   no: number
   alias: string[]
+  mv: number
   publishTime: number
   al: {
     id: number

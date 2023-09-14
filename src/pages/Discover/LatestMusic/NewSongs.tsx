@@ -1,14 +1,12 @@
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
-import useSwr from 'swr'
 import SubNav from './SubNav'
-import { getNewTopSong } from '~/apis'
 import Artists from '~/components/Artists'
 import Button from '~/components/Button'
 import LazyImage from '~/components/LazyImage'
 import Loading from '~/components/Loading'
 import { topSongAreaList } from '~/constants'
-import { formatDuration } from '~/utils'
+import { useTopSongs } from '~/hooks'
 
 export default function NewSongs() {
   const [area, setArea] = useState(topSongAreaList[0].value)
@@ -28,28 +26,13 @@ export default function NewSongs() {
 }
 
 function Songs({ area }: { area: string }) {
-  const { data, isLoading } = useSwr(
-    ['discover/latestMusic/top-songs', area],
-    ([, type]) => getNewTopSong({ type }),
-  )
+  const { topSongs, isLoading } = useTopSongs(area)
 
   if (isLoading) return <Loading className="h-170px" />
 
-  const list = (data?.data || []).map((item, i) => ({
-    id: item.id,
-    name: item.name,
-    picUrl: item.album.picUrl,
-    duration: formatDuration(item.duration),
-    artists: item.artists,
-    trans: (item.transNames || []).join('/'),
-    mvid: item.mvid,
-    album: item.album,
-    no: i + 1 < 10 ? `0${i + 1}` : i + 1,
-  }))
-
   return (
     <div className="pb-6 pt-2 -mx-8">
-      {list.map((item) => (
+      {topSongs.map((item) => (
         <section
           key={item.id}
           className="h-24 w-full flex cursor-default items-center pl-8 odd:bg-gray-50"

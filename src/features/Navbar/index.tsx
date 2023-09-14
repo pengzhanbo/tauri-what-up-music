@@ -16,14 +16,14 @@ export default function Navbar() {
         )}
         onMouseDown={onDrag}
       >
-        <NavLink link="/discover/recommend" text="个性推荐" active />
+        <NavLink link="/discover/recommend" text="个性推荐" />
         <NavLink link="/discover/playList" text="歌单" />
         <NavLink link="/discover/rank" text="排行榜" />
         <NavLink link="/discover/artist" text="歌手" />
         <NavLink link="/discover/latestMusic" text="最新音乐" />
       </div>
       <div className="relative z-2 flex-center pr-4" onMouseDown={onDrag}>
-        <SearchInput></SearchInput>
+        <SearchInput />
         <div className="ml-2 flex-center -mr-3">
           <div className="mx-3 icon cursor-pointer select-none text-xl">
             <Icon icon="ep:setting" />

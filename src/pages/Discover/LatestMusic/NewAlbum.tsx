@@ -1,14 +1,13 @@
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
-import useSwr from 'swr'
 import SubNav from './SubNav'
-import { getNewAlbumList } from '~/apis'
 import type { NewAlbum as AlbumItem } from '~/apis'
 import LazyImage from '~/components/LazyImage'
 import Loading from '~/components/Loading'
 import Rectangle from '~/components/Rectangle'
 import SelectMenu from '~/components/SelectMenu'
 import { albumAreaList, albumTypeList } from '~/constants'
+import { useTopAlbumList } from '~/hooks'
 
 export default function NewAlbum() {
   const [area, setArea] = useState(albumAreaList[0].value)
@@ -36,15 +35,13 @@ function Albums({ area, type }: { area: string; type: string }) {
     month: d.getMonth() + 1,
     year: d.getFullYear(),
   })
-  const { isLoading, data } = useSwr(
-    () => ['discover/latestMusic/top-songs', { area, type, ...date }],
-    ([, params]) => getNewAlbumList(params),
-  )
+  const { isLoading, weekData, monthData } = useTopAlbumList({
+    area,
+    type,
+    ...date,
+  })
 
   if (isLoading) return <Loading className="pt-6" />
-
-  const weekData = data?.weekData || []
-  const monthData = data?.monthData || []
 
   return (
     <div className="pt-6">

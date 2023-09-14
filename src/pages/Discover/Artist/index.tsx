@@ -1,9 +1,8 @@
 /**
  * 发现音乐 / 歌手
  */
-import { Icon } from '@iconify/react/dist/iconify.js'
-import type { UIEventHandler } from 'react'
-import { useState } from 'react'
+import { Icon } from '@iconify/react'
+import { useRef, useState } from 'react'
 import useSwrInfinite from 'swr/infinite'
 import type { GetArtistListResponse } from '~/apis'
 import { getArtistList } from '~/apis'
@@ -16,63 +15,45 @@ import {
   artistConditionOptions,
   artistTypeOptions,
 } from '~/constants'
+import { useScrollBottom } from '~/hooks'
 
 let isUpdating = false
+const limit = 30
 
 export default function Artist() {
   const [type, setType] = useState(artistTypeOptions[0].value)
   const [area, setArea] = useState(artistAreaOptions[0].value)
   const [initial, setInitial] = useState(artistConditionOptions[0].value)
+  const ref = useRef(null)
 
   const { data, setSize, isLoading } = useSwrInfinite(
-    (page) => {
-      return [
-        'artists/list',
-        {
-          limit: 30,
-          offset: page * 30,
-          type,
-          area,
-          initial,
-        },
-      ]
-    },
+    (page) => [
+      'artists/list',
+      { limit, offset: page * limit, type, area, initial },
+    ],
     ([, params]) => getArtistList(params),
-    {
-      onSuccess: () => {
-        isUpdating = false
-      },
-    },
+    { onSuccess: () => (isUpdating = false) },
   )
 
   const artists: GetArtistListResponse['artists'] = []
-  data?.forEach((item) => {
-    artists.push(...item.artists)
-  })
+  data?.forEach((item) => artists.push(...item.artists))
 
-  const handleScroll: UIEventHandler<HTMLDivElement> = (event) => {
-    const target = event.target as HTMLDivElement
-    const st = target.scrollTop
-    const sh = target.scrollHeight
-    const ch = target.clientHeight
-    if (st + ch >= sh && !isUpdating && sh > ch) {
-      if (!data?.[data.length - 1].more) return
-      isUpdating = true
-      setSize((size) => size + 1)
-    }
-  }
+  useScrollBottom(ref, () => {
+    if (isUpdating) return
+    isUpdating = true
+    setSize((size) => size + 1)
+  })
 
   return (
     <div
       className="h-full w-full transform-gpu overflow-y-auto scroll-smooth px-8 py-6 will-change-scroll"
-      onScroll={handleScroll}
+      ref={ref}
     >
       <SelectMenu
         title="语种"
         current={area}
         list={artistAreaOptions}
         onClick={(area) => {
-          // mutate(undefined, { revalidate: true })
           setArea(area)
           setSize(1)
         }}

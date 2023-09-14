@@ -4,9 +4,11 @@ import LazyImage from '~/components/LazyImage'
 import Loading from '~/components/Loading'
 import Pagination from '~/components/Pagination'
 import Rectangle from '~/components/Rectangle'
+import { usePageNavigate } from '~/hooks'
 
 export default function PlayList({ cat }: { cat: string | number }) {
   const { isLoading, page, totalPage, playlist, setPage } = usePlayList(cat)
+  const { goPlayListDetail } = usePageNavigate()
 
   if (isLoading) return <Loading className="h-170px" />
 
@@ -15,7 +17,10 @@ export default function PlayList({ cat }: { cat: string | number }) {
       <div className="grid grid-cols-4 gap-5">
         {playlist.map((item) => (
           <section key={item.id} className="mb-6">
-            <Rectangle className="group cursor-pointer overflow-hidden rounded-md">
+            <Rectangle
+              className="group cursor-pointer overflow-hidden rounded-md"
+              onClick={() => goPlayListDetail(item.id)}
+            >
               <LazyImage
                 src={item.coverImgUrl}
                 alt={item.name}

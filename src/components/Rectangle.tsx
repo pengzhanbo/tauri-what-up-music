@@ -6,6 +6,7 @@ export default function Rectangle({
   ratio = 1,
   children,
   className,
+  onClick,
 }: RectangleProps) {
   size = (isNumber(size) ? `${size}px` : size) as string
 
@@ -19,7 +20,7 @@ export default function Rectangle({
   }
   const childClass = cn('absolute left-0 top-0 h-full w-full', className)
   return (
-    <div className="relative" style={{ width }}>
+    <div className="relative" style={{ width }} onClick={onClick}>
       <div className="relative z-0" style={style}></div>
       <div className={childClass}>{children}</div>
     </div>
@@ -31,4 +32,5 @@ export interface RectangleProps {
   size?: number | string
   ratio?: number
   className?: string
+  onClick?: () => void
 }

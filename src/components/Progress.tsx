@@ -1,4 +1,5 @@
-import { type MouseEventHandler, useEffect } from 'react'
+import { useRef } from 'react'
+import { useMouseMove } from '~/hooks'
 
 function Progress({
   total = 0,
@@ -8,32 +9,15 @@ function Progress({
 }: ProgressProps) {
   const progressWidth = getPercent(current, total)
   const preloadWidth = getPercent(preload, total)
-
-  const handleProgress: MouseEventHandler = (e) => {
+  const ref = useRef<HTMLSpanElement>(null)
+  const cw = document.documentElement.clientWidth
+  const handleProgress = (e: React.MouseEvent) => {
     const x = e.pageX
-    const cw = document.documentElement.clientWidth
     const percent = x / cw
     onChange?.(percent)
   }
-  let isMouseDown = false
-  const handleMouseDown = () => {
-    isMouseDown = true
-  }
-  useEffect(() => {
-    const handleMouseMove = (e: any) => {
-      if (isMouseDown) handleProgress(e)
-    }
-    const handleMouseUp = () => {
-      isMouseDown = false
-    }
-    document.addEventListener('mousemove', handleMouseMove)
-    document.addEventListener('mouseup', handleMouseUp)
 
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-      document.removeEventListener('mouseup', handleMouseUp)
-    }
-  })
+  useMouseMove({ ref, onMouseMove: handleProgress })
 
   return (
     <div
@@ -46,8 +30,8 @@ function Progress({
           style={{ width: progressWidth }}
         >
           <span
-            className="absolute h-12px w-12px rounded-full bg-brand opacity-0 shadow-sm -right-6px -top-5px group-hover:opacity-100"
-            onMouseDown={handleMouseDown}
+            className="absolute h-12px w-12px cursor-pointer rounded-full bg-brand opacity-0 shadow-sm transition-opacity -right-6px -top-5px data-[is-mouse-move]:opacity-100 group-hover:opacity-100"
+            ref={ref}
           ></span>
         </div>
         <div

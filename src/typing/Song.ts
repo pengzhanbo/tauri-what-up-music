@@ -127,6 +127,8 @@ export interface Song {
   cf: null | string
 
   publishTime: number
+
+  tns: null | string[]
 }
 
 /**

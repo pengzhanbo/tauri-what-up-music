@@ -14,6 +14,7 @@ import { getHighQualityPlayList, getHighQualityPlayListTags } from '~/apis'
 import Button from '~/components/Button'
 import LazyImage from '~/components/LazyImage'
 import Loading from '~/components/Loading'
+import { usePageNavigate } from '~/hooks'
 import { numUnit } from '~/utils'
 
 const CatList = forwardRef<
@@ -72,14 +73,19 @@ const CatList = forwardRef<
 
 function PlaylistContent({
   list,
+  itemClick,
 }: {
   list: GetHighQualityPlayListResponse['playlists']
+  itemClick: (id: number) => void
 }) {
   return (
     <div className="grid grid-cols-2 gap-4 pt-2">
       {list.map((item) => (
         <div key={item.id} className="flex-center pb-2">
-          <div className="group relative h-140px w-140px cursor-pointer overflow-hidden rounded-md">
+          <div
+            className="group relative h-140px w-140px cursor-pointer overflow-hidden rounded-md"
+            onClick={() => itemClick(item.id)}
+          >
             <LazyImage
               src={`${item.coverImgUrl.split('?')[0]}?param=600y600`}
               className="h-full w-full"
@@ -100,7 +106,10 @@ function PlaylistContent({
             </span>
           </div>
           <div className="flex-1 pl-2">
-            <p className="line-clamp-1 cursor-pointer text-text-dark hover:text-text-darker">
+            <p
+              className="line-clamp-1 cursor-pointer text-text-dark hover:text-text-darker"
+              onClick={() => itemClick(item.id)}
+            >
               {item.name}
             </p>
             <p className="my-4 text-12px text-text-light">
@@ -139,6 +148,7 @@ export default function HighQualityPlayList() {
   const [show, setShow] = useState(false)
   const btnRef = useRef(null)
   const catRef = useRef(null)
+  const { goPlayListDetail } = usePageNavigate()
 
   useClickAway(() => setShow(false), [btnRef, catRef])
 
@@ -175,6 +185,10 @@ export default function HighQualityPlayList() {
     setShow(false)
   }
 
+  const itemClick = (id: number) => {
+    goPlayListDetail(id)
+  }
+
   return (
     <div
       className="relative h-full w-full transform-gpu overflow-y-auto scroll-smooth px-8 py-6 will-change-scroll"
@@ -195,7 +209,7 @@ export default function HighQualityPlayList() {
         </Button>
       </div>
       <CatList cat={cat} show={show} ref={catRef} onChange={updateCat} />
-      <PlaylistContent list={playlist} />
+      <PlaylistContent list={playlist} itemClick={itemClick} />
       {isLoading && <Loading className="h-100px" />}
     </div>
   )

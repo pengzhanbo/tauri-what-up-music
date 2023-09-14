@@ -55,6 +55,8 @@ export default defineConfig({
     'flex-center': 'flex justify-center items-center',
     'fixed-0': 'fixed top-0 left-0',
     'icon': 'inline-block w-1em h-1em text-1em vertical-middle leading-1em',
+    'scroll-container':
+      'h-full w-full transform-gpu overflow-y-auto scroll-smooth will-change-scroll',
   },
   presets: [presetRemToPx({ baseFontSize: 14 }) as Preset<any>, presetUno()],
   transformers: [transformerDirectives(), transformerVariantGroup()],
