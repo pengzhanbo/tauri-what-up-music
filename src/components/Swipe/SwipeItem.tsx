@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import cn from 'classnames'
-import { useContext } from 'react'
+import { useCallback, useContext } from 'react'
 import SwipeContext from './swipeContext'
 
 export default function SwipeItem({ children, onClick }: SwipeItemProps) {
@@ -22,13 +22,13 @@ export default function SwipeItem({ children, onClick }: SwipeItemProps) {
     },
   )
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (isPrevious || isNext) {
       setCurrentIndex(index)
     } else {
       onClick?.(index)
     }
-  }
+  }, [index, isPrevious, isNext, setCurrentIndex, onClick])
 
   return (
     <div className={className} onClick={handleClick}>

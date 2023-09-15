@@ -2,6 +2,7 @@
  * 推荐歌单
  */
 import { Icon } from '@iconify/react'
+import { useMemo } from 'react'
 import useSwr from 'swr'
 import Content from './Content'
 import { getRecommendSongList, getRecommendSongOfDay } from '~/apis'
@@ -14,7 +15,7 @@ export default function SongList() {
     ['discover/recommend/song-list', { limit: 9 }],
     ([, params]) => getRecommendSongList(params),
   )
-  const songList = data?.result || []
+  const songList = useMemo(() => data?.result || [], [data])
   return (
     <Content title="推荐歌单">
       <div className="grid grid-cols-5 gap-5">

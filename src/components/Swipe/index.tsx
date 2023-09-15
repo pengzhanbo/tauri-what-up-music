@@ -1,12 +1,12 @@
-import { useRafInterval } from 'ahooks'
+import { useMemoizedFn, useRafInterval } from 'ahooks'
 import cn from 'classnames'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import SwipeContext from './swipeContext'
 
 export default function Swipe({ children }: SwipeProps) {
   const items = (children as React.ReactNode[]) || []
   const total = items.length
-  const dots = new Array(total).fill(0)
+  const dots = useMemo(() => new Array(total).fill(0), [total])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [interval, setInterval] = useState<number | undefined>(5000)
 
@@ -14,21 +14,21 @@ export default function Swipe({ children }: SwipeProps) {
     setCurrentIndex((i) => (i + 1) % total)
   }, interval)
 
-  const setIndex = (i: number) => {
+  const setIndex = useMemoizedFn((i: number) => {
     setInterval(undefined)
     setCurrentIndex(i)
     requestAnimationFrame(() => setInterval(5000))
-  }
+  })
 
   return (
     <div className="w-full">
       <div className="group relative h-200px w-full">
-        {items.map((item, i) => {
+        {items.map((item, index) => {
           return (
             <SwipeContext.Provider
-              key={i}
+              key={index}
               value={{
-                index: i,
+                index,
                 currentIndex,
                 total,
                 setCurrentIndex: setIndex,

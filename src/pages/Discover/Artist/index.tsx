@@ -2,7 +2,7 @@
  * 发现音乐 / 歌手
  */
 import { Icon } from '@iconify/react'
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import useSwrInfinite from 'swr/infinite'
 import type { GetArtistListResponse } from '~/apis'
 import { getArtistList } from '~/apis'
@@ -17,7 +17,6 @@ import {
 } from '~/constants'
 import { useScrollBottom } from '~/hooks'
 
-let isUpdating = false
 const limit = 30
 
 export default function Artist() {
@@ -25,6 +24,7 @@ export default function Artist() {
   const [area, setArea] = useState(artistAreaOptions[0].value)
   const [initial, setInitial] = useState(artistConditionOptions[0].value)
   const ref = useRef(null)
+  const isUpdating = useRef(false)
 
   const { data, setSize, isLoading } = useSwrInfinite(
     (page) => [
@@ -32,15 +32,18 @@ export default function Artist() {
       { limit, offset: page * limit, type, area, initial },
     ],
     ([, params]) => getArtistList(params),
-    { onSuccess: () => (isUpdating = false) },
+    { onSuccess: () => (isUpdating.current = false) },
   )
 
-  const artists: GetArtistListResponse['artists'] = []
-  data?.forEach((item) => artists.push(...item.artists))
+  const artists = useMemo(() => {
+    const artists: GetArtistListResponse['artists'] = []
+    data?.forEach((item) => artists.push(...item.artists))
+    return artists
+  }, [data])
 
   useScrollBottom(ref, () => {
-    if (isUpdating) return
-    isUpdating = true
+    if (isUpdating.current) return
+    isUpdating.current = true
     setSize((size) => size + 1)
   })
 
@@ -95,7 +98,7 @@ export default function Artist() {
           </section>
         ))}
       </div>
-      {isLoading && <Loading className="h-100px" />}
+      {(isUpdating.current || isLoading) && <Loading className="h-100px" />}
     </div>
   )
 }

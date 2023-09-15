@@ -1,7 +1,8 @@
 import { isNumber } from '@pengzhanbo/utils'
 import cn from 'classnames'
+import { memo } from 'react'
 
-export default function Rectangle({
+export default memo(function Rectangle({
   size = '100%',
   ratio = 1,
   children,
@@ -25,7 +26,7 @@ export default function Rectangle({
       <div className={childClass}>{children}</div>
     </div>
   )
-}
+})
 
 export interface RectangleProps {
   children?: React.ReactNode

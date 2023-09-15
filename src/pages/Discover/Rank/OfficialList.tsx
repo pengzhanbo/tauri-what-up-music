@@ -1,7 +1,9 @@
 import { Icon } from '@iconify/react'
 import cn from 'classnames'
+import { useMemo } from 'react'
 import { usePlayListShortDetail } from './hooks'
 import type { GetAllTopListResponseItem } from '~/apis'
+import Loading from '~/components/Loading'
 import Rectangle from '~/components/Rectangle'
 import { usePlayer } from '~/hooks'
 
@@ -42,19 +44,23 @@ function OfficialItem({
   playSong: (id: number) => void
 }) {
   const { isLoading, rankList } = usePlayListShortDetail(rank.id)
-  if (isLoading) return null
 
-  const bgUrl = rankList[0].coverImgUrl
+  const bgUrl = rankList?.[0]?.coverImgUrl || ''
   const soar = rank.ToplistType === 'S'
   const news = rank.ToplistType === 'N'
   const original = rank.ToplistType === 'O'
   const hot = rank.ToplistType === 'H'
   const type = rank.ToplistType! as keyof typeof bgColors
 
-  const updateTime = new Date(rank.updateTime)
-  const m = String(updateTime.getMonth() + 1).padStart(2, '0')
-  const d = String(updateTime.getDate()).padStart(2, '0')
-  const updated = `${m}月${d}日更新`
+  const updated = useMemo(() => {
+    const updateTime = new Date(rank.updateTime)
+    const m = String(updateTime.getMonth() + 1).padStart(2, '0')
+    const d = String(updateTime.getDate()).padStart(2, '0')
+    return `${m}月${d}日更新`
+  }, [rank.updateTime])
+
+  if (isLoading) <Loading className="h-33px" />
+
   return (
     <div className="grid grid-cols-4 gap-5 pb-6">
       <section className="group pb-6">

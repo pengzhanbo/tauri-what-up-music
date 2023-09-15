@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import { chunk } from '@pengzhanbo/utils'
 import cn from 'classnames'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import useSwr from 'swr'
 import Content from './Content'
 import { getRecommendNewSong } from '~/apis'
@@ -14,10 +14,8 @@ export default function NewSong() {
   )
   const [selectId, setSelectId] = useState<number>(0)
 
-  if (isLoading) return null
-
-  const list =
-    data?.result.map((item, i) => ({
+  const chunkList = useMemo(() => {
+    const list = (data?.result || []).map((item, i) => ({
       id: item.id,
       name: item.name,
       sort: i + 1 < 10 ? `0${i + 1}` : (i + 1).toString(),
@@ -26,9 +24,11 @@ export default function NewSong() {
       artists: item.song.artists,
       hasMv: item.song.mvid > 0,
       tag: item.song.hrMusic ? 'Hi-Res' : item.song.sqMusic ? 'SQ' : '',
-    })) || []
+    }))
+    return chunk(list, data?.category || 5)
+  }, [data])
 
-  const chunkList = chunk(list, data?.category || 5)
+  if (isLoading) return null
 
   return (
     <Content title="最新音乐">

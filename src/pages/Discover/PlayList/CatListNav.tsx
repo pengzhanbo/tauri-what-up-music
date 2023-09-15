@@ -1,47 +1,11 @@
 import { Icon } from '@iconify/react'
 import cn from 'classnames'
-import { useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import type { Cat, CatList } from './hooks'
 
 export interface CatListNavProps extends CatList {
   onChange: (cat: Cat) => void
   currentCat: Cat
-}
-
-export default function CatListNav({
-  allCatList,
-  defaultCat,
-  hotCatList,
-  currentCat,
-  onChange,
-}: CatListNavProps) {
-  const [show, setShow] = useState(false)
-  const handleClick = (cat: Cat) => {
-    setShow(false)
-    onChange(cat)
-  }
-  return (
-    <div className="relative pt-4">
-      <div className="item-center flex items-center justify-between">
-        <SelectCat
-          cat={currentCat.name}
-          onClick={() => setShow((show) => !show)}
-        />
-        <HotCatList
-          hotCatList={hotCatList}
-          currentCat={currentCat}
-          onChange={handleClick}
-        />
-      </div>
-      <AllCateList
-        allCatList={allCatList}
-        defaultCat={defaultCat}
-        currentCat={currentCat}
-        show={show}
-        onChange={handleClick}
-      />
-    </div>
-  )
 }
 
 function SelectCat({ cat, onClick }: { cat: string; onClick?: () => void }) {
@@ -58,13 +22,13 @@ function SelectCat({ cat, onClick }: { cat: string; onClick?: () => void }) {
   )
 }
 
-function HotCatList({
+const HotCatList = memo(function HotCatList({
   hotCatList,
   currentCat,
   onChange,
 }: Pick<CatListNavProps, 'hotCatList' | 'currentCat' | 'onChange'>) {
   return (
-    <div className="text-text-light-dark flex items-center text-sm -mr-1">
+    <div className="flex items-center text-sm text-text-light-dark -mr-1">
       {hotCatList.map((item) => (
         <span
           key={item.name}
@@ -84,9 +48,9 @@ function HotCatList({
       ))}
     </div>
   )
-}
+})
 
-function AllCateList({
+const AllCateList = memo(function AllCateList({
   allCatList,
   defaultCat,
   currentCat,
@@ -121,7 +85,7 @@ function AllCateList({
         {allCatList.map((category) => (
           <div key={category.name} className="flex items-start pb-6">
             <div className="w-30 flex items-center text-text-lighter">
-              <span className="icon mr-2 text-3xl">
+              <span className="mr-2 icon text-3xl">
                 <Icon icon={category.icon} />
               </span>
               <span className="text-13px">{category.name}</span>
@@ -153,4 +117,41 @@ function AllCateList({
       </div>
     </div>
   )
-}
+})
+
+export default memo(function CatListNav({
+  allCatList,
+  defaultCat,
+  hotCatList,
+  currentCat,
+  onChange,
+}: CatListNavProps) {
+  const [show, setShow] = useState(false)
+  const handleClick = useCallback((cat: Cat) => {
+    setShow(false)
+    onChange(cat)
+  }, [])
+
+  return (
+    <div className="relative pt-4">
+      <div className="item-center flex items-center justify-between">
+        <SelectCat
+          cat={currentCat.name}
+          onClick={() => setShow((show) => !show)}
+        />
+        <HotCatList
+          hotCatList={hotCatList}
+          currentCat={currentCat}
+          onChange={handleClick}
+        />
+      </div>
+      <AllCateList
+        allCatList={allCatList}
+        defaultCat={defaultCat}
+        currentCat={currentCat}
+        show={show}
+        onChange={handleClick}
+      />
+    </div>
+  )
+})

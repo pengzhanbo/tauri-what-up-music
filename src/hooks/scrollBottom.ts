@@ -1,11 +1,14 @@
-import { useEffect } from 'react'
+import { useMemoizedFn } from 'ahooks'
+import { useEffect, useRef } from 'react'
 
 export const useScrollBottom = <T extends HTMLElement = HTMLElement>(
   ref: React.RefObject<T>,
-  onBottom?: () => void,
+  onBottom: () => void = () => {},
   options?: { bottom?: number },
 ) => {
   const { bottom = 0 } = options || {}
+  const isScrollBottom = useRef(false)
+  const onBottomFn = useMemoizedFn(onBottom)
   useEffect(() => {
     const el = ref.current
     if (!el) return
@@ -14,15 +17,11 @@ export const useScrollBottom = <T extends HTMLElement = HTMLElement>(
       const st = target.scrollTop
       const sh = target.scrollHeight
       const ch = target.clientHeight
-      if (
-        st + ch >= sh - bottom &&
-        sh > ch &&
-        !el.hasAttribute('is-scroll-bottom')
-      ) {
-        el.setAttribute('is-scroll-bottom', 'true')
-        onBottom?.()
+      if (st + ch >= sh - bottom && sh > ch && !isScrollBottom.current) {
+        isScrollBottom.current = true
+        onBottomFn?.()
       } else {
-        el.removeAttribute('is-scroll-bottom')
+        isScrollBottom.current = false
       }
     }
     el.addEventListener('scroll', onScroll)

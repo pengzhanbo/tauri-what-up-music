@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import useSWR from 'swr'
 import type { GetNewAlbumListParams } from '~/apis'
 import { getNewAlbumList, getNewTopSong } from '~/apis'
@@ -9,17 +10,21 @@ export const useTopSongs = (area: string) => {
     ([, type]) => getNewTopSong({ type }),
   )
 
-  const topSongs = (data?.data || []).map((item, i) => ({
-    id: item.id,
-    name: item.name,
-    picUrl: item.album.picUrl,
-    duration: formatDuration(item.duration),
-    artists: item.artists,
-    trans: (item.transNames || []).join('/'),
-    mvid: item.mvid,
-    album: item.album,
-    no: i + 1 < 10 ? `0${i + 1}` : i + 1,
-  }))
+  const topSongs = useMemo(
+    () =>
+      (data?.data || []).map((item, i) => ({
+        id: item.id,
+        name: item.name,
+        picUrl: item.album.picUrl,
+        duration: formatDuration(item.duration),
+        artists: item.artists,
+        trans: (item.transNames || []).join('/'),
+        mvid: item.mvid,
+        album: item.album,
+        no: i + 1 < 10 ? `0${i + 1}` : i + 1,
+      })),
+    [data],
+  )
 
   return { topSongs, ...rest }
 }

@@ -1,3 +1,4 @@
+import { useMemoizedFn } from 'ahooks'
 import { useRef } from 'react'
 import { useMouseMove } from '~/hooks'
 
@@ -11,11 +12,11 @@ function Progress({
   const preloadWidth = getPercent(preload, total)
   const ref = useRef<HTMLSpanElement>(null)
   const cw = document.documentElement.clientWidth
-  const handleProgress = (e: React.MouseEvent) => {
+  const handleProgress = useMemoizedFn((e: React.MouseEvent) => {
     const x = e.pageX
     const percent = x / cw
     onChange?.(percent)
-  }
+  })
 
   useMouseMove({ ref, onMouseMove: handleProgress })
 

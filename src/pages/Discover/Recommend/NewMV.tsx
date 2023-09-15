@@ -2,6 +2,7 @@
  * 最新MV
  */
 import { Icon } from '@iconify/react'
+import { useMemo } from 'react'
 import useSwr from 'swr'
 import Content from './Content'
 import { getRecommendMV } from '~/apis'
@@ -14,8 +15,10 @@ export default function NewMV() {
   const { isLoading, data } = useSwr('discover/recommend/new-mv', () =>
     getRecommendMV(),
   )
+  const list = useMemo(() => data?.result || [], [data])
+
   if (isLoading) return null
-  const list = data?.result || []
+
   return (
     <Content title="最新MV">
       <div className="grid grid-cols-4 gap-5 pb-8">

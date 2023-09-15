@@ -1,3 +1,4 @@
+import { useMemoizedFn } from 'ahooks'
 import { useAppDispatch, useAppSelector } from './store'
 import { getSongDetail, getSongLyric, getSongPlayUrl } from '~/apis'
 import getPlayInstance from '~/features/MusicPlayer/Player'
@@ -26,7 +27,7 @@ export const usePlayer = () => {
 
   const dispatch = useAppDispatch()
 
-  const loadSongBySource = (id: number, src: string) => {
+  const loadSongBySource = useMemoizedFn((id: number, src: string) => {
     dispatch(setLoading(true))
 
     player.create(id, {
@@ -54,9 +55,9 @@ export const usePlayer = () => {
       onend: () => dispatch(setPlaying(false)),
     })
     player.play()
-  }
+  })
 
-  const loadSong = async (id: number) => {
+  const loadSong = useMemoizedFn(async (id: number) => {
     waitingId = id
     if (playerState.song?.id === id) return
     dispatch(setLoading(true))
@@ -72,15 +73,15 @@ export const usePlayer = () => {
     dispatch(setBuffered(0))
     dispatch(setLyric(lyricParser(lyric!.lrc.lyric)))
     loadSongBySource(id, address!.url)
-  }
+  })
 
-  const togglePlay = () => {
+  const togglePlay = useMemoizedFn(() => {
     if (!player.paused()) {
       player.pause()
     } else {
       player.play()
     }
-  }
+  })
 
   return {
     playerState,
@@ -88,14 +89,16 @@ export const usePlayer = () => {
 
     loadSong,
     togglePlay,
-    play: () => player.play(),
-    pause: () => player.pause(),
-    volume: (value: number) => player.volume(value / 100),
-    mute: () => player.mute(),
-    seek: (seek: number) => player.seek(seek),
-    paused: () => player.paused(),
-    duration: () => player.duration(),
-    setShowDetail: (show: boolean) => dispatch(setShowDetail(show)),
+    play: useMemoizedFn(() => player.play()),
+    pause: useMemoizedFn(() => player.pause()),
+    volume: useMemoizedFn((value: number) => player.volume(value / 100)),
+    mute: useMemoizedFn(() => player.mute()),
+    seek: useMemoizedFn((seek: number) => player.seek(seek)),
+    paused: useMemoizedFn(() => player.paused()),
+    duration: useMemoizedFn(() => player.duration()),
+    setShowDetail: useMemoizedFn((show: boolean) =>
+      dispatch(setShowDetail(show)),
+    ),
   }
 }
 

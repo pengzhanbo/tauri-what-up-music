@@ -1,8 +1,7 @@
 import { Icon } from '@iconify/react'
 import { useClickAway } from 'ahooks'
 import cn from 'classnames'
-import type { UIEventHandler } from 'react'
-import { forwardRef, useRef, useState } from 'react'
+import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import useSWR from 'swr'
 import useSWRInfinite from 'swr/infinite'
@@ -14,7 +13,7 @@ import { getHighQualityPlayList, getHighQualityPlayListTags } from '~/apis'
 import Button from '~/components/Button'
 import LazyImage from '~/components/LazyImage'
 import Loading from '~/components/Loading'
-import { usePageNavigate } from '~/hooks'
+import { usePageNavigate, useScrollBottom } from '~/hooks'
 import { numUnit } from '~/utils'
 
 const CatList = forwardRef<
@@ -141,49 +140,48 @@ function PlaylistContent({
   )
 }
 
-let isUpdating = false
 export default function HighQualityPlayList() {
   const [searchParams] = useSearchParams({ cat: '' })
   const [cat, setCat] = useState(searchParams.get('cat') || '')
   const [show, setShow] = useState(false)
   const btnRef = useRef(null)
   const catRef = useRef(null)
+  const scrollRef = useRef(null)
+  const isUpdating = useRef(false)
   const { goPlayListDetail } = usePageNavigate()
 
   useClickAway(() => setShow(false), [btnRef, catRef])
 
-  const { data, isLoading, setSize } = useSWRInfinite(
+  const { data, setSize } = useSWRInfinite(
     (_, preData: GetHighQualityPlayListResponse) => {
       const params: GetHighQualityPlayListParams = { cat, limit: 50 }
       if (preData) params.before = preData.lasttime
       return ['discover/playlist/high-quality', params]
     },
     ([, params]) => getHighQualityPlayList(params),
-    { onSuccess: () => (isUpdating = false) },
+    { onSuccess: () => (isUpdating.current = false) },
   )
 
-  const playlist: GetHighQualityPlayListResponse['playlists'] = []
-  data?.forEach((item) => {
-    playlist.push(...item.playlists)
+  const playlist = useMemo(() => {
+    const playlist: GetHighQualityPlayListResponse['playlists'] = []
+    data?.forEach((item) => {
+      playlist.push(...item.playlists)
+    })
+    return playlist
+  }, [data])
+
+  useScrollBottom(scrollRef, () => {
+    if (isUpdating.current) return
+    if (!data?.[data.length - 1].more) return
+    isUpdating.current = true
+    setSize((size) => size + 1)
   })
 
-  const handleScroll: UIEventHandler<HTMLDivElement> = (event) => {
-    const target = event.target as HTMLDivElement
-    const st = target.scrollTop
-    const sh = target.scrollHeight
-    const ch = target.clientHeight
-    if (st + ch >= sh && !isUpdating && sh > ch) {
-      if (!data?.[data.length - 1].more) return
-      isUpdating = true
-      setSize((size) => size + 1)
-    }
-  }
-
-  const updateCat = (cat: string) => {
+  const updateCat = useCallback((cat: string) => {
     setCat(cat)
     setSize(1)
     setShow(false)
-  }
+  }, [])
 
   const itemClick = (id: number) => {
     goPlayListDetail(id)
@@ -192,7 +190,7 @@ export default function HighQualityPlayList() {
   return (
     <div
       className="relative h-full w-full transform-gpu overflow-y-auto scroll-smooth px-8 py-6 will-change-scroll"
-      onScroll={handleScroll}
+      ref={scrollRef}
     >
       <div className="items-top flex justify-between">
         <p>
@@ -210,7 +208,7 @@ export default function HighQualityPlayList() {
       </div>
       <CatList cat={cat} show={show} ref={catRef} onChange={updateCat} />
       <PlaylistContent list={playlist} itemClick={itemClick} />
-      {isLoading && <Loading className="h-100px" />}
+      {isUpdating.current && <Loading className="h-100px" />}
     </div>
   )
 }

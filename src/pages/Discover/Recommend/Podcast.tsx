@@ -1,8 +1,10 @@
 import { chunk } from '@pengzhanbo/utils'
+import { useMemo } from 'react'
 import useSwr from 'swr'
 import Content from './Content'
 import { getRecommendPodcast } from '~/apis'
 import LazyImage from '~/components/LazyImage'
+import Loading from '~/components/Loading'
 
 /**
  * 播客
@@ -12,10 +14,12 @@ export default function Podcast() {
     getRecommendPodcast(),
   )
 
-  if (isLoading) return null
+  const chunkList = useMemo(() => {
+    const list = data?.result || []
+    return chunk(list, 3)
+  }, [data])
 
-  const list = data?.result || []
-  const chunkList = chunk(list, 3)
+  if (isLoading) return <Loading className="h-170px" />
 
   return (
     <Content title="播客">

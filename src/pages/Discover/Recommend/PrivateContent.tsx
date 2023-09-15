@@ -2,6 +2,7 @@
  * 独家放送
  */
 import { Icon } from '@iconify/react'
+import { useMemo } from 'react'
 import useSwr from 'swr'
 import Content from './Content'
 import { getPersonalizedPrivateContent } from '~/apis'
@@ -12,9 +13,10 @@ export default function PrivateContent() {
   const { isLoading, data } = useSwr('discover/recommend/private-content', () =>
     getPersonalizedPrivateContent(),
   )
-  if (isLoading) return null
 
-  const list = data?.result || []
+  const list = useMemo(() => data?.result || [], [data])
+
+  if (isLoading) return null
 
   return (
     <Content title="独家放送">
