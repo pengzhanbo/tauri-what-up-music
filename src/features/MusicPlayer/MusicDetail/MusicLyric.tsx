@@ -1,6 +1,10 @@
-import { Icon } from '@iconify/react'
 import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react'
+import {
+  IconArrowDownDouble,
+  IconArrowUpDouble,
+  IconHelp,
+} from '~/components/Icons'
 import { usePlayer } from '~/hooks'
 
 let isUserScrolling = false
@@ -79,7 +83,7 @@ export default function MusicLyric() {
   return (
     <div className="h-1px flex flex-1 pt-8">
       <div
-        className="lyric-content h-full flex-1 overflow-y-auto scroll-smooth border-r text-text-light-dark will-change-scroll"
+        className="lyric-content h-full scroll-container flex-1 border-r text-text-light-dark"
         ref={scrollRef}
         onWheel={scrolling}
       >
@@ -113,36 +117,21 @@ function LyricControl({
   onGo?: () => void
   onHelp?: () => void
 }) {
+  const classes =
+    'h-6 w-6 flex-center rounded-full bg-black/8 text-xl text-white hover:bg-black/12 outline-none border-none'
   return (
     <div className="flex flex-col justify-between pl-3">
       <div>
-        <LyricButton icon="ri:arrow-up-double-fill" onClick={onBack} />
-        <LyricButton
-          icon="ri:arrow-down-double-fill"
-          onClick={onGo}
-          className="mt-3"
-        />
+        <button className={classes} onClick={onBack}>
+          <IconArrowUpDouble />
+        </button>
+        <button className={`${classes} mt-3`} onClick={onGo}>
+          <IconArrowDownDouble />
+        </button>
       </div>
-      <LyricButton icon="ion:help-sharp" onClick={onHelp} />
+      <button className={classes} onClick={onHelp}>
+        <IconHelp />
+      </button>
     </div>
-  )
-}
-
-function LyricButton({
-  icon,
-  onClick,
-  className,
-}: {
-  icon: string
-  onClick?: () => void
-  className?: string
-}) {
-  return (
-    <span
-      className={`icon h-6 w-6 flex-center rounded-full bg-black/8 text-xl text-white hover:bg-black/12 ${className}`}
-      onClick={onClick}
-    >
-      <Icon icon={icon} className="m-auto" />
-    </span>
   )
 }

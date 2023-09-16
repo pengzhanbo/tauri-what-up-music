@@ -1,6 +1,7 @@
-import { Icon } from '@iconify/react'
+import { useMemoizedFn } from 'ahooks'
 import cn from 'classnames'
 import Artists from '~/components/Artists'
+import { IconArrowDownSharp, IconArrowUpSharp } from '~/components/Icons'
 import LazyImage from '~/components/LazyImage'
 import { usePlayer } from '~/hooks'
 import { formatDuration } from '~/utils'
@@ -10,7 +11,10 @@ function MusicInfo() {
   const { song, currentTime, showDetail } = playerState
   const ct = formatDuration(currentTime || 0)
   const dt = formatDuration(song?.dt || 0)
-  const toggle = () => setShowDetail(!showDetail)
+
+  const toggle = useMemoizedFn(() => setShowDetail(!showDetail))
+  const iconClasses = cn('transition', showDetail ? 'rotate-180' : 'rotate-0')
+
   return (
     <div className="w-1px flex flex-1 items-center pl-3">
       <div className="group relative h-12 w-12 overflow-hidden rounded-md bg-gray-300">
@@ -21,14 +25,8 @@ function MusicInfo() {
           className="absolute left-0 top-0 z-1 h-full w-full flex-center flex-col cursor-pointer bg-black/30 py-1 text-2xl text-white opacity-0 backdrop-blur-5px transition group-hover:opacity-100"
           onClick={toggle}
         >
-          <Icon
-            icon="ion:arrow-up-sharp"
-            className={cn('transition', showDetail ? 'rotate-180' : 'rotate-0')}
-          />
-          <Icon
-            icon="ion:arrow-down-sharp"
-            className={cn('transition', showDetail ? 'rotate-180' : 'rotate-0')}
-          />
+          <IconArrowUpSharp className={iconClasses} />
+          <IconArrowDownSharp className={iconClasses} />
         </div>
       </div>
       <div className="ml-2 flex-1">

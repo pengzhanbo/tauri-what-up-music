@@ -1,29 +1,29 @@
-import { Icon } from '@iconify/react'
+import { useMemo } from 'react'
+import {
+  IconDelete,
+  IconHeart,
+  IconPause,
+  IconPlay,
+  IconPlayNext,
+  IconPlayPrev,
+} from '~/components/Icons'
 import { usePlayer } from '~/hooks'
 
 function MusicControl() {
   const { togglePlay, playerState } = usePlayer()
   const { playing } = playerState
+
+  const IconStatus = useMemo(() => (playing ? IconPause : IconPlay), [playing])
   return (
     <div className="flex-center">
-      <span className="mr-7 icon cursor-pointer text-2xl text-text">
-        <Icon icon="ph:heart" />
-      </span>
-      <span className="mr-7 icon cursor-pointer text-3xl text-brand-light">
-        <Icon icon="basil:skip-prev-solid" />
-      </span>
-      <span
-        className="mr-7 icon h-11 w-11 flex-center cursor-pointer rounded-full bg-brand text-xl text-white"
+      <IconHeart className="mr-7 cursor-pointer text-2xl text-text" />
+      <IconPlayPrev className="mr-7 cursor-pointer text-3xl text-brand-light" />
+      <IconStatus
+        className="mr-7 h-11 w-11 flex-center cursor-pointer rounded-full bg-brand text-xl text-white"
         onClick={togglePlay}
-      >
-        {playing ? <Icon icon="ph:pause-fill" /> : <Icon icon="ph:play-fill" />}
-      </span>
-      <span className="mr-7 icon cursor-pointer text-3xl text-brand">
-        <Icon icon="basil:skip-next-solid" />
-      </span>
-      <span className="icon cursor-pointer text-xl text-text">
-        <Icon icon="uiw:delete" />
-      </span>
+      />
+      <IconPlayNext className="mr-7 icon cursor-pointer text-3xl text-brand" />
+      <IconDelete className="cursor-pointer text-xl text-text" />
     </div>
   )
 }

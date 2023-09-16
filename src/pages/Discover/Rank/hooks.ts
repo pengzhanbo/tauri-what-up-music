@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import useSwr from 'swr'
 import { getAllTopList, getPlayListDetail } from '~/apis'
+import { numUnit } from '~/utils'
 
 export const useRankTopList = () => {
   const { isLoading, data } = useSwr('discover/rank/all/topList', () =>
@@ -12,7 +13,13 @@ export const useRankTopList = () => {
     [list],
   )
   const globalList = useMemo(
-    () => list.filter((item) => !item.ToplistType),
+    () =>
+      list
+        .filter((item) => !item.ToplistType)
+        .map((item) => ({
+          ...item,
+          playCountString: numUnit(item.playCount),
+        })),
     [list],
   )
 

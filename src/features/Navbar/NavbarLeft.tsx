@@ -1,5 +1,5 @@
-import { Icon } from '@iconify/react'
 import cn from 'classnames'
+import { IconArrowDown } from '~/components/Icons'
 import { usePlayer, useWindowDrag } from '~/hooks'
 
 export default function NavbarLeft() {
@@ -11,15 +11,13 @@ export default function NavbarLeft() {
       className="item-center relative z-2 h-full w-sidebar flex justify-between"
       onMouseDown={onDrag}
     >
-      <span
+      <IconArrowDown
         className={cn(
-          'ml-22 icon text-xl transition duration-300',
+          'ml-22 text-xl transition duration-300',
           showDetail ? 'opacity-100' : 'opacity-0',
         )}
         onClick={() => setShowDetail(false)}
-      >
-        <Icon icon="ep:arrow-down-bold" />
-      </span>
+      />
     </div>
   )
 }

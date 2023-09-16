@@ -1,26 +1,32 @@
 import { Icon } from '@iconify/react'
+import { useClickAway } from 'ahooks'
 import cn from 'classnames'
-import { memo, useCallback, useState } from 'react'
+import { forwardRef, memo, useCallback, useRef, useState } from 'react'
+import { CSSTransition } from 'react-transition-group'
 import type { Cat, CatList } from './hooks'
+import { IconForward } from '~/components/Icons'
+import PopoverBeacon from '~/components/PopoverBeacon'
 
 export interface CatListNavProps extends CatList {
   onChange: (cat: Cat) => void
   currentCat: Cat
 }
 
-function SelectCat({ cat, onClick }: { cat: string; onClick?: () => void }) {
+const SelectCat = forwardRef<
+  HTMLDivElement,
+  { cat: string; onClick?: () => void }
+>(function SelectCat({ cat, onClick }, ref) {
   return (
     <div
       className="h-30px w-30 flex-center cursor-pointer border rounded-full bg-transparent transition hover:bg-gray-100"
+      ref={ref}
       onClick={onClick}
     >
       <span className="text-13px leading-13px text-text-dark">{cat}</span>
-      <span className="relative icon text-2xl text-text-light -top-2px">
-        <Icon icon="eva:arrow-ios-forward-fill" />
-      </span>
+      <IconForward className="relative text-2xl text-text-light -top-2px" />
     </div>
   )
-}
+})
 
 const HotCatList = memo(function HotCatList({
   hotCatList,
@@ -50,74 +56,81 @@ const HotCatList = memo(function HotCatList({
   )
 })
 
-const AllCateList = memo(function AllCateList({
-  allCatList,
-  defaultCat,
-  currentCat,
-  onChange,
-  show,
-}: Pick<
+type AllCateListProps = Pick<
   CatListNavProps,
   'allCatList' | 'defaultCat' | 'currentCat' | 'onChange'
-> & { show: boolean }) {
-  const className = cn(
-    'shadow-box absolute left-0 top-[calc(100%+10px)] z-1 w-full rounded-md bg-white py-4',
-    show ? 'block' : 'hidden',
-  )
-  return (
-    <div className={className}>
-      <span className="absolute left-7 z-1 inline-block w-14px border-7px border-b-white border-l-transparent border-r-transparent border-t-transparent border-solid -top-14px"></span>
-      <span className="absolute left-7 z-0 inline-block w-14px border-7px border-b-gray-100 border-l-transparent border-r-transparent border-t-transparent border-solid -top-15px"></span>
-      <div className="border-b px-4 pb-4">
-        <span
-          className={cn(
-            'inline-block h-32px rounded-16px px-4 leading-32px cursor-pointer transition',
-            defaultCat.value === currentCat.value
-              ? 'text-brand bg-brand-lighter'
-              : 'hover:text-text-dark bg-transparent',
-          )}
-          onClick={() => onChange(defaultCat)}
-        >
-          {defaultCat.name}
-        </span>
-      </div>
-      <div className="px-6 pt-4">
-        {allCatList.map((category) => (
-          <div key={category.name} className="flex items-start pb-6">
-            <div className="w-30 flex items-center text-text-lighter">
-              <span className="mr-2 icon text-3xl">
-                <Icon icon={category.icon} />
-              </span>
-              <span className="text-13px">{category.name}</span>
-            </div>
-            <div className="grid grid-cols-6 flex-1">
-              {category.catList.map((item) => (
-                <div key={item.name} className="mb-2">
-                  <p
-                    className={cn(
-                      'relative inline-block text-13px h-32px rounded-16px px-4 leading-32px cursor-pointer transition',
-                      item.value === currentCat.value
-                        ? 'text-brand bg-brand-lighter'
-                        : 'hover:text-text-dark bg-transparent',
-                    )}
-                    onClick={() => onChange(item)}
-                  >
-                    <span>{item.name}</span>
-                    {item.hot && (
-                      <span className="absolute right-0 text-6px font-800 text-brand -top-3px">
-                        HOT
-                      </span>
-                    )}
-                  </p>
-                </div>
-              ))}
-            </div>
+> & { show: boolean }
+
+const AllCateList = forwardRef<HTMLDivElement, AllCateListProps>(
+  function AllCateList(
+    { allCatList, defaultCat, currentCat, onChange, show },
+    ref,
+  ) {
+    const className = cn(
+      'shadow-box absolute left-0 top-[calc(100%+10px)] z-1 w-full rounded-md bg-white py-4',
+    )
+    return (
+      <CSSTransition
+        in={show}
+        classNames="fade"
+        timeout={300}
+        unmountOnExit
+        nodeRef={ref}
+      >
+        <div className={className} ref={ref}>
+          <PopoverBeacon offset={25} />
+          <div className="border-b px-4 pb-4">
+            <span
+              className={cn(
+                'inline-block h-32px rounded-16px px-4 leading-32px cursor-pointer transition',
+                defaultCat.value === currentCat.value
+                  ? 'text-brand bg-brand-lighter'
+                  : 'hover:text-text-dark bg-transparent',
+              )}
+              onClick={() => onChange(defaultCat)}
+            >
+              {defaultCat.name}
+            </span>
           </div>
-        ))}
-      </div>
-    </div>
-  )
-})
+          <div className="px-6 pt-4">
+            {allCatList.map((category) => (
+              <div key={category.name} className="flex items-start pb-6">
+                <div className="w-30 flex items-center text-text-lighter">
+                  <span className="mr-2 icon text-3xl">
+                    <Icon icon={category.icon} />
+                  </span>
+                  <span className="text-13px">{category.name}</span>
+                </div>
+                <div className="grid grid-cols-6 flex-1">
+                  {category.catList.map((item) => (
+                    <div key={item.name} className="mb-2">
+                      <p
+                        className={cn(
+                          'relative inline-block text-13px h-32px rounded-16px px-4 leading-32px cursor-pointer transition',
+                          item.value === currentCat.value
+                            ? 'text-brand bg-brand-lighter'
+                            : 'hover:text-text-dark bg-transparent',
+                        )}
+                        onClick={() => onChange(item)}
+                      >
+                        <span>{item.name}</span>
+                        {item.hot && (
+                          <span className="absolute right-0 text-6px font-800 text-brand -top-3px">
+                            HOT
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </CSSTransition>
+    )
+  },
+)
 
 export default memo(function CatListNav({
   allCatList,
@@ -127,6 +140,11 @@ export default memo(function CatListNav({
   onChange,
 }: CatListNavProps) {
   const [show, setShow] = useState(false)
+  const selectRef = useRef(null)
+  const containerRef = useRef(null)
+
+  useClickAway(() => setShow(false), [selectRef, containerRef])
+
   const handleClick = useCallback((cat: Cat) => {
     setShow(false)
     onChange(cat)
@@ -136,6 +154,7 @@ export default memo(function CatListNav({
     <div className="relative pt-4">
       <div className="item-center flex items-center justify-between">
         <SelectCat
+          ref={selectRef}
           cat={currentCat.name}
           onClick={() => setShow((show) => !show)}
         />
@@ -146,6 +165,7 @@ export default memo(function CatListNav({
         />
       </div>
       <AllCateList
+        ref={containerRef}
         allCatList={allCatList}
         defaultCat={defaultCat}
         currentCat={currentCat}

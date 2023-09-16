@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api'
 
+const onDrag = async () => await invoke('drag_window')
 export const useWindowDrag = () => {
-  return async () => await invoke('drag_window')
+  return onDrag
 }

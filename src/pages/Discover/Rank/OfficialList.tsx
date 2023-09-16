@@ -1,11 +1,18 @@
-import { Icon } from '@iconify/react'
 import cn from 'classnames'
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { usePlayListShortDetail } from './hooks'
 import type { GetAllTopListResponseItem } from '~/apis'
+import {
+  IconArrowChangeDown,
+  IconArrowChangeNon,
+  IconArrowChangeUp,
+  IconForward,
+  IconNew,
+} from '~/components/Icons'
 import Loading from '~/components/Loading'
+import PlayerPlayFill from '~/components/PlayerPlayFill'
 import Rectangle from '~/components/Rectangle'
-import { usePlayer } from '~/hooks'
+import { usePageNavigate, usePlayer } from '~/hooks'
 
 // S 飙升  N 新歌榜  O 原创榜 H 热歌榜
 
@@ -36,6 +43,29 @@ const bgColors = {
   H: 'bg-pink-6/60',
 }
 
+const RankingChange = memo(function RankingChange({
+  old,
+  now,
+}: {
+  old: number
+  now: number
+}) {
+  const classes = 'ml-1 text-center text-8px'
+  return (
+    <>
+      {old === now && (
+        <IconArrowChangeNon className={cn(classes, 'text-text-light')} />
+      )}
+      {old < now && (
+        <IconArrowChangeDown className={cn(classes, 'text-blue-4')} />
+      )}
+      {old > now && (
+        <IconArrowChangeUp className={cn(classes, 'text-red-700')} />
+      )}
+    </>
+  )
+})
+
 function OfficialItem({
   rank,
   playSong,
@@ -51,6 +81,8 @@ function OfficialItem({
   const original = rank.ToplistType === 'O'
   const hot = rank.ToplistType === 'H'
   const type = rank.ToplistType! as keyof typeof bgColors
+
+  const { goPlayListDetail } = usePageNavigate()
 
   const updated = useMemo(() => {
     const updateTime = new Date(rank.updateTime)
@@ -81,9 +113,7 @@ function OfficialItem({
               <p className="text-sm">{updated}</p>
             </div>
           </div>
-          <span className="absolute left-50% top-50% z-3 icon h-12 w-12 flex-center cursor-pointer rounded-full bg-white/40 text-2xl text-brand opacity-0 backdrop-blur-9 transition -translate-50% group-hover:opacity-100">
-            <Icon icon="iconamoon:player-play-fill" />
-          </span>
+          <PlayerPlayFill />
         </Rectangle>
       </section>
       <section className="col-span-3 pl-4">
@@ -106,38 +136,13 @@ function OfficialItem({
                   {item.ratio}%
                 </span>
               )}
-              {(news || hot) && (
-                <span className="icon pl-1 text-center text-8px text-text-light">
-                  {item.lr === i && <Icon icon="fluent:subtract-12-filled" />}
-                  {item.lr < i && (
-                    <Icon
-                      icon="mingcute:arrow-down-fill"
-                      className="text-blue-4"
-                    />
-                  )}
-                  {item.lr > i && (
-                    <Icon
-                      icon="mingcute:arrow-up-fill"
-                      className="text-red-7"
-                    />
-                  )}
-                </span>
-              )}
-              {original && (
-                <span className="icon">
-                  {item.uid > 1 ? (
-                    <Icon
-                      icon="ic:outline-fiber-new"
-                      className="text-xl text-green-5"
-                    />
-                  ) : (
-                    <Icon
-                      icon="fluent:subtract-12-filled"
-                      className="text-8px text-text-light"
-                    />
-                  )}
-                </span>
-              )}
+              {(news || hot) && <RankingChange old={item.lr} now={i} />}
+              {original &&
+                (item.uid > 1 ? (
+                  <IconNew className="text-xl text-green-5" />
+                ) : (
+                  <IconArrowChangeNon className="text-8px text-text-light" />
+                ))}
             </p>
             <p
               className="line-clamp-1 flex-1 pr-4"
@@ -151,11 +156,12 @@ function OfficialItem({
             <span className="text-text-light">{item.artist}</span>
           </div>
         ))}
-        <div className="inline-block cursor-pointer py-2 pl-3">
+        <div
+          className="inline-block cursor-pointer py-2 pl-3"
+          onClick={() => goPlayListDetail(rank.id)}
+        >
           <span className="text-sm">查看全部</span>
-          <span className="icon">
-            <Icon icon="eva:arrow-ios-forward-fill" />
-          </span>
+          <IconForward className="relative -top-2px" />
         </div>
       </section>
     </div>

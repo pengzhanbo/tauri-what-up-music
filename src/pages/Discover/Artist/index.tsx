@@ -2,6 +2,7 @@
  * 发现音乐 / 歌手
  */
 import { Icon } from '@iconify/react'
+import { useMemoizedFn } from 'ahooks'
 import { useMemo, useRef, useState } from 'react'
 import useSwrInfinite from 'swr/infinite'
 import type { GetArtistListResponse } from '~/apis'
@@ -47,6 +48,21 @@ export default function Artist() {
     setSize((size) => size + 1)
   })
 
+  const updateArea = useMemoizedFn((area: string) => {
+    setArea(area)
+    setSize(1)
+  })
+
+  const updateType = useMemoizedFn((type: string) => {
+    setType(type)
+    setSize(1)
+  })
+
+  const updateInitial = useMemoizedFn((initial: string) => {
+    setInitial(initial)
+    setSize(1)
+  })
+
   return (
     <div
       className="h-full w-full transform-gpu overflow-y-auto scroll-smooth px-8 py-6 will-change-scroll"
@@ -56,28 +72,19 @@ export default function Artist() {
         title="语种"
         current={area}
         list={artistAreaOptions}
-        onClick={(area) => {
-          setArea(area)
-          setSize(1)
-        }}
+        onClick={updateArea}
       />
       <SelectMenu
         title="分类"
         current={type}
         list={artistTypeOptions}
-        onClick={(type) => {
-          setType(type)
-          setSize(1)
-        }}
+        onClick={updateType}
       />
       <SelectMenu
         title="筛选"
         current={initial}
         list={artistConditionOptions}
-        onClick={(initial) => {
-          setInitial(initial)
-          setSize(1)
-        }}
+        onClick={updateInitial}
       />
       <div className="grid grid-cols-5 w-full gap-5 pt-6">
         {artists.map((item) => (

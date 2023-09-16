@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import PlaylistInfo from './Infomation'
 import NavHead from './NavHead'
@@ -15,11 +15,12 @@ export default function PlaylistDetail() {
   const { playlist, songs, isLoading } = usePlayListDetail(parseInt(id))
   const [offset, setOffset] = useState(1)
   const total = Math.ceil(songs.length / limit)
-  useScrollBottom(ref, () => {
-    setOffset((offset) => (offset > total ? total : offset + 1))
-  })
 
-  const list = songs.slice(0, offset * limit)
+  useScrollBottom(ref, () =>
+    setOffset((offset) => (offset > total ? total : offset + 1)),
+  )
+
+  const list = useMemo(() => songs.slice(0, offset * limit), [songs, offset])
 
   if (isLoading) return <Loading className="h-170px" />
 

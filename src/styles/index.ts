@@ -12,3 +12,4 @@ import '@fontsource/noto-sans-sc/800.css'
 import '@fontsource/noto-sans-sc/900.css'
 
 import './index.css'
+import './transition.css'

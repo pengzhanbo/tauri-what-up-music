@@ -1,8 +1,9 @@
-import { Icon } from '@iconify/react'
 import { usePlayList } from './hooks'
+import { IconArtist, IconPlayOutline } from '~/components/Icons'
 import LazyImage from '~/components/LazyImage'
 import Loading from '~/components/Loading'
 import Pagination from '~/components/Pagination'
+import PlayerPlayFill from '~/components/PlayerPlayFill'
 import Rectangle from '~/components/Rectangle'
 import { usePageNavigate } from '~/hooks'
 
@@ -21,21 +22,13 @@ export default function PlayList({ cat }: { cat: string | number }) {
               className="group cursor-pointer overflow-hidden rounded-md"
               onClick={() => goPlayListDetail(item.id)}
             >
-              <LazyImage
-                src={item.coverImgUrl}
-                alt={item.name}
-                className="h-full w-full"
-              />
+              <LazyImage src={item.coverImgUrl} className="h-full w-full" />
               <p className="absolute right-0 top-1 flex-center pr-2 text-sm text-white text-shadow-md">
-                <span className="relative top-2px mr-1 icon">
-                  <Icon icon="iconamoon:player-play" />
-                </span>
+                <IconPlayOutline className="mr-1" />
                 <span>{item.playCount}</span>
               </p>
               <div className="absolute bottom-2 left-2 w-70% flex items-center pr-2 text-sm text-white text-shadow-md">
-                <span className="relative top-1px mr-1 icon">
-                  <Icon icon="ph:user" />
-                </span>
+                <IconArtist className="relative top-1px mr-1" />
                 <div className="h-17px w-1px flex-1 overflow-hidden">
                   <p className="relative inline-block pr-16px">
                     <span className="line-clamp-1">{item.nickname}</span>
@@ -46,9 +39,7 @@ export default function PlayList({ cat }: { cat: string | number }) {
                   </p>
                 </div>
               </div>
-              <span className="absolute bottom-2 right-2 icon h-12 w-12 flex-center rounded-full bg-white/60 text-2xl text-brand opacity-0 transition group-hover:opacity-100">
-                <Icon icon="iconamoon:player-play-fill" />
-              </span>
+              <PlayerPlayFill blur="lighter" position="rb" />
             </Rectangle>
             <p className="line-clamp-2 mt-1 text-13px leading-relaxed text-text-dark">
               <span className="cursor-pointer">{item.name}</span>

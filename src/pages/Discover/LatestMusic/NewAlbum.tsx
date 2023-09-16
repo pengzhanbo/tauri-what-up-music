@@ -1,9 +1,9 @@
-import { Icon } from '@iconify/react'
-import { useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import SubNav from './SubNav'
 import type { NewAlbum as AlbumItem } from '~/apis'
 import LazyImage from '~/components/LazyImage'
 import Loading from '~/components/Loading'
+import PlayerPlayFill from '~/components/PlayerPlayFill'
 import Rectangle from '~/components/Rectangle'
 import SelectMenu from '~/components/SelectMenu'
 import { albumAreaList, albumTypeList } from '~/constants'
@@ -41,6 +41,11 @@ function Albums({ area, type }: { area: string; type: string }) {
     ...date,
   })
 
+  const dated = useMemo(
+    () => (date.month < 10 ? `0${date.month}` : date.month),
+    [date.month],
+  )
+
   if (isLoading) return <Loading className="pt-6" />
 
   return (
@@ -55,9 +60,7 @@ function Albums({ area, type }: { area: string; type: string }) {
       )}
       <div className="flex items-start pb-6">
         <div className="sticky top-0 mr-6 w-35px text-center text-text-darker">
-          <p className="text-28px">
-            {date.month < 10 ? `0${date.month}` : date.month}
-          </p>
+          <p className="text-28px">{dated}</p>
           <p className="text-13px -mt-2px">{date.year}</p>
         </div>
         <AlbumContent list={monthData} />
@@ -66,26 +69,32 @@ function Albums({ area, type }: { area: string; type: string }) {
   )
 }
 
+const AlbumBackground = memo(function AlbumBackground() {
+  return (
+    <>
+      <div className="absolute top-3px z-2 h-45% w-6px border-r border-gray-500 rounded-rb-md rounded-rt-md border-r-solid -right-3px"></div>
+      <div className="absolute bottom-3px z-2 h-45% w-6px border-r border-gray-500 rounded-rb-md rounded-rt-md border-r-solid -right-3px"></div>
+      <div
+        className="absolute top-0 z-1 h-full w-full rounded-full bg-cover -right-25px"
+        style={{ backgroundImage: 'url(/bg-album.tiff)' }}
+      ></div>
+      <PlayerPlayFill blur="light" />
+    </>
+  )
+})
+
 function AlbumContent({ list }: { list: AlbumItem[] }) {
   return (
     <div className="grid grid-cols-4 flex-1 gap-5">
       {list.map((item) => (
-        <section key={item.id} className="group relative pb-4">
-          <Rectangle size="80%" className="cursor-pointer">
+        <section key={item.id} className="relative pb-4">
+          <Rectangle size="80%" className="group cursor-pointer">
             <LazyImage
               src={item.picUrl}
               transparent
               className="relative z-3 h-full w-full overflow-hidden rounded-md"
             />
-            <div className="absolute top-3px z-2 h-45% w-6px border-r border-gray-500 rounded-rb-md rounded-rt-md border-r-solid -right-3px"></div>
-            <div className="absolute bottom-3px z-2 h-45% w-6px border-r border-gray-500 rounded-rb-md rounded-rt-md border-r-solid -right-3px"></div>
-            <div
-              className="absolute top-0 z-1 h-full w-full rounded-full bg-cover -right-25px"
-              style={{ backgroundImage: 'url(/bg-album.tiff)' }}
-            ></div>
-            <span className="absolute left-50% top-50% z-3 icon h-12 w-12 flex-center cursor-pointer rounded-full bg-white/40 text-2xl text-brand opacity-0 backdrop-blur-9 transition -translate-50% group-hover:opacity-100">
-              <Icon icon="iconamoon:player-play-fill" />
-            </span>
+            <AlbumBackground />
           </Rectangle>
           <div className="w-85% pt-2">
             <p className="line-clamp-2 text-13px text-text-light-dark">

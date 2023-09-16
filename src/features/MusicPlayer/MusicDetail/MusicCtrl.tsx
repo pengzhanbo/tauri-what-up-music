@@ -1,5 +1,10 @@
-import { Icon } from '@iconify/react'
 import cn from 'classnames'
+import {
+  IconCollect,
+  IconDownload,
+  IconHeart,
+  IconShare,
+} from '~/components/Icons'
 
 export default function MusicCtrl() {
   const itemStyle = cn(
@@ -8,18 +13,10 @@ export default function MusicCtrl() {
   )
   return (
     <div className="flex-center pt-6 -mx-6">
-      <span className={itemStyle}>
-        <Icon icon="ph:heart" />
-      </span>
-      <span className={itemStyle}>
-        <Icon icon="solar:add-folder-linear" />
-      </span>
-      <span className={itemStyle}>
-        <Icon icon="bi:download" />
-      </span>
-      <span className={itemStyle}>
-        <Icon icon="ph:share" />
-      </span>
+      <IconHeart className={itemStyle} />
+      <IconCollect className={itemStyle} />
+      <IconDownload className={itemStyle} />
+      <IconShare className={itemStyle} />
     </div>
   )
 }

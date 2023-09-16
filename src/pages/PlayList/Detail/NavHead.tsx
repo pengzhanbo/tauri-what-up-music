@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import { useMemo } from 'react'
 import { numUnit } from '~/utils'
 
 export default function NavHead({
@@ -6,21 +7,24 @@ export default function NavHead({
   current,
   onChange,
 }: NavHeadProps) {
-  const navList = [
-    { name: '歌曲列表', value: 0 },
-    {
-      name: (
-        <>
-          评论
-          <span className={current === 1 ? 'text-brand' : 'text-text-light'}>
-            ({numUnit(commentCount)})
-          </span>
-        </>
-      ),
-      value: 1,
-    },
-    { name: '收藏者', value: 2 },
-  ]
+  const navList = useMemo(
+    () => [
+      { name: '歌曲列表', value: 0 },
+      {
+        name: (
+          <>
+            评论
+            <span className={current === 1 ? 'text-brand' : 'text-text-light'}>
+              ({numUnit(commentCount)})
+            </span>
+          </>
+        ),
+        value: 1,
+      },
+      { name: '收藏者', value: 2 },
+    ],
+    [commentCount, current],
+  )
 
   return (
     <div className="mx-8 flex items-center border-b pt-10">

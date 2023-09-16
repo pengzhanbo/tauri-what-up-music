@@ -1,15 +1,18 @@
 import { Icon } from '@iconify/react'
-import format from 'date-fns/format'
 import { Fragment, useState } from 'react'
 import type { GetPlayListDetailResponse } from '~/apis'
 import LazyImage from '~/components/LazyImage'
-import { numUnit } from '~/utils'
 
-export default function PlaylistInfo({
-  playlist,
-}: {
-  playlist: GetPlayListDetailResponse['playlist']
-}) {
+interface PlaylistInfoProps {
+  playlist: GetPlayListDetailResponse['playlist'] & {
+    createTimeString: string
+    subscribedCountString: string
+    shareCountString: string
+    playCountString: string
+  }
+}
+
+export default function PlaylistInfo({ playlist }: PlaylistInfoProps) {
   const [show, setShow] = useState(false)
   return (
     <div className="flex px-8">
@@ -43,35 +46,34 @@ export default function PlaylistInfo({
             {playlist.creator.nickname}
           </p>
           <p className="ml-4 text-sm text-text-light-dark">
-            {format(new Date(playlist.createTime), 'yyyy-MM-dd')}创建
+            {playlist.createTimeString}创建
           </p>
         </div>
         <div className="mb-4 mt-6 flex items-center">
           <BtnPlayAll />
           <Button
-            text={`收藏(${numUnit(playlist.subscribedCount)})`}
+            text={`收藏(${playlist.subscribedCountString})`}
             icon="solar:add-folder-linear"
           />
-          <Button
-            text={`分享(${numUnit(playlist.shareCount)})`}
-            icon="ph:share"
-          />
+          <Button text={`分享(${playlist.shareCountString})`} icon="ph:share" />
           <Button text="下载全部" icon="bi:download" />
         </div>
         <div>
-          <p className="mt-2 flex items-center text-sm">
-            <span className="w-3em flex justify-between text-text-dark">
-              <i>标</i>
-              <i>签</i>
-            </span>
-            <span className="mr-1">:</span>
-            {playlist.tags.map((tag, i) => (
-              <Fragment key={tag}>
-                <span className="mx-1 text-blue-4">{tag}</span>
-                {i < playlist.tags.length - 1 && <span>/</span>}
-              </Fragment>
-            ))}
-          </p>
+          {playlist.tags.length ? (
+            <p className="mt-2 flex items-center text-sm">
+              <span className="w-3em flex justify-between text-text-dark">
+                <i>标</i>
+                <i>签</i>
+              </span>
+              <span className="mr-1">:</span>
+              {playlist.tags.map((tag, i) => (
+                <Fragment key={tag + i}>
+                  <span className="mx-1 text-blue-4">{tag}</span>
+                  {i < playlist.tags.length - 1 && <span>/</span>}
+                </Fragment>
+              ))}
+            </p>
+          ) : null}
           <p className="mt-2 text-sm">
             <span className="text-text-dark">歌曲数</span>
             <span className="mr-1">:</span>
@@ -81,7 +83,7 @@ export default function PlaylistInfo({
             <span className="text-text-dark">播放数</span>
             <span className="mr-1">:</span>
             <span className="text-text-light-dark">
-              {numUnit(playlist.playCount)}
+              {playlist.playCountString}
             </span>
           </p>
           <div className="flex">
@@ -97,8 +99,8 @@ export default function PlaylistInfo({
                 </span>
               </p>
               <span className="mr-1">:</span>
-              {playlist.description.split('\n').map((item) => (
-                <Fragment key={item}>
+              {playlist.description.split('\n').map((item, i) => (
+                <Fragment key={item + i}>
                   <span className="select-auto text-text-light-dark">
                     {item}
                   </span>

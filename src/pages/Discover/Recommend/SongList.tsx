@@ -7,6 +7,7 @@ import useSwr from 'swr'
 import Content from './Content'
 import { getRecommendSongList, getRecommendSongOfDay } from '~/apis'
 import LazyImage from '~/components/LazyImage'
+import PlayerPlayFill from '~/components/PlayerPlayFill'
 import Rectangle from '~/components/Rectangle'
 import { numUnit } from '~/utils'
 
@@ -15,7 +16,14 @@ export default function SongList() {
     ['discover/recommend/song-list', { limit: 9 }],
     ([, params]) => getRecommendSongList(params),
   )
-  const songList = useMemo(() => data?.result || [], [data])
+  const songList = useMemo(
+    () =>
+      (data?.result || []).map((item) => ({
+        ...item,
+        playCount: numUnit(item.playCount),
+      })),
+    [data],
+  )
   return (
     <Content title="推荐歌单">
       <div className="grid grid-cols-5 gap-5">
@@ -27,12 +35,10 @@ export default function SongList() {
                 <span className="relative top-2px mr-1 icon">
                   <Icon icon="iconamoon:player-play" />
                 </span>
-                <span>{numUnit(item.playCount)}</span>
+                <span>{item.playCount}</span>
               </p>
               <LazyImage className="h-full w-full" src={item.picUrl} />
-              <span className="absolute bottom-4 right-4 icon h-9 w-9 flex-center rounded-full bg-white/50 text-xl text-brand opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <Icon icon="iconamoon:player-play-fill" />
-              </span>
+              <PlayerPlayFill position="rb" blur="light" size="small" />
             </Rectangle>
             <p className="line-clamp-2 mt-1 text-13px leading-relaxed text-text-dark">
               <span className="cursor-pointer">{item.name}</span>
@@ -74,9 +80,7 @@ function SongOfDay() {
             <Icon icon={`arcticons:calendar-${day}`} />
           </span>
         </div>
-        <span className="absolute bottom-4 right-4 icon h-9 w-9 flex-center rounded-full bg-white/50 text-xl text-brand opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <Icon icon="iconamoon:player-play-fill" />
-        </span>
+        <PlayerPlayFill position="rb" blur="light" size="small" />
       </Rectangle>
       <p className="mt-1 text-13px leading-relaxed text-text-dark">
         <span className="cursor-pointer">每日歌曲推荐</span>

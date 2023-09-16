@@ -7,6 +7,7 @@ import Content from './Content'
 import { getRecommendNewSong } from '~/apis'
 import Artists from '~/components/Artists'
 import LazyImage from '~/components/LazyImage'
+import PlayerPlayFill from '~/components/PlayerPlayFill'
 
 export default function NewSong() {
   const { isLoading, data } = useSwr('discover/recommend/new-song', () =>
@@ -49,9 +50,7 @@ export default function NewSong() {
                 >
                   <div className="relative ml-4 h-17 w-17 flex cursor-pointer overflow-hidden rounded-md">
                     <LazyImage className="h-full w-full" src={item.picUrl} />
-                    <span className="absolute left-50% top-50% z-1 icon h-7 w-7 flex-center rounded-full bg-white/50 text-brand -translate-50%">
-                      <Icon icon="iconamoon:player-play-fill" />
-                    </span>
+                    <PlayerPlayFill blur="light" size="smaller" hover={false} />
                   </div>
                   <span className="px-3 text-sm text-text-light">
                     {item.sort}
