@@ -48,7 +48,7 @@ export default function NewSong() {
                     item.id === selectId ? 'bg-gray-100' : 'bg-transparent',
                   )}
                 >
-                  <div className="relative ml-4 h-17 w-17 flex cursor-pointer overflow-hidden rounded-md">
+                  <div className="relative ml-4 h-17 w-17 flex cursor-pointer overflow-hidden border rounded-md">
                     <LazyImage className="h-full w-full" src={item.picUrl} />
                     <PlayerPlayFill blur="light" size="smaller" hover={false} />
                   </div>

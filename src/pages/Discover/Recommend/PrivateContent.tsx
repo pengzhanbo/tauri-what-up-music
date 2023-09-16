@@ -25,7 +25,7 @@ export default function PrivateContent() {
           <section key={item.id}>
             <Rectangle
               ratio={0.5625}
-              className="cursor-pointer overflow-hidden rounded-md"
+              className="cursor-pointer overflow-hidden border rounded-md"
             >
               <LazyImage className="h-full w-full" src={item.sPicUrl} />
               <span className="absolute left-2 top-2 icon h-7 w-7 flex-center border border-white/50 rounded-full bg-black bg-opacity-30 text-white">

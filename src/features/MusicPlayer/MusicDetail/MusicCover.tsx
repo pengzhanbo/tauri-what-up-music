@@ -30,10 +30,10 @@ export default function MusicCover({ cover }: { cover: string }) {
       <FiringPin active={playerState.playing} />
       <div className="mt-24 h-320px w-320px rounded-full bg-black/6 pt-10px">
         <div
-          className="mx-auto h-300px w-300px origin-center overflow-hidden rounded-full bg-cover pt-40px"
+          className="mx-auto h-300px w-300px origin-center overflow-hidden rounded-full bg-cover pt-40px will-change-transform"
           style={{
             backgroundImage: 'url(/bg-album.tiff)',
-            transform: `rotate(${rotate}deg)`,
+            transform: `rotate(${rotate}deg) translate3d(0, 0, 0)`,
           }}
         >
           <div

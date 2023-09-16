@@ -89,7 +89,7 @@ export default function Artist() {
       <div className="grid grid-cols-5 w-full gap-5 pt-6">
         {artists.map((item) => (
           <section key={item.id} className="pb-4">
-            <Rectangle className="cursor-pointer overflow-hidden rounded-md">
+            <Rectangle className="cursor-pointer overflow-hidden border rounded-md">
               <LazyImage src={item.img1v1Url} className="h-full w-full" />
             </Rectangle>
             <p className="item-center flex justify-between pt-1">

@@ -19,7 +19,7 @@ export default function PlayList({ cat }: { cat: string | number }) {
         {playlist.map((item) => (
           <section key={item.id} className="mb-6">
             <Rectangle
-              className="group cursor-pointer overflow-hidden rounded-md"
+              className="group cursor-pointer overflow-hidden border rounded-md"
               onClick={() => goPlayListDetail(item.id)}
             >
               <LazyImage src={item.coverImgUrl} className="h-full w-full" />

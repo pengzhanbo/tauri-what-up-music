@@ -30,7 +30,7 @@ export default function Podcast() {
               <section key={item.id} className="border-t border-t-gray-100">
                 <div className="flex-center cursor-default rounded-md py-3 pr-4 transition-colors duration-300 -mx-4 hover:bg-gray-100">
                   <LazyImage
-                    className="ml-4 h-24 w-24 cursor-pointer overflow-hidden rounded-md"
+                    className="ml-4 h-24 w-24 cursor-pointer overflow-hidden border rounded-md"
                     src={item.picUrl}
                   />
                   <div className="flex-1 pl-4 pr-4">

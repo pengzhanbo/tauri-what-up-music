@@ -26,7 +26,7 @@ export default function NewMV() {
           <section key={item.id}>
             <Rectangle
               ratio={0.5625}
-              className="group cursor-pointer overflow-hidden rounded-md"
+              className="group cursor-pointer overflow-hidden border rounded-md"
             >
               <p className="absolute right-0 top-0 z-1 flex-center pr-2 text-sm text-white opacity-100 transition-opacity duration-300 group-hover:opacity-0">
                 <span className="relative top-2px mr-1 icon">

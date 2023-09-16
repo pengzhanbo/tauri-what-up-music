@@ -87,7 +87,7 @@ function PlaylistContent({ list }: PlaylistContentProps) {
       {list.map((item) => (
         <div key={item.id} className="flex-center pb-2">
           <div
-            className="group relative h-140px w-140px cursor-pointer overflow-hidden rounded-md"
+            className="group relative h-140px w-140px cursor-pointer overflow-hidden border rounded-md"
             onClick={() => goPlayListDetail(item.id)}
           >
             <LazyImage src={item.coverImgUrl} className="h-full w-full" />

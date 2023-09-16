@@ -25,8 +25,7 @@ export default function MusicLyric() {
   const [active, setActive] = useState(0)
 
   useEffect(() => {
-    const scrollTo = (y: number) =>
-      scrollRef.current?.scrollTo({ top: y, behavior: 'smooth' })
+    const scrollTo = (y: number) => scrollRef.current?.scrollTo({ top: y })
     const ch = scrollRef.current?.clientHeight || 0
     const move = (ch * 3) / 5
     const heightList = Array.from(scrollRef.current?.children || []).map(
