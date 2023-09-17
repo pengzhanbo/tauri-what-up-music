@@ -6,6 +6,7 @@ import {
   IconHelp,
 } from '~/components/Icons'
 import { usePlayer } from '~/hooks'
+import { scrollTo } from '~/utils'
 
 let isUserScrolling = false
 let scrollTimer: any
@@ -25,7 +26,8 @@ export default function MusicLyric() {
   const [active, setActive] = useState(0)
 
   useEffect(() => {
-    const scrollTo = (y: number) => scrollRef.current?.scrollTo({ top: y })
+    const to = (top: number) =>
+      scrollTo(top, { getContainer: () => scrollRef.current! })
     const ch = scrollRef.current?.clientHeight || 0
     const move = (ch * 3) / 5
     const heightList = Array.from(scrollRef.current?.children || []).map(
@@ -34,15 +36,15 @@ export default function MusicLyric() {
         (el as HTMLParagraphElement).offsetTop,
     )
     let oldIndex = -1
-    let oldSt = 0
+    let oldSt = scrollRef.current?.scrollTop || 0
     const scrollLyric = () => {
       if (player.paused()) return
-      const currentTime = player.seek()
+      const currentTime = player.seek() * 1000
       const st = scrollRef.current?.scrollTop || 0
       let index = 0
       while (index < lyric.length) {
         const _i = index + 1 > lyric.length ? lyric.length : index + 1
-        if (!lyric[_i] || lyric[_i].timestamp >= currentTime * 1000) break
+        if (!lyric[_i] || lyric[_i].timestamp >= currentTime) break
         index++
       }
       if (
@@ -54,7 +56,7 @@ export default function MusicLyric() {
         setActive(index)
         oldIndex = index
         oldSt = heightList[index]
-        scrollTo(oldSt - move)
+        to(oldSt - move)
       }
       requestAnimationFrame(scrollLyric)
     }
@@ -62,12 +64,17 @@ export default function MusicLyric() {
     const onPlay = () => {
       if (isReplay) {
         isReplay = false
-        scrollTo(0)
+        to(0)
+        oldSt = 0
       }
       scrollLyric()
     }
     const onEnd = () => {
       isReplay = true
+    }
+
+    if (!player.player.paused) {
+      scrollLyric()
     }
 
     player.player.on('play', onPlay)
@@ -77,12 +84,12 @@ export default function MusicLyric() {
       player.player.off('play', onPlay)
       player.player.off('ended', onEnd)
     }
-  }, [lyric, scrollRef])
+  }, [lyric, scrollRef.current, player])
 
   return (
     <div className="h-1px flex flex-1 pt-8">
       <div
-        className="lyric-content h-full scroll-container flex-1 border-r text-text-light-dark"
+        className="lyric-content h-full flex-1 overflow-y-scroll scroll-unset border-r text-text-light-dark"
         ref={scrollRef}
         onWheel={scrolling}
       >
