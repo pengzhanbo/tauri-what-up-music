@@ -9,6 +9,7 @@ import { getRecommendSongList, getRecommendSongOfDay } from '~/apis'
 import LazyImage from '~/components/LazyImage'
 import PlayerPlayFill from '~/components/PlayerPlayFill'
 import Rectangle from '~/components/Rectangle'
+import { usePageNavigate } from '~/hooks'
 import { numUnit } from '~/utils'
 
 export default function SongList() {
@@ -24,13 +25,17 @@ export default function SongList() {
       })),
     [data],
   )
+  const { goPlayListDetail } = usePageNavigate()
   return (
     <Content title="推荐歌单">
       <div className="grid grid-cols-5 gap-5">
         <SongOfDay />
         {songList.map((item) => (
           <section className="pb-6" key={item.id}>
-            <Rectangle className="group cursor-pointer overflow-hidden border rounded-md">
+            <Rectangle
+              className="group cursor-pointer overflow-hidden border rounded-md"
+              onClick={() => goPlayListDetail(item.id)}
+            >
               <p className="absolute right-0 top-0 flex-center pr-2 text-sm text-white">
                 <span className="relative top-2px mr-1 icon">
                   <Icon icon="iconamoon:player-play" />
@@ -41,7 +46,12 @@ export default function SongList() {
               <PlayerPlayFill position="rb" blur="light" size="small" />
             </Rectangle>
             <p className="line-clamp-2 mt-1 text-13px leading-relaxed text-text-dark">
-              <span className="cursor-pointer">{item.name}</span>
+              <span
+                className="cursor-pointer"
+                onClick={() => goPlayListDetail(item.id)}
+              >
+                {item.name}
+              </span>
             </p>
           </section>
         ))}

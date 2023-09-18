@@ -8,6 +8,7 @@ import { getRecommendNewSong } from '~/apis'
 import Artists from '~/components/Artists'
 import LazyImage from '~/components/LazyImage'
 import PlayerPlayFill from '~/components/PlayerPlayFill'
+import { usePlayer } from '~/hooks'
 
 export default function NewSong() {
   const { isLoading, data } = useSwr('discover/recommend/new-song', () =>
@@ -29,6 +30,8 @@ export default function NewSong() {
     return chunk(list, data?.category || 5)
   }, [data])
 
+  const { loadSong } = usePlayer()
+
   if (isLoading) return null
 
   return (
@@ -41,6 +44,7 @@ export default function NewSong() {
                 key={item.id}
                 className="border-t border-t-gray-100"
                 onClick={() => setSelectId(item.id)}
+                onDoubleClick={() => loadSong(item.id)}
               >
                 <div
                   className={cn(
@@ -48,7 +52,10 @@ export default function NewSong() {
                     item.id === selectId ? 'bg-gray-100' : 'bg-transparent',
                   )}
                 >
-                  <div className="relative ml-4 h-17 w-17 flex cursor-pointer overflow-hidden border rounded-md">
+                  <div
+                    className="relative ml-4 h-17 w-17 flex cursor-pointer overflow-hidden border rounded-md"
+                    onClick={() => loadSong(item.id)}
+                  >
                     <LazyImage className="h-full w-full" src={item.picUrl} />
                     <PlayerPlayFill blur="light" size="smaller" hover={false} />
                   </div>

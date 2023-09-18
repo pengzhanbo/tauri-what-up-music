@@ -34,6 +34,7 @@ export const IconArrowDownDouble = genIcon('ri:arrow-down-double-fill')
 export const IconArrowDown = genIcon('ep:arrow-down-bold')
 
 export const IconForward = genIcon('eva:arrow-ios-forward-fill')
+export const IconBack = genIcon('eva:arrow-ios-back-fill')
 
 export const IconArrowChangeUp = genIcon('mingcute:arrow-up-fill')
 export const IconArrowChangeDown = genIcon('mingcute:arrow-down-fill')
