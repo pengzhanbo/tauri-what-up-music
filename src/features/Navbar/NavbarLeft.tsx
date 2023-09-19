@@ -2,7 +2,7 @@ import cn from 'classnames'
 import { useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { IconArrowDown, IconBack, IconForward } from '~/components/Icons'
-import { useNavigateHistory, usePlayer, useWindowDrag } from '~/hooks'
+import { usePageNavigate, usePlayer, useWindowDrag } from '~/hooks'
 
 export default function NavbarLeft() {
   const onDrag = useWindowDrag()
@@ -10,8 +10,8 @@ export default function NavbarLeft() {
   const { showDetail } = playerState
   const downRef = useRef(null)
   const historyRef = useRef(null)
-  const { isFirstHistory, isLatestHistory, backHistory, forwardHistory } =
-    useNavigateHistory()
+  const { forwardNavigate, backNavigate, isFirstHistory, isLatestHistory } =
+    usePageNavigate()
   const classes =
     'w-7 h-7 rounded-full flex-center bg-black/0 text-2xl transition-colors duration-300'
 
@@ -45,20 +45,20 @@ export default function NavbarLeft() {
             className={cn(
               classes,
               'mr-2',
-              isFirstHistory()
-                ? 'text-text-light'
+              isFirstHistory
+                ? 'text-text-lighter'
                 : 'text-text-light-dark hover:bg-black/6',
             )}
-            onClick={backHistory}
+            onClick={backNavigate}
           />
           <IconForward
             className={cn(
               classes,
-              isLatestHistory()
-                ? 'text-text-light'
+              isLatestHistory
+                ? 'text-text-lighter'
                 : 'text-text-light-dark hover:bg-black/6',
             )}
-            onClick={forwardHistory}
+            onClick={forwardNavigate}
           />
         </div>
       </CSSTransition>

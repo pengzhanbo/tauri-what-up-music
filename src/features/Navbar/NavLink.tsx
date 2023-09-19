@@ -1,5 +1,6 @@
 import cn from 'classnames'
-import { useMatch, useNavigate } from 'react-router-dom'
+import { useMatch } from 'react-router-dom'
+import { usePageNavigate } from '~/hooks'
 
 function NavLink({ link, text }: NavLinkProps) {
   const pathMath = useMatch({ path: link, caseSensitive: true, end: false })
@@ -10,7 +11,7 @@ function NavLink({ link, text }: NavLinkProps) {
       'text-text-darker font-semibold': pathMath,
     },
   )
-  const navigate = useNavigate()
+  const { navigate } = usePageNavigate()
   const mousedown = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault()
     e.stopPropagation()

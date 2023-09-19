@@ -3,11 +3,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import auth from './features/Auth/authSlice'
 import global from './features/Global/globalSlice'
 import player from './features/MusicPlayer/PlayerSlice'
+import navigate from './features/Navbar/navigateSlice'
 import userInfo from './features/UserInfo/userInfoSlice'
 
 export const store = configureStore({
   reducer: {
     global,
+    navigate,
     auth,
     userInfo,
     player,

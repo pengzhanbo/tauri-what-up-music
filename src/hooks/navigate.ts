@@ -1,18 +1,27 @@
 import { useMemoizedFn } from 'ahooks'
-import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { pushHistory } from './history'
+import { useAppDispatch, useAppSelector } from './store'
+import {
+  isFirstHistory,
+  isLatestHistory,
+  pushHistory,
+  updateCurrentHistoryIndex,
+} from '~/features/Navbar/navigateSlice'
 
 export const usePageNavigate = () => {
   const navigate = useNavigate()
-
-  const go = useCallback(
-    (path: string) => {
-      pushHistory(path)
-      navigate(path)
-    },
-    [navigate],
+  const dispatch = useAppDispatch()
+  const isFirst = useAppSelector(isFirstHistory)
+  const isLatest = useAppSelector(isLatestHistory)
+  const historyIndex = useAppSelector(
+    (state) => state.navigate.currentHistoryIndex,
   )
+  const history = useAppSelector((state) => state.navigate.history)
+
+  const go = useMemoizedFn((path: string) => {
+    dispatch(pushHistory(path))
+    navigate(path)
+  })
   const goHome = useMemoizedFn(() => go('/discover/recommend'))
   const goDiscoverPlaylist = useMemoizedFn(() => go('/discover/playlist'))
   const goDiscoverHighQuality = useMemoizedFn(() =>
@@ -26,6 +35,28 @@ export const usePageNavigate = () => {
     go(`/playlist/detail?id=${id}`),
   )
 
+  const forwardNavigate = useMemoizedFn(() => {
+    if (isLatest) return
+    let index = historyIndex
+    index++
+    if (index > history.length - 1) {
+      index = history.length - 1
+    }
+    dispatch(updateCurrentHistoryIndex(index))
+    navigate(history[index])
+  })
+
+  const backNavigate = useMemoizedFn(() => {
+    if (isFirst) return
+    let index = historyIndex
+    index--
+    if (index < 0) {
+      index = 0
+    }
+    dispatch(updateCurrentHistoryIndex(index))
+    navigate(history[index])
+  })
+
   return {
     goHome,
     goDiscoverPlaylist,
@@ -34,5 +65,11 @@ export const usePageNavigate = () => {
     goDiscoverArtist,
     goDiscoverLatestMusic,
     goPlayListDetail,
+
+    isFirstHistory: isFirst,
+    isLatestHistory: isLatest,
+    forwardNavigate,
+    backNavigate,
+    navigate: go,
   }
 }
