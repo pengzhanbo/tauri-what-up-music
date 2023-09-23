@@ -68,7 +68,7 @@ function SongOfDay() {
   const songImg = data?.data.dailySongs[0].al.picUrl || ''
   const day = new Date().getDate()
   return (
-    <section className="pb-4">
+    <section className="pb-6">
       <Rectangle className="group cursor-pointer overflow-hidden border rounded-md">
         <p className="absolute left-0 top-0 z-3 w-full bg-black bg-opacity-50 px-2 py-2 text-sm text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           根据您的音乐口味生成每日更新
