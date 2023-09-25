@@ -92,7 +92,7 @@ export default function Artist() {
             <Rectangle className="cursor-pointer overflow-hidden border rounded-md">
               <LazyImage src={item.img1v1Url} className="h-full w-full" />
             </Rectangle>
-            <p className="item-center flex justify-between pt-1">
+            <p className="items-center flex justify-between pt-1">
               <span className="cursor-pointer text-sm text-text-dark">
                 {item.name}
               </span>
