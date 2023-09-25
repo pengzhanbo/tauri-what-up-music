@@ -14,7 +14,7 @@ export default function SwipeItem({ children, onClick }: SwipeItemProps) {
 
   const className = cn(
     'absolute left-0 top-0 h-200px w-540px cursor-pointer overflow-hidden rounded-md',
-    'transition-all duration-500 scale-0 will-change-left,transform translate-z-0',
+    'transition-all duration-500 scale-0.5 will-change-left,transform translate-z-0',
     {
       'left-50% -translate-x-50% scale-100 z-2': isSelected,
       'left-0 z-1 translate-x-0 scale-85 origin-center-left': isPrevious,
