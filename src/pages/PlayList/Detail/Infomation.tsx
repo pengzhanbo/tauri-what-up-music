@@ -46,7 +46,7 @@ export default function PlaylistInfo({ playlist }: PlaylistInfoProps) {
             {playlist.creator.nickname}
           </p>
           <p className="ml-4 text-sm text-text-light-dark">
-            {playlist.createTimeString}创建
+            {playlist.createTimeString} 创建
           </p>
         </div>
         <div className="mb-4 mt-6 flex items-center">
