@@ -59,7 +59,7 @@ export default function PlaylistInfo({ playlist }: PlaylistInfoProps) {
           <Button text="下载全部" icon="bi:download" />
         </div>
         <div>
-          {playlist.tags.length ? (
+          {playlist.tags.length && (
             <p className="mt-2 flex items-center text-sm">
               <span className="w-3em flex justify-between text-text-dark">
                 <i>标</i>
@@ -73,7 +73,7 @@ export default function PlaylistInfo({ playlist }: PlaylistInfoProps) {
                 </Fragment>
               ))}
             </p>
-          ) : null}
+          )}
           <p className="mt-2 text-sm">
             <span className="text-text-dark">歌曲数</span>
             <span className="mr-1">:</span>

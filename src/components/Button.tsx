@@ -18,7 +18,7 @@ export default forwardRef<HTMLDivElement, ButtonProps>(function Button(
   const isText = ['string', 'number'].includes(typeof children)
   const buttonStyle = {
     default: 'bg-white text-text hover:bg-light-500 border',
-    primary: 'bg-brand-gradient text-white hover:bg-brand',
+    primary: 'bg-brand-gradient text-white hover:bg-brand text-blue-4',
   }
   const sizeStyle = {
     basic: 'text-14px py-2',
