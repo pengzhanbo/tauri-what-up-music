@@ -15,7 +15,9 @@ export default function NavHead({
           <>
             评论
             <span className={current === 1 ? 'text-brand' : 'text-text-light'}>
-              ({numUnit(commentCount)})
+              (
+              {numUnit(commentCount)}
+              )
             </span>
           </>
         ),
@@ -29,7 +31,7 @@ export default function NavHead({
   return (
     <div className="mx-8 flex items-center border-b pt-10">
       <div className="flex flex-1 items-center text-text-dark">
-        {navList.map((item) => (
+        {navList.map(item => (
           <p
             key={item.value}
             className={cn(

@@ -9,7 +9,8 @@ export const getSongDetail = request.post<
     ids: string | number
   },
   GetSongDetailResponse
->('/song/detail')
+>('/song/detail',
+)
 
 export interface GetSongDetailResponse {
   code: number

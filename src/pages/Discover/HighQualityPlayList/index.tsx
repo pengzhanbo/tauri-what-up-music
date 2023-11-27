@@ -22,13 +22,14 @@ interface CatListProps {
   onChange: (cat: string) => void
 }
 
-const CatList = forwardRef<HTMLDivElement, CatListProps>(function CatList(
+const CatList = forwardRef<HTMLDivElement, CatListProps>((
   { cat, show, onChange },
   ref,
-) {
+) => {
   const { isLoading, tags } = usePlayListHighQualityTags()
 
-  if (isLoading) return null
+  if (isLoading)
+    return null
 
   return (
     <CSSTransition
@@ -52,7 +53,7 @@ const CatList = forwardRef<HTMLDivElement, CatListProps>(function CatList(
           </span>
         </div>
         <div className="grid grid-cols-5 gap-4 px-6 py-6 text-13px font-400 text-text-dark">
-          {tags.map((tag) => (
+          {tags.map(tag => (
             <div
               key={`${tag.id}${tag.name}`}
               className="cursor-pointer pb-1 hover:text-brand"
@@ -76,6 +77,8 @@ const CatList = forwardRef<HTMLDivElement, CatListProps>(function CatList(
   )
 })
 
+CatList.displayName = 'CatList'
+
 interface PlaylistContentProps {
   list: GetHighQualityPlayListResponse['playlists']
 }
@@ -84,7 +87,7 @@ function PlaylistContent({ list }: PlaylistContentProps) {
   const { goPlayListDetail } = usePageNavigate()
   return (
     <div className="grid grid-cols-2 gap-4 pt-2">
-      {list.map((item) => (
+      {list.map(item => (
         <div key={item.id} className="flex-center pb-2">
           <div
             className="group relative h-140px w-140px cursor-pointer overflow-hidden border rounded-md"
@@ -121,7 +124,8 @@ function PlaylistContent({ list }: PlaylistContentProps) {
                 style={{
                   backgroundImage: `url(${item.creator?.avatarDetail?.identityIconUrl})`,
                 }}
-              ></span>
+              >
+              </span>
             </p>
             <p className="flex items-center">
               {item.tag && (
@@ -155,16 +159,18 @@ export default function HighQualityPlayList() {
   const { playlist, setSize, isUpdating, hasMore } = usePlayListHighQuality(cat)
 
   useScrollBottom(scrollRef, () => {
-    if (isUpdating.current) return
-    if (!hasMore.current) return
-    setSize((size) => size + 1)
+    if (isUpdating.current)
+      return
+    if (!hasMore.current)
+      return
+    setSize(size => size + 1)
   })
 
   const updateCat = useCallback((cat: string) => {
     setCat(cat)
     setSize(1)
     setShow(false)
-  }, [])
+  }, [setSize])
 
   return (
     <div
@@ -180,7 +186,7 @@ export default function HighQualityPlayList() {
           icon="cil:filter"
           size="sm"
           ref={btnRef}
-          onClick={() => setShow((s) => !s)}
+          onClick={() => setShow(s => !s)}
         >
           {cat || '筛选'}
         </Button>

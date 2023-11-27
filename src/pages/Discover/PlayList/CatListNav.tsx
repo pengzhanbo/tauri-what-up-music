@@ -12,22 +12,23 @@ export interface CatListNavProps extends CatList {
   currentCat: Cat
 }
 
-const SelectCat = forwardRef<
-  HTMLDivElement,
-  { cat: string; onClick?: () => void }
->(function SelectCat({ cat, onClick }, ref) {
-  return (
-    <div
-      className="h-30px w-30 flex-center cursor-pointer border rounded-full bg-transparent transition hover:bg-gray-100"
-      ref={ref}
-      onClick={onClick}
-    >
-      <span className="text-13px leading-13px text-text-dark">{cat}</span>
-      <IconForward className="relative text-2xl text-text-light -top-2px" />
-    </div>
-  )
-})
+const SelectCat = forwardRef<HTMLDivElement, { cat: string, onClick?: () => void }>(
+  // eslint-disable-next-line prefer-arrow-callback
+  function SelectCat({ cat, onClick }, ref) {
+    return (
+      <div
+        className="h-30px w-30 flex-center cursor-pointer border rounded-full bg-transparent transition hover:bg-gray-100"
+        ref={ref}
+        onClick={onClick}
+      >
+        <span className="text-13px leading-13px text-text-dark">{cat}</span>
+        <IconForward className="relative text-2xl text-text-light -top-2px" />
+      </div>
+    )
+  },
+)
 
+// eslint-disable-next-line prefer-arrow-callback
 const HotCatList = memo(function HotCatList({
   hotCatList,
   currentCat,
@@ -35,7 +36,7 @@ const HotCatList = memo(function HotCatList({
 }: Pick<CatListNavProps, 'hotCatList' | 'currentCat' | 'onChange'>) {
   return (
     <div className="flex items-center text-sm text-text-light-dark -mr-1">
-      {hotCatList.map((item) => (
+      {hotCatList.map(item => (
         <span
           key={item.name}
           className={cn(
@@ -62,6 +63,7 @@ type AllCateListProps = Pick<
 > & { show: boolean }
 
 const AllCateList = forwardRef<HTMLDivElement, AllCateListProps>(
+  // eslint-disable-next-line prefer-arrow-callback
   function AllCateList(
     { allCatList, defaultCat, currentCat, onChange, show },
     ref,
@@ -93,7 +95,7 @@ const AllCateList = forwardRef<HTMLDivElement, AllCateListProps>(
             </span>
           </div>
           <div className="px-6 pt-4">
-            {allCatList.map((category) => (
+            {allCatList.map(category => (
               <div key={category.name} className="flex items-start pb-6">
                 <div className="w-30 flex items-center text-text-lighter">
                   <span className="mr-2 icon text-3xl">
@@ -102,7 +104,7 @@ const AllCateList = forwardRef<HTMLDivElement, AllCateListProps>(
                   <span className="text-13px">{category.name}</span>
                 </div>
                 <div className="grid grid-cols-6 flex-1">
-                  {category.catList.map((item) => (
+                  {category.catList.map(item => (
                     <div key={item.name} className="mb-2">
                       <p
                         className={cn(
@@ -132,6 +134,7 @@ const AllCateList = forwardRef<HTMLDivElement, AllCateListProps>(
   },
 )
 
+// eslint-disable-next-line prefer-arrow-callback
 export default memo(function CatListNav({
   allCatList,
   defaultCat,
@@ -148,7 +151,7 @@ export default memo(function CatListNav({
   const handleClick = useCallback((cat: Cat) => {
     setShow(false)
     onChange(cat)
-  }, [])
+  }, [onChange])
 
   return (
     <div className="relative pt-4">
@@ -156,7 +159,7 @@ export default memo(function CatListNav({
         <SelectCat
           ref={selectRef}
           cat={currentCat.name}
-          onClick={() => setShow((show) => !show)}
+          onClick={() => setShow(show => !show)}
         />
         <HotCatList
           hotCatList={hotCatList}

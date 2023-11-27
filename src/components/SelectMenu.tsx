@@ -2,6 +2,7 @@ import cn from 'classnames'
 import { memo } from 'react'
 import type { Options } from '~/typing'
 
+// eslint-disable-next-line prefer-arrow-callback
 export default memo(function SelectMenu({
   className,
   title,
@@ -14,7 +15,8 @@ export default memo(function SelectMenu({
     <div className={`flex pb-1 ${className}`}>
       {title && (
         <div className="h-28px cursor-default text-sm leading-28px">
-          {title}：
+          {title}
+          ：
         </div>
       )}
       <div className="flex flex-1 flex-wrap items-center text-sm text-text-light-dark">

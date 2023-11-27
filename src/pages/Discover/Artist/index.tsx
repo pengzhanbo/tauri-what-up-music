@@ -28,7 +28,7 @@ export default function Artist() {
   const isUpdating = useRef(false)
 
   const { data, setSize, isLoading } = useSwrInfinite(
-    (page) => [
+    page => [
       'artists/list',
       { limit, offset: page * limit, type, area, initial },
     ],
@@ -38,14 +38,15 @@ export default function Artist() {
 
   const artists = useMemo(() => {
     const artists: GetArtistListResponse['artists'] = []
-    data?.forEach((item) => artists.push(...item.artists))
+    data?.forEach(item => artists.push(...item.artists))
     return artists
   }, [data])
 
   useScrollBottom(ref, () => {
-    if (isUpdating.current) return
+    if (isUpdating.current)
+      return
     isUpdating.current = true
-    setSize((size) => size + 1)
+    setSize(size => size + 1)
   })
 
   const updateArea = useMemoizedFn((area: string) => {
@@ -87,7 +88,7 @@ export default function Artist() {
         onClick={updateInitial}
       />
       <div className="grid grid-cols-5 w-full gap-5 pt-6">
-        {artists.map((item) => (
+        {artists.map(item => (
           <section key={item.id} className="pb-4">
             <Rectangle className="cursor-pointer overflow-hidden border rounded-md">
               <LazyImage src={item.img1v1Url} className="h-full w-full" />

@@ -35,11 +35,13 @@ function MusicInfo() {
             {song?.name ? song.name : '歌曲名称'}
           </p>
           <span className="mx-1 text-text-light">-</span>
-          {song?.ar ? (
-            <Artists artists={song?.ar} />
-          ) : (
-            <p className="m-0 text-12px text-text-light">歌曲作者</p>
-          )}
+          {song?.ar
+            ? (
+              <Artists artists={song?.ar} />
+              )
+            : (
+              <p className="m-0 text-12px text-text-light">歌曲作者</p>
+              )}
         </div>
         <div
           className="mt-1 flex cursor-default items-center text-12px text-text-light"

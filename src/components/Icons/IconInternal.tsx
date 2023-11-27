@@ -3,9 +3,9 @@ import { forwardRef, memo } from 'react'
 
 export interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {}
 
-const genIcon = (icon: string) => {
+function genIcon(icon: string) {
   const IconInternal = memo(
-    forwardRef<HTMLSpanElement, IconProps>(function IconInternal(props, ref) {
+    forwardRef<HTMLSpanElement, IconProps>((props, ref) => {
       // eslint-disable-next-line react/prop-types
       const { className, ...rest } = props
       return (

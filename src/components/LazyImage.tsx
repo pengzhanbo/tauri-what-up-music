@@ -12,7 +12,7 @@ export type CacheMapItem = [
 ]
 const cache = new Map<string, CacheMapItem>()
 
-const useLazyImage = (src: string, update: (blob: string) => void) => {
+function useLazyImage(src: string, update: (blob: string) => void) {
   const [blob, setBlob] = useState<string>()
   const [waiting, setWaiting] = useState(false)
   const ref = useRef(null)
@@ -22,8 +22,10 @@ const useLazyImage = (src: string, update: (blob: string) => void) => {
 
   if (cache.has(src)) {
     const cached = cache.get(src)!
-    if (cached[2]) return { blob: cached[2], ref }
-  } else {
+    if (cached[2])
+      return { blob: cached[2], ref }
+  }
+  else {
     cache.set(src, [
       () =>
         new Promise((resolve) => {
@@ -43,9 +45,9 @@ const useLazyImage = (src: string, update: (blob: string) => void) => {
 
   if (inViewport && !cached[2] && !blob && !waiting) {
     setWaiting(true)
-    if (!cached[1]) {
+    if (!cached[1])
       cached[1] = cached[0]()
-    }
+
     cached[1].then((url) => {
       setBlob(url)
       cached[2] = url
@@ -58,6 +60,7 @@ const useLazyImage = (src: string, update: (blob: string) => void) => {
   return { blob, ref }
 }
 
+// eslint-disable-next-line prefer-arrow-callback
 const SyncLazyImage = memo(function SyncLazyImage({
   src,
   alt,
@@ -113,11 +116,13 @@ export default function LazyImage(props: LazyImageProps) {
    * 加载完成，并完成动画过渡显示图片后，替换为 静态节点，删除对节点的监听。
    * 避免在多图场景下，同时监听多个元素变化造成卡顿现象。
    */
-  return blob ? (
-    <SyncLazyImage src={blob} {...other} />
-  ) : (
-    <AsyncLazyImage {...props} setBlob={setBlob} />
-  )
+  return blob
+    ? (
+      <SyncLazyImage src={blob} {...other} />
+      )
+    : (
+      <AsyncLazyImage {...props} setBlob={setBlob} />
+      )
 }
 
 export interface LazyImageProps {

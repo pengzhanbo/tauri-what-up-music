@@ -9,7 +9,8 @@ export const getDiscoverBanner = request.post<
     code: number
     banners: DiscoverBannerResponseItem[]
   }
->('/banner?type=0')
+>('/banner?type=0',
+)
 
 export interface DiscoverBannerResponseItem {
   imageUrl: string

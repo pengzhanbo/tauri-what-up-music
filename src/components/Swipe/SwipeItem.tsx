@@ -4,13 +4,13 @@ import { useCallback, useContext } from 'react'
 import SwipeContext from './swipeContext'
 
 export default function SwipeItem({ children, onClick }: SwipeItemProps) {
-  const { index, currentIndex, total, setCurrentIndex } =
-    useContext(SwipeContext)
+  const { index, currentIndex, total, setCurrentIndex }
+    = useContext(SwipeContext)
   const isSelected = index === currentIndex
-  const isPrevious =
-    currentIndex - index === 1 || (currentIndex === 0 && index === total - 1)
-  const isNext =
-    index - currentIndex === 1 || (currentIndex === total - 1 && index === 0)
+  const isPrevious
+    = currentIndex - index === 1 || (currentIndex === 0 && index === total - 1)
+  const isNext
+    = index - currentIndex === 1 || (currentIndex === total - 1 && index === 0)
 
   const className = cn(
     'absolute left-0 top-0 h-200px w-540px cursor-pointer overflow-hidden rounded-md',
@@ -23,11 +23,11 @@ export default function SwipeItem({ children, onClick }: SwipeItemProps) {
   )
 
   const handleClick = useCallback(() => {
-    if (isPrevious || isNext) {
+    if (isPrevious || isNext)
       setCurrentIndex(index)
-    } else {
+
+    else
       onClick?.(index)
-    }
   }, [index, isPrevious, isNext, setCurrentIndex, onClick])
 
   return (

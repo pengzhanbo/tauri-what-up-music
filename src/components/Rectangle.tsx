@@ -2,6 +2,7 @@ import { isNumber } from '@pengzhanbo/utils'
 import cn from 'classnames'
 import { memo } from 'react'
 
+// eslint-disable-next-line prefer-arrow-callback
 export default memo(function Rectangle({
   size = '100%',
   ratio = 1,

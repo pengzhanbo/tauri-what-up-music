@@ -15,7 +15,7 @@ import {
 } from '~/apis'
 import { formatDuration, numUnit, padZero } from '~/utils'
 
-export const usePlayListHighQualityFirst = (cat: string | number) => {
+export function usePlayListHighQualityFirst(cat: string | number) {
   const { data, ...rest } = useSWR(
     ['discover/playlist/high-quality-1', cat],
     ([, cat]) => getHighQualityPlayList({ limit: 1, cat }),
@@ -35,7 +35,7 @@ export const usePlayListHighQualityFirst = (cat: string | number) => {
   return { highQuality, ...rest }
 }
 
-export const usePlayListDetail = (id: number | undefined) => {
+export function usePlayListDetail(id: number | undefined) {
   const { data, ...rest } = useSWR(
     () => (id ? ['/playlist/detail+songs', { id }] : null),
     async ([, params]) => {
@@ -70,7 +70,7 @@ export const usePlayListDetail = (id: number | undefined) => {
       (data?.songs || []).map((item, i) => ({
         ...item,
         sort: padZero(i + 1),
-        ars: item.ar.map((item) => item.name).join('/'),
+        ars: item.ar.map(item => item.name).join('/'),
         duration: formatDuration(item.dt),
         tnsStr: item.tns && item.tns[0] ? item.tns[0] : '',
       })),
@@ -80,16 +80,15 @@ export const usePlayListDetail = (id: number | undefined) => {
   return { playlist, songs, ...rest }
 }
 
-export const usePlayListHighQualityTags = () => {
+export function usePlayListHighQualityTags() {
   const { data, ...rest } = useSWR('discover/playlist/high-quality/tags', () =>
-    getHighQualityPlayListTags(),
-  )
+    getHighQualityPlayListTags())
   const tags = useMemo(() => data?.tags || [], [data])
 
   return { tags, ...rest }
 }
 
-export const usePlayListHighQuality = (cat: string) => {
+export function usePlayListHighQuality(cat: string) {
   const isUpdating = useRef(true)
   const hasMore = useRef(true)
   const {
@@ -99,7 +98,8 @@ export const usePlayListHighQuality = (cat: string) => {
   } = useSWRInfinite(
     (_, preData: GetHighQualityPlayListResponse) => {
       const params: GetHighQualityPlayListParams = { cat, limit: 50 }
-      if (preData) params.before = preData.lasttime
+      if (preData)
+        params.before = preData.lasttime
       return ['discover/playlist/high-quality', params]
     },
     ([, params]) => getHighQualityPlayList(params),
@@ -116,7 +116,7 @@ export const usePlayListHighQuality = (cat: string) => {
     data?.forEach((item) => {
       playlist.push(...item.playlists)
     })
-    return playlist.map((item) => ({
+    return playlist.map(item => ({
       ...item,
       playCount: numUnit(item.playCount),
       coverImgUrl: `${item.coverImgUrl.split('?')[0]}?param=600y600`,

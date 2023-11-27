@@ -26,6 +26,6 @@ export const artistConditionOptions: ArtistTypeOptionItem[] = [
   { label: '热门', value: '-1' },
   ...'abcdefghijklmnopqrstuvwxyz'
     .split('')
-    .map((letter) => ({ label: letter.toUpperCase(), value: letter })),
+    .map(letter => ({ label: letter.toUpperCase(), value: letter })),
   { label: '#', value: '0' },
 ]

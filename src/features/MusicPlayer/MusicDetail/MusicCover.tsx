@@ -23,7 +23,7 @@ export default function MusicCover({ cover }: { cover: string }) {
 
     player.player.on('play', animation)
     return () => player.player.off('play', animation)
-  }, [])
+  }, [player])
 
   return (
     <div className="relative w-320px">
@@ -39,7 +39,8 @@ export default function MusicCover({ cover }: { cover: string }) {
           <div
             className="mx-auto h-220px w-220px overflow-hidden border border-5px border-gray-900 rounded-full bg-cover"
             style={{ backgroundImage: `url(${cover})` }}
-          ></div>
+          >
+          </div>
         </div>
       </div>
     </div>

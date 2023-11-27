@@ -21,5 +21,5 @@ export interface UserPlayListParams {
 /**
  * 传入用户 id, 可以获取用户歌单
  */
-export const getUserPlayList =
-  request.post<UserPlayListParams>('/user/playlist')
+export const getUserPlayList
+  = request.post<UserPlayListParams>('/user/playlist')

@@ -33,12 +33,14 @@ function Progress({
           <span
             className="absolute h-12px w-12px cursor-pointer rounded-full bg-brand opacity-0 shadow-sm transition-opacity -right-6px -top-5px data-[is-mouse-move]:opacity-100 group-hover:opacity-100"
             ref={ref}
-          ></span>
+          >
+          </span>
         </div>
         <div
           className="absolute left-0 top-0 z-0 h-full bg-white"
           style={{ width: preloadWidth }}
-        ></div>
+        >
+        </div>
       </div>
     </div>
   )

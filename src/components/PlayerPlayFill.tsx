@@ -10,6 +10,7 @@ export interface PlayerPlayFillProps extends IconProps {
   hover?: boolean
 }
 
+// eslint-disable-next-line prefer-arrow-callback
 export default memo(function PlayerPlayFill(props: PlayerPlayFillProps) {
   const {
     size = 'normal',

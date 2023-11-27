@@ -19,7 +19,7 @@ export default function SongList() {
   )
   const songList = useMemo(
     () =>
-      (data?.result || []).map((item) => ({
+      (data?.result || []).map(item => ({
         ...item,
         playCount: numUnit(item.playCount),
       })),
@@ -30,7 +30,7 @@ export default function SongList() {
     <Content title="推荐歌单">
       <div className="grid grid-cols-5 gap-5">
         <SongOfDay />
-        {songList.map((item) => (
+        {songList.map(item => (
           <section className="pb-6" key={item.id}>
             <Rectangle
               className="group cursor-pointer overflow-hidden border rounded-md"
@@ -62,9 +62,9 @@ export default function SongList() {
 
 function SongOfDay() {
   const { isLoading, data } = useSwr('discover/recommend/song-of-day', () =>
-    getRecommendSongOfDay(),
-  )
-  if (isLoading) return null
+    getRecommendSongOfDay())
+  if (isLoading)
+    return null
   const songImg = data?.data.dailySongs[0].al.picUrl || ''
   const day = new Date().getDate()
   return (
@@ -82,7 +82,8 @@ function SongOfDay() {
                 backgroundImage: `url(${songImg})`,
                 backgroundSize: 'cover',
               }}
-            ></div>
+            >
+            </div>
           </div>
         )}
         <div className="absolute left-0 top-0 z-2 h-full w-full flex">

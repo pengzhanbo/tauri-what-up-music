@@ -11,12 +11,13 @@ export default function PlayList({ cat }: { cat: string | number }) {
   const { isLoading, page, totalPage, playlist, setPage } = usePlayList(cat)
   const { goPlayListDetail } = usePageNavigate()
 
-  if (isLoading) return <Loading className="h-170px" />
+  if (isLoading)
+    return <Loading className="h-170px" />
 
   return (
     <div className="pt-6">
       <div className="grid grid-cols-4 gap-5">
-        {playlist.map((item) => (
+        {playlist.map(item => (
           <section key={item.id} className="mb-6">
             <Rectangle
               className="group cursor-pointer overflow-hidden border rounded-md"
@@ -35,7 +36,8 @@ export default function PlayList({ cat }: { cat: string | number }) {
                     <span
                       className="absolute right-0 top-3px inline-block h-4 w-4 bg-cover"
                       style={{ backgroundImage: `url(${item.nickIcon})` }}
-                    ></span>
+                    >
+                    </span>
                   </p>
                 </div>
               </div>

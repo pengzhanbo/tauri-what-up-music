@@ -13,6 +13,7 @@ const borderProperties: Record<Position, string> = {
   left: 'borderRight',
 }
 
+// eslint-disable-next-line prefer-arrow-callback
 export default memo(function PopoverBeacon({
   position = 'top',
   offset,
@@ -22,14 +23,14 @@ export default memo(function PopoverBeacon({
   offset = offset ?? size
   const dir = position === 'bottom' || position === 'top' ? 'x' : 'h'
   const borderProperty = borderProperties[position]
-  const offsetProperty =
-    dir === 'x'
+  const offsetProperty
+    = dir === 'x'
       ? offset >= 0
         ? 'left'
         : 'right'
       : offset >= 0
-      ? 'top'
-      : 'bottom'
+        ? 'top'
+        : 'bottom'
 
   offset = Math.abs(offset)
 

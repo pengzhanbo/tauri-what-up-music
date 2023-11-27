@@ -14,8 +14,8 @@ export class Player {
   create(id: number, options: AudioPlayerOptions) {
     // 避免重复创建
     if (
-      id === this.id &&
-      JSON.stringify(options.source) === JSON.stringify(this.source)
+      id === this.id
+      && JSON.stringify(options.source) === JSON.stringify(this.source)
     )
       return
     this.id = id
@@ -41,9 +41,9 @@ export class Player {
   }
 
   seek(seek?: number) {
-    if (typeof seek !== 'undefined') {
+    if (typeof seek !== 'undefined')
       this.player.seek(seek)
-    }
+
     return this.player.currentTime
   }
 

@@ -4,7 +4,7 @@ import type { GetNewAlbumListParams } from '~/apis'
 import { getNewAlbumList, getNewTopSong } from '~/apis'
 import { formatDuration } from '~/utils'
 
-export const useTopSongs = (area: string) => {
+export function useTopSongs(area: string) {
   const { data, ...rest } = useSWR(
     ['discover/latestMusic/top-songs', area],
     ([, type]) => getNewTopSong({ type }),
@@ -29,7 +29,7 @@ export const useTopSongs = (area: string) => {
   return { topSongs, ...rest }
 }
 
-export const useTopAlbumList = (params: GetNewAlbumListParams) => {
+export function useTopAlbumList(params: GetNewAlbumListParams) {
   const { data, ...rest } = useSWR(
     () => ['discover/latestMusic/top-albums', params],
     ([, params]) => getNewAlbumList(params),

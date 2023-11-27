@@ -5,7 +5,7 @@ import { HttpError } from './httpError'
 import { FETCH_BASE_URL } from '~/constants'
 
 export type RequestQuery<
-  T extends Record<string | number, string | number> = {},
+  T extends Record<string | number, string | number> = Record<string | number, string | number>,
   K extends keyof T = keyof T,
 > = {
   [P in K]: T[P]
@@ -16,7 +16,7 @@ export interface ResponseError extends Error {
   status?: string | number
 }
 
-export const axiosApi = (instance: Axios, subUrl = '') => {
+export function axiosApi(instance: Axios, subUrl = '') {
   const get = <Q extends RequestQuery, T = any>(url: string) => {
     url = combineURLs(subUrl, url)
     return (
@@ -84,10 +84,7 @@ export const axiosApi = (instance: Axios, subUrl = '') => {
   return { get, delete: del, head, post, put, patch, create }
 }
 
-export const createHttp = (
-  baseURL = FETCH_BASE_URL,
-  config: AxiosRequestConfig = {},
-) => {
+export function createHttp(baseURL = FETCH_BASE_URL, config: AxiosRequestConfig = {}) {
   const http = axios.create({
     baseURL,
     timeout: 50000,

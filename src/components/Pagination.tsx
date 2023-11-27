@@ -4,28 +4,33 @@ import { useMemo } from 'react'
 
 export default function Pagination({ total, page, onChange }: PaginationProps) {
   const range = useMemo(() => {
-    let range: { value: number | string; more?: true }[] = []
-    if (total <= 0) return range
+    let range: { value: number | string, more?: true }[] = []
+    if (total <= 0)
+      return range
     if (total <= 10) {
       range = Array.from({ length: total }, (_, i) => ({ value: i + 1 }))
-    } else {
+    }
+    else {
       let i = 1
       let hasMore = false
       while (i <= total) {
         if ((page <= 5 && i <= 5) || (page >= total - 4 && i >= total - 4)) {
           hasMore = false
           range.push({ value: i })
-        } else if (i <= 2 || i >= total - 1) {
+        }
+        else if (i <= 2 || i >= total - 1) {
           hasMore = false
           range.push({ value: i })
-        } else if (
-          (page > 6 || page < total - 6) &&
-          page - i < 3 &&
-          i - page < 3
+        }
+        else if (
+          (page > 6 || page < total - 6)
+          && page - i < 3
+          && i - page < 3
         ) {
           hasMore = false
           range.push({ value: i })
-        } else if (!hasMore) {
+        }
+        else if (!hasMore) {
           hasMore = true
           range.push({ value: i, more: true })
         }
@@ -35,7 +40,8 @@ export default function Pagination({ total, page, onChange }: PaginationProps) {
     return range
   }, [total, page])
 
-  if (total < 0) return null
+  if (total < 0)
+    return null
 
   return (
     <div className="flex-center pb-30 pt-4">

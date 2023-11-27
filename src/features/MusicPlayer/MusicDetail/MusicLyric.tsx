@@ -31,27 +31,29 @@ export default function MusicLyric() {
     const ch = scrollRef.current?.clientHeight || 0
     const move = (ch * 3) / 5
     const heightList = Array.from(scrollRef.current?.children || []).map(
-      (el) =>
-        (el as HTMLParagraphElement).offsetHeight +
-        (el as HTMLParagraphElement).offsetTop,
+      el =>
+        (el as HTMLParagraphElement).offsetHeight
+        + (el as HTMLParagraphElement).offsetTop,
     )
     let oldIndex = -1
     let oldSt = scrollRef.current?.scrollTop || 0
     const scrollLyric = () => {
-      if (player.paused()) return
+      if (player.paused())
+        return
       const currentTime = player.seek() * 1000
       const st = scrollRef.current?.scrollTop || 0
       let index = 0
       while (index < lyric.length) {
         const _i = index + 1 > lyric.length ? lyric.length : index + 1
-        if (!lyric[_i] || lyric[_i].timestamp >= currentTime) break
+        if (!lyric[_i] || lyric[_i].timestamp >= currentTime)
+          break
         index++
       }
       if (
-        index !== oldIndex &&
-        !isUserScrolling &&
-        oldSt >= st &&
-        oldSt <= st + ch
+        index !== oldIndex
+        && !isUserScrolling
+        && oldSt >= st
+        && oldSt <= st + ch
       ) {
         setActive(index)
         oldIndex = index
@@ -73,9 +75,8 @@ export default function MusicLyric() {
       isReplay = true
     }
 
-    if (!player.player.paused) {
+    if (!player.player.paused)
       scrollLyric()
-    }
 
     player.player.on('play', onPlay)
     player.player.on('ended', onEnd)
@@ -84,7 +85,7 @@ export default function MusicLyric() {
       player.player.off('play', onPlay)
       player.player.off('ended', onEnd)
     }
-  }, [lyric, scrollRef.current, player])
+  }, [lyric, player])
 
   return (
     <div className="h-1px flex flex-1 pt-8">
@@ -123,8 +124,8 @@ function LyricControl({
   onGo?: () => void
   onHelp?: () => void
 }) {
-  const classes =
-    'h-6 w-6 flex-center rounded-full bg-black/8 text-xl text-white hover:bg-black/12 outline-none border-none'
+  const classes
+    = 'h-6 w-6 flex-center rounded-full bg-black/8 text-xl text-white hover:bg-black/12 outline-none border-none'
   return (
     <div className="flex flex-col justify-between pl-3">
       <div>

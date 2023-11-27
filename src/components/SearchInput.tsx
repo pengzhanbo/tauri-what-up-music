@@ -44,7 +44,7 @@ function SearchInput({
           type="text"
           ref={inputEl}
           placeholder={placeholder}
-          onMouseDown={(e) => e.stopPropagation()}
+          onMouseDown={e => e.stopPropagation()}
           onInput={handleInput}
           onFocus={handleFocus}
           onBlur={handleBlur}

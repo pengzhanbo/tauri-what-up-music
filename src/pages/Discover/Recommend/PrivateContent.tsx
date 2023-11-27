@@ -11,17 +11,17 @@ import Rectangle from '~/components/Rectangle'
 
 export default function PrivateContent() {
   const { isLoading, data } = useSwr('discover/recommend/private-content', () =>
-    getPersonalizedPrivateContent(),
-  )
+    getPersonalizedPrivateContent())
 
   const list = useMemo(() => data?.result || [], [data])
 
-  if (isLoading) return null
+  if (isLoading)
+    return null
 
   return (
     <Content title="独家放送">
       <div className="grid grid-cols-4 gap-5 pb-8">
-        {list.map((item) => (
+        {list.map(item => (
           <section key={item.id}>
             <Rectangle
               ratio={0.5625}

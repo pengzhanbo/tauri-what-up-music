@@ -9,7 +9,8 @@ export const getSongLyric = request.post<
     id: number
   },
   GetSongLyric
->('/lyric/new')
+>('/lyric/new',
+)
 
 export interface GetSongLyric {
   code: number

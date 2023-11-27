@@ -8,15 +8,15 @@ import {
   updateCurrentHistoryIndex,
 } from '~/features/Navbar/navigateSlice'
 
-export const usePageNavigate = () => {
+export function usePageNavigate() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isFirst = useAppSelector(isFirstHistory)
   const isLatest = useAppSelector(isLatestHistory)
   const historyIndex = useAppSelector(
-    (state) => state.navigate.currentHistoryIndex,
+    state => state.navigate.currentHistoryIndex,
   )
-  const history = useAppSelector((state) => state.navigate.history)
+  const history = useAppSelector(state => state.navigate.history)
 
   const go = useMemoizedFn((path: string) => {
     dispatch(pushHistory(path))
@@ -36,23 +36,25 @@ export const usePageNavigate = () => {
   )
 
   const forwardNavigate = useMemoizedFn(() => {
-    if (isLatest) return
+    if (isLatest)
+      return
     let index = historyIndex
     index++
-    if (index > history.length - 1) {
+    if (index > history.length - 1)
       index = history.length - 1
-    }
+
     dispatch(updateCurrentHistoryIndex(index))
     navigate(history[index])
   })
 
   const backNavigate = useMemoizedFn(() => {
-    if (isFirst) return
+    if (isFirst)
+      return
     let index = historyIndex
     index--
-    if (index < 0) {
+    if (index < 0)
       index = 0
-    }
+
     dispatch(updateCurrentHistoryIndex(index))
     navigate(history[index])
   })

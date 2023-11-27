@@ -15,7 +15,7 @@ export default function GlobalList({ list }: GlobalListProps) {
     <div>
       <p className="pb-4 text-16px text-text-darker">全球榜</p>
       <div className="grid grid-cols-4 gap-5 pb-6">
-        {list.map((item) => (
+        {list.map(item => (
           <section
             key={item.id}
             className="pb-6"

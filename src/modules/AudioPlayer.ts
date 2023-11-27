@@ -98,7 +98,8 @@ export default class AudioPlayer extends EventEmitter {
 
   private initialize() {
     const _audio = document.getElementById('audio-player')
-    if (_audio) _audio.remove()
+    if (_audio)
+      _audio.remove()
     const audio = document.createElement('audio')
     audio.id = 'audio-player'
     audio.style.display = 'none'
@@ -124,7 +125,8 @@ export default class AudioPlayer extends EventEmitter {
 
     mimeTypes.forEach((mt) => {
       const canPlay = this.player.canPlayType(mt)
-      if (canPlay) this.playableMimeTypes.push(mt)
+      if (canPlay)
+        this.playableMimeTypes.push(mt)
     })
   }
 
@@ -236,18 +238,19 @@ export default class AudioPlayer extends EventEmitter {
 
   private isValidDuration(duration: number) {
     if (
-      duration &&
-      !isNaN(duration) &&
-      duration !== Number.POSITIVE_INFINITY &&
-      duration !== Number.NEGATIVE_INFINITY
-    ) {
+      duration
+      && !Number.isNaN(duration)
+      && duration !== Number.POSITIVE_INFINITY
+      && duration !== Number.NEGATIVE_INFINITY
+    )
       return true
-    }
+
     return false
   }
 
   private getBufferedRanges() {
-    if (!this.player) return []
+    if (!this.player)
+      return []
     const ranges = []
     const seekable = this.player.buffered || []
 
@@ -256,9 +259,9 @@ export default class AudioPlayer extends EventEmitter {
     for (let i = 0, length = seekable.length; i < length; i++) {
       let start = seekable.start(i)
       let end = seekable.end(i)
-      if (!this.isValidDuration(start)) {
+      if (!this.isValidDuration(start))
         start = 0
-      }
+
       if (!this.isValidDuration(end)) {
         end = 0
         continue
@@ -274,14 +277,16 @@ export default class AudioPlayer extends EventEmitter {
 
   private getLastBufferedTime() {
     const bufferedRanges = this.getBufferedRanges()
-    if (!bufferedRanges.length) return 0
+    if (!bufferedRanges.length)
+      return 0
 
     const buff = bufferedRanges.find(
-      (buff) =>
-        buff.start < this.player.currentTime &&
-        buff.end > this.player.currentTime,
+      buff =>
+        buff.start < this.player.currentTime
+        && buff.end > this.player.currentTime,
     )
-    if (buff) return buff.end
+    if (buff)
+      return buff.end
 
     const last = bufferedRanges[bufferedRanges.length - 1]
     return last.end

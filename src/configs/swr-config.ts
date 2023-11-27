@@ -12,11 +12,11 @@ export const swrConfig = {
           const res = (await fetchStore.get(_key)) as any[]
           if (res) {
             const [data, expired] = res
-            if (Date.now() < expired) {
+            if (Date.now() < expired)
               return data
-            } else {
+
+            else
               await fetchStore.delete(_key)
-            }
           }
           const result = await _fetcher?.(args)
           result && (await fetchStore.set(_key, [result, getExpires()]))

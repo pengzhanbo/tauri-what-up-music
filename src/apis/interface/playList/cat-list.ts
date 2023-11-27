@@ -24,7 +24,8 @@ export const getAllCatList = request.post<never, GetAllCatListResponse>(
 export const getHighQualityPlayListTags = request.post<
   never,
   GetHighQualityPlayListTags
->('/playlist/highquality/tags')
+>('/playlist/highquality/tags',
+)
 
 export interface GetHotCatListResponse {
   code: number

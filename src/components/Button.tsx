@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react'
 import cn from 'classnames'
 import { forwardRef } from 'react'
 
+// eslint-disable-next-line prefer-arrow-callback
 export default forwardRef<HTMLDivElement, ButtonProps>(function Button(
   {
     type = 'default',

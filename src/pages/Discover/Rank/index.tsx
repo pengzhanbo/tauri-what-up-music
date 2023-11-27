@@ -8,7 +8,8 @@ import Loading from '~/components/Loading'
 
 export default function Rank() {
   const { isLoading, officialList, globalList } = useRankTopList()
-  if (isLoading) return <Loading className="h-170px" />
+  if (isLoading)
+    return <Loading className="h-170px" />
 
   return (
     <div className="px-8 py-6">

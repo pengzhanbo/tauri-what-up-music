@@ -12,8 +12,7 @@ import { usePlayer } from '~/hooks'
 
 export default function NewSong() {
   const { isLoading, data } = useSwr('discover/recommend/new-song', () =>
-    getRecommendNewSong(),
-  )
+    getRecommendNewSong())
   const [selectId, setSelectId] = useState<number>(0)
 
   const chunkList = useMemo(() => {
@@ -32,14 +31,15 @@ export default function NewSong() {
 
   const { loadSong } = usePlayer()
 
-  if (isLoading) return null
+  if (isLoading)
+    return null
 
   return (
     <Content title="最新音乐">
       <div className="grid grid-cols-2 gap-14 pb-8">
         {chunkList.map((chunk, i) => (
           <div key={i} className="border-b border-b-gray-100">
-            {chunk.map((item) => (
+            {chunk.map(item => (
               <section
                 key={item.id}
                 className="border-t border-t-gray-100"
@@ -67,7 +67,9 @@ export default function NewSong() {
                       <span className="text-text-dark">{item.name}</span>
                       {item.alias && (
                         <span className="text-text-light">
-                          （{item.alias}）
+                          （
+                          {item.alias}
+                          ）
                         </span>
                       )}
                     </p>

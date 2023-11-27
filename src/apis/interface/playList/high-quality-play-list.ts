@@ -3,7 +3,8 @@ import { request } from '~/apis/helper'
 export const getHighQualityPlayList = request.post<
   GetHighQualityPlayListParams,
   GetHighQualityPlayListResponse
->('/top/playlist/highquality')
+>('/top/playlist/highquality',
+)
 
 export interface GetHighQualityPlayListParams {
   /**

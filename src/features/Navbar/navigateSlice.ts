@@ -40,37 +40,37 @@ export const navigateSlice = createSlice({
   },
 })
 
-export const { pushHistory, replaceHistory, updateCurrentHistoryIndex } =
-  navigateSlice.actions
+export const { pushHistory, replaceHistory, updateCurrentHistoryIndex }
+  = navigateSlice.actions
 
-export const forwardHistory = ({ navigate }: RootState) => {
+export function forwardHistory({ navigate }: RootState) {
   let index = navigate.currentHistoryIndex
   index++
-  if (index > navigate.history.length - 1) {
+  if (index > navigate.history.length - 1)
     index = history.length - 1
-  }
+
   updateCurrentHistoryIndex(index)
   return navigate.history[index]
 }
 
-export const backHistory = ({ navigate }: RootState) => {
+export function backHistory({ navigate }: RootState) {
   let index = navigate.currentHistoryIndex
   index--
-  if (index < 0) {
+  if (index < 0)
     index = 0
-  }
+
   updateCurrentHistoryIndex(index)
   return navigate.history[index]
 }
 
-export const isLatestHistory = ({ navigate }: RootState) => {
+export function isLatestHistory({ navigate }: RootState) {
   return (
-    navigate.history.length === 0 ||
-    navigate.currentHistoryIndex === navigate.history.length - 1
+    navigate.history.length === 0
+    || navigate.currentHistoryIndex === navigate.history.length - 1
   )
 }
 
-export const isFirstHistory = ({ navigate }: RootState) => {
+export function isFirstHistory({ navigate }: RootState) {
   return navigate.currentHistoryIndex === 0 || navigate.history.length === 0
 }
 

@@ -8,7 +8,8 @@ export const getNewTopSong = request.post<
     type?: string
   },
   GetNewTopSongResponse
->('/top/song')
+>('/top/song',
+)
 
 export interface GetNewTopSongResponse {
   code: number

@@ -10,10 +10,10 @@ export default function NavbarLeft() {
   const { showDetail } = playerState
   const downRef = useRef(null)
   const historyRef = useRef(null)
-  const { forwardNavigate, backNavigate, isFirstHistory, isLatestHistory } =
-    usePageNavigate()
-  const classes =
-    'w-7 h-7 rounded-full flex-center bg-black/0 text-2xl transition-colors duration-300'
+  const { forwardNavigate, backNavigate, isFirstHistory, isLatestHistory }
+    = usePageNavigate()
+  const classes
+    = 'w-7 h-7 rounded-full flex-center bg-black/0 text-2xl transition-colors duration-300'
 
   return (
     <div

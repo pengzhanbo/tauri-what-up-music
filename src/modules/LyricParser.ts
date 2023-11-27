@@ -10,16 +10,17 @@ export default function lyricParser(lyricString: string) {
   for (const str of raw) {
     const match = RE_TIME.exec(str)
     if (match) {
-      const timestamp =
-        Number(match[1]) * 60 * 1000 +
-        Number(match[2]) * 1000 +
-        Number(match[3]) * 10
+      const timestamp
+        = Number(match[1]) * 60 * 1000
+        + Number(match[2]) * 1000
+        + Number(match[3]) * 10
       const text = match[4]
       result.push({
         timestamp,
         text,
       })
-    } else if (str[0] === '{') {
+    }
+    else if (str[0] === '{') {
       try {
         const meta = JSON.parse(str)
         const timestamp = meta.t || 0
@@ -30,10 +31,11 @@ export default function lyricParser(lyricString: string) {
             text.length === 0
               ? ''
               : text.length === 1
-              ? text[0]
-              : `${text[0]}${text.slice(1).join('/')}`,
+                ? text[0]
+                : `${text[0]}${text.slice(1).join('/')}`,
         })
-      } catch {}
+      }
+      catch {}
     }
   }
   return result

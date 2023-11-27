@@ -6,7 +6,8 @@ import { request } from '~/apis/helper'
 export const getRecommendPodcast = request.post<
   never,
   GetRecommendPodcastResponse
->('/personalized/djprogram')
+>('/personalized/djprogram',
+)
 
 export interface GetRecommendPodcastResponse {
   code: number

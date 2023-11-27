@@ -29,9 +29,11 @@ function LoginByQr() {
   }
 
   const clear = useInterval(async () => {
-    if (!key) return
+    if (!key)
+      return
     const { cookie, code } = await checkQRKey({ key })
-    if (code === 800) mutate()
+    if (code === 800)
+      mutate()
     if (code === 803) {
       clear()
       dispatch(setToken(cookie))
@@ -41,13 +43,16 @@ function LoginByQr() {
   return (
     <div className="h-full w-full flex-center flex-col">
       <p className="mb-4 mt-6 text-3xl font-medium text-text-dark">扫码登录</p>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="h-60 w-60 select-none" style={qrStyle}></div>
-      )}
+      {isLoading
+        ? (
+          <p>Loading...</p>
+          )
+        : (
+          <div className="h-60 w-60 select-none" style={qrStyle}></div>
+          )}
       <p className="font-medium -mt-2">
-        使用<span className="cursor-pointer text-blue-5">网易云音乐APP</span>
+        使用
+        <span className="cursor-pointer text-blue-5">网易云音乐APP</span>
         扫码登录
       </p>
       <p className="mt-25 flex-center cursor-pointer" onClick={changeLoginType}>

@@ -23,7 +23,7 @@ export interface CatList {
   defaultCat: Cat
 }
 
-export const useCatList = (): CatList => {
+export function useCatList(): CatList {
   const { isLoading, data } = useSwr('discover/playlist/cat-list', async () => {
     const allCatList = await getAllCatList()
     const hotCatList = await getHotCatList()
@@ -56,7 +56,7 @@ export const useCatList = (): CatList => {
       const { all, sub } = data.allCatList
       defaultCat = { name: all.name, value: '' }
       sub.forEach((item) => {
-        const catList = allCatList.find((cat) => cat.category === item.category)
+        const catList = allCatList.find(cat => cat.category === item.category)
         if (catList) {
           catList.catList.push({
             name: item.name,
@@ -72,7 +72,7 @@ export const useCatList = (): CatList => {
   return { isLoading, hotCatList, allCatList, defaultCat }
 }
 
-export const usePlayList = (cat: string | number) => {
+export function usePlayList(cat: string | number) {
   const [page, setPage] = useState(1)
   const limit = 100
   const { isLoading, data } = useSwr(
@@ -84,7 +84,7 @@ export const usePlayList = (cat: string | number) => {
   )
   const playlist = useMemo(
     () =>
-      (data?.playlists || []).map((item) => ({
+      (data?.playlists || []).map(item => ({
         id: item.id,
         name: item.name,
         coverImgUrl: `${item.coverImgUrl.split('?')[0]}?param=600y600`,

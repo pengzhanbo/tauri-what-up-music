@@ -13,7 +13,8 @@ export const generateQRKey = request.get<
       unikey: string
     }
   }
->('/login/qr/key')
+>('/login/qr/key',
+)
 
 export interface GenerateQRParams extends BaseParams {
   key: string

@@ -14,7 +14,8 @@ export default function PlayList() {
   const { isLoading } = data
   const [currentCat, setCurrentCat] = useState<Cat>(data.defaultCat)
 
-  if (isLoading) return null
+  if (isLoading)
+    return null
   return (
     <div className="px-8 py-6">
       <HighQuality cat={currentCat.value} />

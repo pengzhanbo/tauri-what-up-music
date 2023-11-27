@@ -5,7 +5,8 @@ export default function MusicHeader() {
   const { playerState } = usePlayer()
   const song = playerState.song
 
-  if (!song) return null
+  if (!song)
+    return null
 
   const iconStyle = cn(
     'relative ml-2 inline-block h-22px border border-brand-lighter rounded px-2 text-14px font-500 leading-20px text-brand -top-3px',
@@ -31,7 +32,7 @@ export default function MusicHeader() {
         <p className="w-1px flex flex-1 items-center">
           <span className="select-auto pr-2 text-text-light-dark">歌手:</span>
           <span className="line-clamp-1 w-1px flex-1 select-auto pr-2 text-blue-4">
-            {song.ar?.map((item) => item.name).join('/')}
+            {song.ar?.map(item => item.name).join('/')}
           </span>
         </p>
         <p className="line-clamp-1 w-1px flex flex-1 items-center">

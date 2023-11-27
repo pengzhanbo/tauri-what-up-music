@@ -6,7 +6,8 @@ import { request } from '~/apis/helper'
 export const getPersonalizedPrivateContent = request.post<
   never,
   GetPersonalizedPrivateContentResponse
->('/personalized/privatecontent?limit=4')
+>('/personalized/privatecontent?limit=4',
+)
 
 export interface GetPersonalizedPrivateContentResponse {
   code: number

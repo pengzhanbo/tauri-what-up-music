@@ -21,7 +21,7 @@ import type { Song, SongLyric, SongPlayUrl } from '~/typing/Song'
 const EXPIRE_TIME = 1000 * 60 * 60 * 24 * 3
 let waitingId!: number
 
-export const usePlayer = () => {
+export function usePlayer() {
   const player = getPlayInstance()
   const playerState = useAppSelector(selectPlayer)
 
@@ -59,12 +59,15 @@ export const usePlayer = () => {
 
   const loadSong = useMemoizedFn(async (id: number) => {
     waitingId = id
-    if (playerState.song?.id === id) return
+    if (playerState.song?.id === id)
+      return
     dispatch(setLoading(true))
     const { song, address, lyric, error } = await fetchSongDetail(id)
-    if (error) return
+    if (error)
+      return
     // 避免多次点击导致同时加载多首歌曲，导致异步结果不一致
-    if (waitingId !== song?.id) return
+    if (waitingId !== song?.id)
+      return
     // 初始化歌曲信息
     dispatch(setSongUrl(address!.url))
     dispatch(setSong(song!))
@@ -76,11 +79,10 @@ export const usePlayer = () => {
   })
 
   const togglePlay = useMemoizedFn(() => {
-    if (!player.paused()) {
+    if (!player.paused())
       player.pause()
-    } else {
+    else
       player.play()
-    }
   })
 
   return {
@@ -105,14 +107,14 @@ export const usePlayer = () => {
 type SongStoreItem = readonly [
   Song,
   SongPlayUrl,
-  { lrc: SongLyric; yrc: SongLyric },
+  { lrc: SongLyric, yrc: SongLyric },
   number,
 ]
 
 interface FetchSongDetailRes {
   song?: Song
   address?: SongPlayUrl
-  lyric?: { lrc: SongLyric; yrc: SongLyric }
+  lyric?: { lrc: SongLyric, yrc: SongLyric }
   error?: Error
 }
 
@@ -134,17 +136,19 @@ async function fetchSongDetail(id: number): Promise<FetchSongDetailRes> {
     let song!: Song
     let address!: SongPlayUrl
     let error!: Error
-    let lyric!: { lrc: SongLyric; yrc: SongLyric }
+    let lyric!: { lrc: SongLyric, yrc: SongLyric }
     if (songRes.code === 200 && urlRes.code === 200 && lyricRes.code === 200) {
       song = songRes.songs[0]
       address = urlRes.data[0]
       lyric = { lrc: lyricRes.lrc, yrc: lyricRes.yrc }
       await songStore.set(String(id), [song, address, lyric, Date.now()])
-    } else {
+    }
+    else {
       error = new Error('获取歌曲信息失败')
     }
     return { song, address, lyric, error }
-  } catch (e: any) {
+  }
+  catch (e: any) {
     return { error: e }
   }
 }

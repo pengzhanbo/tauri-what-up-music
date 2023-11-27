@@ -27,7 +27,7 @@ export default function NewAlbum() {
   )
 }
 
-function Albums({ area, type }: { area: string; type: string }) {
+function Albums({ area, type }: { area: string, type: string }) {
   const d = new Date()
   const currentMonth = d.getMonth() + 1
 
@@ -46,7 +46,8 @@ function Albums({ area, type }: { area: string; type: string }) {
     [date.month],
   )
 
-  if (isLoading) return <Loading className="pt-6" />
+  if (isLoading)
+    return <Loading className="pt-6" />
 
   return (
     <div className="pt-6">
@@ -69,6 +70,7 @@ function Albums({ area, type }: { area: string; type: string }) {
   )
 }
 
+// eslint-disable-next-line prefer-arrow-callback
 const AlbumBackground = memo(function AlbumBackground() {
   return (
     <>
@@ -77,7 +79,8 @@ const AlbumBackground = memo(function AlbumBackground() {
       <div
         className="absolute top-0 z-1 h-full w-full rounded-full bg-cover -right-25px"
         style={{ backgroundImage: 'url(/bg-album.tiff)' }}
-      ></div>
+      >
+      </div>
       <PlayerPlayFill blur="light" />
     </>
   )
@@ -86,7 +89,7 @@ const AlbumBackground = memo(function AlbumBackground() {
 function AlbumContent({ list }: { list: AlbumItem[] }) {
   return (
     <div className="grid grid-cols-4 flex-1 gap-5">
-      {list.map((item) => (
+      {list.map(item => (
         <section key={item.id} className="relative pb-4">
           <Rectangle size="80%" className="group cursor-pointer">
             <LazyImage

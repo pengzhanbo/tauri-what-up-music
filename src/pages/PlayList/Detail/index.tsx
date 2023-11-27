@@ -12,19 +12,20 @@ export default function PlaylistDetail() {
   const id = search.get('id')!
   const [type, setType] = useState(0)
   const ref = useRef(null)
-  const { playlist, songs, isLoading } = usePlayListDetail(parseInt(id))
+  const { playlist, songs, isLoading } = usePlayListDetail(Number.parseInt(id))
   const [offset, setOffset] = useState(1)
   const total = Math.ceil(songs.length / limit)
 
   useScrollBottom(ref, () =>
-    setOffset((offset) => (offset > total ? total : offset + 1)),
-  )
+    setOffset(offset => (offset > total ? total : offset + 1)))
 
   const list = useMemo(() => songs.slice(0, offset * limit), [songs, offset])
 
-  if (isLoading) return <Loading className="h-170px" />
+  if (isLoading)
+    return <Loading className="h-170px" />
 
-  if (!playlist) return null
+  if (!playlist)
+    return null
 
   return (
     <div className="scroll-container py-4" ref={ref}>

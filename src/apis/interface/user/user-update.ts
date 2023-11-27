@@ -22,8 +22,8 @@ export interface UserReplacePhoneParams {
 /**
  * 登录后调用此接口 , 可以更换绑定手机
  */
-export const userReplacePhone =
-  request.post<UserReplacePhoneParams>('/user/replacephone')
+export const userReplacePhone
+  = request.post<UserReplacePhoneParams>('/user/replacephone')
 
 export interface UserInfoUpdateParams {
   /**
@@ -69,5 +69,5 @@ export type UserAvatarUpdateParams = FormData
  * imgX    水平裁剪偏移,方形图片可不传,默认为 0
  * imgY    垂直裁剪偏移,方形图片可不传,默认为 0
  */
-export const userAvatarUpdate =
-  request.post<UserAvatarUpdateParams>('/avatar/upload')
+export const userAvatarUpdate
+  = request.post<UserAvatarUpdateParams>('/avatar/upload')

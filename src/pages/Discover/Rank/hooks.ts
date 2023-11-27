@@ -3,20 +3,19 @@ import useSwr from 'swr'
 import { getAllTopList, getPlayListDetail } from '~/apis'
 import { numUnit } from '~/utils'
 
-export const useRankTopList = () => {
+export function useRankTopList() {
   const { isLoading, data } = useSwr('discover/rank/all/topList', () =>
-    getAllTopList(),
-  )
+    getAllTopList())
   const list = data?.list || []
   const officialList = useMemo(
-    () => list.filter((item) => item.ToplistType),
+    () => list.filter(item => item.ToplistType),
     [list],
   )
   const globalList = useMemo(
     () =>
       list
-        .filter((item) => !item.ToplistType)
-        .map((item) => ({
+        .filter(item => !item.ToplistType)
+        .map(item => ({
           ...item,
           playCountString: numUnit(item.playCount),
         })),
@@ -26,10 +25,9 @@ export const useRankTopList = () => {
   return { isLoading, officialList, globalList }
 }
 
-export const usePlayListShortDetail = (id: number) => {
+export function usePlayListShortDetail(id: number) {
   const { isLoading, data } = useSwr(['play-list/detail', id], ([, id]) =>
-    getPlayListDetail({ id }),
-  )
+    getPlayListDetail({ id }))
 
   const rankList = useMemo(() => {
     const playlist = data?.playlist || { trackIds: [], tracks: [] }
@@ -41,7 +39,7 @@ export const usePlayListShortDetail = (id: number) => {
         name: item.name,
         coverImgUrl: item.al.picUrl,
         tns: item.tns ? `(${item.tns.join('/')})` : '',
-        artist: item.ar.map((ar) => ar.name).join('/'),
+        artist: item.ar.map(ar => ar.name).join('/'),
         ratio: ids.ratio,
         lr: ids.lr || i,
         uid: ids.uid,

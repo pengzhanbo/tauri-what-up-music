@@ -6,12 +6,12 @@ import SwipeContext from './swipeContext'
 export default function Swipe({ children }: SwipeProps) {
   const items = (children as React.ReactNode[]) || []
   const total = items.length
-  const dots = useMemo(() => new Array(total).fill(0), [total])
+  const dots = useMemo(() => Array.from({ length: total }).fill(0), [total])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [interval, setInterval] = useState<number | undefined>(5000)
 
   useRafInterval(() => {
-    setCurrentIndex((i) => (i + 1) % total)
+    setCurrentIndex(i => (i + 1) % total)
   }, interval)
 
   const setIndex = useMemoizedFn((i: number) => {
@@ -40,17 +40,18 @@ export default function Swipe({ children }: SwipeProps) {
         })}
       </div>
       <div className="flex items-center justify-center pt-4">
-        {total &&
-          dots.map((_, i) => (
-            <span
-              key={i}
-              className={cn(
-                'mx-1.5 h-2 w-2 cursor-pointer rounded-full text-white',
-                i === currentIndex ? 'bg-brand' : 'bg-gray-300',
-              )}
-              onClick={() => setIndex(i)}
-            ></span>
-          ))}
+        {total
+        && dots.map((_, i) => (
+          <span
+            key={i}
+            className={cn(
+              'mx-1.5 h-2 w-2 cursor-pointer rounded-full text-white',
+              i === currentIndex ? 'bg-brand' : 'bg-gray-300',
+            )}
+            onClick={() => setIndex(i)}
+          >
+          </span>
+        ))}
       </div>
     </div>
   )

@@ -13,16 +13,16 @@ import { numUnit } from '~/utils'
 
 export default function NewMV() {
   const { isLoading, data } = useSwr('discover/recommend/new-mv', () =>
-    getRecommendMV(),
-  )
+    getRecommendMV())
   const list = useMemo(() => data?.result || [], [data])
 
-  if (isLoading) return null
+  if (isLoading)
+    return null
 
   return (
     <Content title="最新MV">
       <div className="grid grid-cols-4 gap-5 pb-8">
-        {list.map((item) => (
+        {list.map(item => (
           <section key={item.id}>
             <Rectangle
               ratio={0.5625}

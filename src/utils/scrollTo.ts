@@ -10,18 +10,21 @@ export function getScroll(
   target: HTMLElement | Window | Document | null,
   top: boolean,
 ): number {
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined')
     return 0
-  }
+
   const method = top ? 'scrollTop' : 'scrollLeft'
   let result = 0
   if (isWindow(target)) {
     result = target[top ? 'pageYOffset' : 'pageXOffset']
-  } else if (target instanceof Document) {
+  }
+  else if (target instanceof Document) {
     result = target.documentElement[method]
-  } else if (target instanceof HTMLElement) {
+  }
+  else if (target instanceof HTMLElement) {
     result = target[method]
-  } else if (target) {
+  }
+  else if (target) {
     // According to the type inference, the `target` is `never` type.
     // Since we configured the loose mode type checking, and supports mocking the target with such shape below::
     //    `{ documentElement: { scrollLeft: 200, scrollTop: 400 } }`,
@@ -30,9 +33,9 @@ export function getScroll(
     result = target[method]
   }
 
-  if (target && !isWindow(target) && typeof result !== 'number') {
+  if (target && !isWindow(target) && typeof result !== 'number')
     result = (target.ownerDocument ?? target).documentElement?.[method]
-  }
+
   return result
 }
 
@@ -62,19 +65,21 @@ export function scrollTo(y: number, options: ScrollToOptions = {}) {
     )
     if (isWindow(container)) {
       ;(container as Window).scrollTo(window.pageXOffset, nextScrollTop)
-    } else if (
-      container instanceof Document ||
-      container.constructor.name === 'HTMLDocument'
+    }
+    else if (
+      container instanceof Document
+      || container.constructor.name === 'HTMLDocument'
     ) {
       ;(container as Document).documentElement.scrollTop = nextScrollTop
-    } else {
+    }
+    else {
       ;(container as HTMLElement).scrollTop = nextScrollTop
     }
-    if (time < duration) {
+    if (time < duration)
       raf(frameFunc)
-    } else if (typeof callback === 'function') {
+
+    else if (typeof callback === 'function')
       callback()
-    }
   }
   raf(frameFunc)
 }

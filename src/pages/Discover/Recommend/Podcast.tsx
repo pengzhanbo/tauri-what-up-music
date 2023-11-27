@@ -11,22 +11,22 @@ import Loading from '~/components/Loading'
  */
 export default function Podcast() {
   const { isLoading, data } = useSwr('discover/recommend/podcast', () =>
-    getRecommendPodcast(),
-  )
+    getRecommendPodcast())
 
   const chunkList = useMemo(() => {
     const list = data?.result || []
     return chunk(list, 3)
   }, [data])
 
-  if (isLoading) return <Loading className="h-170px" />
+  if (isLoading)
+    return <Loading className="h-170px" />
 
   return (
     <Content title="播客">
       <div className="grid grid-cols-2 gap-14 pb-8">
         {chunkList.map((chunk, i) => (
           <div key={i} className="border-b border-b-gray-100">
-            {chunk.map((item) => (
+            {chunk.map(item => (
               <section key={item.id} className="border-t border-t-gray-100">
                 <div className="flex-center cursor-default rounded-md py-3 pr-4 transition-colors duration-300 -mx-4 hover:bg-gray-100">
                   <LazyImage

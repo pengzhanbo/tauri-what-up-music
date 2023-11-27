@@ -29,7 +29,7 @@ export default function OfficialList({ list }: OfficialListProps) {
   return (
     <div>
       <p className="pb-4 text-16px text-text-darker">官方榜</p>
-      {list.map((item) => (
+      {list.map(item => (
         <OfficialItem key={item.id} rank={item} playSong={playSong} />
       ))}
     </div>
@@ -43,6 +43,7 @@ const bgColors = {
   H: 'bg-pink-6/60',
 }
 
+// eslint-disable-next-line prefer-arrow-callback
 const RankingChange = memo(function RankingChange({
   old,
   now,
@@ -91,7 +92,8 @@ function OfficialItem({
     return `${m}月${d}日更新`
   }, [rank.updateTime])
 
-  if (isLoading) <Loading className="h-33px" />
+  if (isLoading)
+    <Loading className="h-33px" />
 
   return (
     <div className="grid grid-cols-4 gap-5 pb-6">
@@ -100,13 +102,15 @@ function OfficialItem({
           <div
             className="h-full w-full overflow-hidden rounded-md bg-cover"
             style={{ backgroundImage: `url(${bgUrl})` }}
-          ></div>
+          >
+          </div>
           <div
             className={cn(
               'absolute z-1 w-full h-full top-0 left-0 backdrop-blur-6',
               bgColors[type],
             )}
-          ></div>
+          >
+          </div>
           <div className="absolute left-0 top-0 z-2 h-full w-full flex-center cursor-default">
             <div className="m-auto text-center text-white">
               <p className="text-36px">{rank.name}</p>
@@ -133,16 +137,19 @@ function OfficialItem({
             <p className="item-center w-7 flex">
               {soar && (
                 <span className="text-8px text-text-lighter">
-                  {item.ratio}%
+                  {item.ratio}
+                  %
                 </span>
               )}
               {(news || hot) && <RankingChange old={item.lr} now={i} />}
-              {original &&
-                (item.uid > 1 ? (
+              {original
+              && (item.uid > 1
+                ? (
                   <IconNew className="text-xl text-green-5" />
-                ) : (
+                  )
+                : (
                   <IconArrowChangeNon className="text-8px text-text-light" />
-                ))}
+                  ))}
             </p>
             <p
               className="line-clamp-1 flex-1 pr-4"

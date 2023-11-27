@@ -28,11 +28,12 @@ export default function NewSongs() {
 function Songs({ area }: { area: string }) {
   const { topSongs, isLoading } = useTopSongs(area)
 
-  if (isLoading) return <Loading className="h-170px" />
+  if (isLoading)
+    return <Loading className="h-170px" />
 
   return (
     <div className="pb-6 pt-2 -mx-8">
-      {topSongs.map((item) => (
+      {topSongs.map(item => (
         <section
           key={item.id}
           className="h-24 w-full flex cursor-default items-center pl-8 odd:bg-gray-50"
@@ -46,7 +47,9 @@ function Songs({ area }: { area: string }) {
               <p className="line-clamp-1 text-text-dark">{item.name}</p>
               {item.trans && (
                 <p className="line-clamp-1 px-1 text-text-light">
-                  ({item.trans})
+                  (
+                  {item.trans}
+                  )
                 </p>
               )}
             </div>

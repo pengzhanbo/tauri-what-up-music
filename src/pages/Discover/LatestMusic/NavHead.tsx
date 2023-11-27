@@ -7,8 +7,8 @@ export default function NavHead({
   nav: 1 | 2
   onClick: (nav: 1 | 2) => void
 }) {
-  const itemStyle =
-    'h-30px rounded-15px px-8 leading-30px -mt-1px cursor-pointer transition'
+  const itemStyle
+    = 'h-30px rounded-15px px-8 leading-30px -mt-1px cursor-pointer transition'
   const activeStyle = 'bg-[rgb(187,187,187)] text-white'
   return (
     <div className="mb-4 flex-center">

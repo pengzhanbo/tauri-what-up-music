@@ -10,9 +10,11 @@ export default function HighQuality({ cat = '' }: { cat?: string | number }) {
   const { isLoading, highQuality } = usePlayListHighQualityFirst(cat)
   const navigate = useNavigate()
 
-  if (isLoading) return <Loading className="h-170px" />
+  if (isLoading)
+    return <Loading className="h-170px" />
 
-  if (!highQuality) return null
+  if (!highQuality)
+    return null
 
   return (
     <div
@@ -25,7 +27,8 @@ export default function HighQuality({ cat = '' }: { cat?: string | number }) {
         <div
           className="h-140px w-140px rounded bg-cover"
           style={{ backgroundImage: `url(${highQuality.coverImgUrl})` }}
-        ></div>
+        >
+        </div>
         <div className="flex-1 pl-4 text-white">
           <div className="flex pb-6">
             <p className="h-8 flex-center border border-king rounded-8 px-4 leading-8 text-king">

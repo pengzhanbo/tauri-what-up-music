@@ -3,6 +3,7 @@ import { forwardRef, memo } from 'react'
 import { IconDownload, IconHeart } from '~/components/Icons'
 import type { Song } from '~/typing/Song'
 
+// eslint-disable-next-line prefer-arrow-callback
 const SongHeader = memo(function SongHeader() {
   return (
     <div className="h-35px flex items-center px-8 text-sm leading-34px text-text-light">
@@ -15,6 +16,7 @@ const SongHeader = memo(function SongHeader() {
   )
 })
 
+// eslint-disable-next-line prefer-arrow-callback
 export default forwardRef<HTMLDivElement, SongListProps>(function SongList(
   { songs, show },
   ref,
@@ -26,7 +28,7 @@ export default forwardRef<HTMLDivElement, SongListProps>(function SongList(
     >
       <SongHeader />
 
-      {songs.map((item) => (
+      {songs.map(item => (
         <div
           key={item.id}
           className="h-35px flex items-center px-8 text-sm leading-34px even:bg-light-200 hover:bg-light-400!"
@@ -41,7 +43,11 @@ export default forwardRef<HTMLDivElement, SongListProps>(function SongList(
           <div className="line-clamp-1 h-full w-1px flex-1 pr-2 text-text-dark">
             <span className="cursor-default">{item.name}</span>
             {item.tns && (
-              <span className="text-text-light">({item.tnsStr})</span>
+              <span className="text-text-light">
+                (
+                {item.tnsStr}
+                )
+              </span>
             )}
           </div>
           <div className="line-clamp-1 h-full w-18.15% pr-2 text-text-light-dark">

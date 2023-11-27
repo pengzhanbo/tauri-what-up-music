@@ -10,11 +10,11 @@ export default class EventEmitter {
   }
 
   emit(event: string, ...args: any[]) {
-    this.events[event]?.forEach((fn) => fn(...args))
+    this.events[event]?.forEach(fn => fn(...args))
   }
 
   off(event: string, callback: Function) {
-    this.events[event] = this.events[event]?.filter((fn) => fn !== callback)
+    this.events[event] = this.events[event]?.filter(fn => fn !== callback)
   }
 
   once(event: string, callback: Function) {

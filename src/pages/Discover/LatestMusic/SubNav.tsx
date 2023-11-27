@@ -10,7 +10,7 @@ export default function SubNav({
   return (
     <div className="flex items-center">
       <div className="flex flex-1 items-center -ml-4">
-        {options.map((item) => (
+        {options.map(item => (
           <p
             key={item.value}
             className={cn(

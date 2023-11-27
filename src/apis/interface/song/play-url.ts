@@ -10,7 +10,8 @@ export const getSongPlayUrl = request.post<
     br?: number
   },
   GetSongPlayUrlResponse
->('/song/url')
+>('/song/url',
+)
 
 export interface GetSongPlayUrlResponse {
   code: number
