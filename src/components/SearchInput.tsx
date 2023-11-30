@@ -37,7 +37,7 @@ function SearchInput({
         { 'bg-search-hover': focus },
       )}
     >
-      <div className="flex-center h-full w-full">
+      <div className="h-full w-full flex-center">
         <Icon icon="ic:baseline-search" className="text-text-1 ml-1 text-2xl" />
         <input
           className="h-full w-full border-none bg-transparent text-12px leading-7 outline-none focus-visible:outline-none focus:outline-none"

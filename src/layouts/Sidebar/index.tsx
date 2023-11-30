@@ -3,7 +3,7 @@ import UserInfo from '~/features/UserInfo/UserInfo'
 
 export default function Sidebar() {
   return (
-    <div className="pt-navbar w-sidebar bg-sidebar h-full flex flex-col">
+    <div className="h-full w-sidebar flex flex-col pt-navbar bg-sidebar">
       <UserInfo />
       <SidebarContent />
     </div>

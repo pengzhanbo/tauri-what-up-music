@@ -57,7 +57,7 @@ function LoginByQr() {
       </p>
       <p className="mt-25 flex-center cursor-pointer" onClick={changeLoginType}>
         <span className="text-sm">选择其他登录模式</span>
-        <span className="icon ml-1 text-sm">
+        <span className="ml-1 icon text-sm">
           <Icon icon="ps:right" />
         </span>
       </p>
