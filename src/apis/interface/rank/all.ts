@@ -1,8 +1,6 @@
 import { request } from '~/apis/helper'
 
-export const getAllTopList = request.post<never, GetAllTopListResponse>(
-  '/toplist',
-)
+export const getAllTopList = request.post<never, GetAllTopListResponse>('/toplist')
 
 export interface GetAllTopListResponse {
   code: 200

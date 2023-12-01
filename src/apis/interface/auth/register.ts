@@ -3,9 +3,7 @@ import { request } from '~/apis/helper'
 /**
  * 传入手机号码和验证码,密码,昵称, 可注册网易云音乐账号(同时可修改密码)
  */
-export const registerByPhone = request.post<RegisterByPhoneParams>(
-  '/register/cellphone',
-)
+export const registerByPhone = request.post<RegisterByPhoneParams>('/register/cellphone')
 
 /**
  * 可检测手机号码是否已注册

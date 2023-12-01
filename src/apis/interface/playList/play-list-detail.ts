@@ -10,8 +10,7 @@ export const getPlayListDetail = request.post<
     s?: number // 获取 s 个歌单最近的收藏者
   },
   GetPlayListDetailResponse
->('/playlist/detail',
-)
+>('/playlist/detail')
 
 export const getPlayListAllTrack = request.post<
   {
@@ -20,8 +19,7 @@ export const getPlayListAllTrack = request.post<
     offset?: number
   },
   GetPlayListAllTrack
->('/playlist/track/all',
-)
+>('/playlist/track/all')
 
 export interface GetPlayListAllTrack {
   code: number

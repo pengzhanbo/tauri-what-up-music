@@ -7,8 +7,7 @@ import type { Artist } from '~/typing'
 export const getNewAlbumList = request.post<
   GetNewAlbumListParams,
   GetNewAlbumListResponse
->('/top/album',
-)
+>('/top/album')
 
 export interface GetNewAlbumListParams {
   limit?: number

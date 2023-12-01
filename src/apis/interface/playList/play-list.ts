@@ -6,9 +6,10 @@ import { request } from '~/apis/helper'
 /**
  * 获取网友精选碟歌单
  */
-export const getPlayList = request.post<GetPlayListParams, GetPlayListResponse>(
-  '/top/playlist',
-)
+export const getPlayList = request.post<
+  GetPlayListParams,
+  GetPlayListResponse
+>('/top/playlist')
 
 export interface GetPlayListParams {
   /**

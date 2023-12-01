@@ -4,8 +4,7 @@ import { request } from '~/apis/helper'
 export const getRecommendSongOfDay = request.post<
   never,
   GetRecommendSongOfDayResponse
->('/recommend/songs',
-)
+>('/recommend/songs')
 
 export interface GetRecommendSongOfDayResponse {
   code: number

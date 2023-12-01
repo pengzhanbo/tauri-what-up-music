@@ -7,8 +7,7 @@ import type { Artist } from '~/typing'
 export const getArtistList = request.post<
   GetArtistListParams,
   GetArtistListResponse
->('/artist/list',
-)
+>('/artist/list')
 
 export interface GetArtistListParams {
   limit?: number

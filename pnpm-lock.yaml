@@ -56,8 +56,8 @@ dependencies:
 
 devDependencies:
   '@pengzhanbo/eslint-config-react':
-    specifier: ^1.2.1
-    version: 1.2.1(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2)
+    specifier: ^1.2.3
+    version: 1.2.3(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2)
   '@tauri-apps/cli':
     specifier: ^1.5.6
     version: 1.5.6
@@ -920,13 +920,13 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@pengzhanbo/eslint-config-react@1.2.1(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2):
-    resolution: {integrity: sha512-rvjkEZtqrtpBTd1sK5Dz4YqDQC0XWfzac7Z376SyCM/XqAuS8OqFVyy+RvRxaHJCj89FR2kfrCEFHQVCM4mUOQ==}
+  /@pengzhanbo/eslint-config-react@1.2.3(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2):
+    resolution: {integrity: sha512-hqaPSEftVdTnpscaTFA1ALa/G9pOszAJmgWXhGo8WQs7YtSgYLRGQnGZdpq4P2bGfjhN+jzRt6GAUeQrmA92Og==}
     peerDependencies:
       eslint: '>=8.40.0'
     dependencies:
       '@next/eslint-plugin-next': 14.0.3
-      '@pengzhanbo/eslint-config': 1.2.1(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2)
+      '@pengzhanbo/eslint-config': 1.2.3(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2)
       eslint: 8.54.0
       eslint-plugin-react: 7.33.2(eslint@8.54.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.54.0)
@@ -937,6 +937,7 @@ packages:
       - astro-eslint-parser
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
+      - eslint-plugin-tailwindcss
       - supports-color
       - svelte
       - svelte-eslint-parser
@@ -945,13 +946,16 @@ packages:
       - vue-eslint-parser
     dev: true
 
-  /@pengzhanbo/eslint-config@1.2.1(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2):
-    resolution: {integrity: sha512-vA+9HujcXnlCS1e0VsgGnuz3nRoUB/wcy0IiWCp1D71ML6pU95YVHQevvGd1WgxrSHxCtcpY3OJl7xI8bzHWhw==}
+  /@pengzhanbo/eslint-config@1.2.3(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2):
+    resolution: {integrity: sha512-r6S955RiH40+hl4mHY6cBHTA+6k0rXdN8UXrHA3tmwcshYAlewZHYd9hdz0IVJg7UTKX0j4QAsKdkTwsible+g==}
     peerDependencies:
       '@unocss/eslint-plugin': '>=0.50.0'
       eslint: '>=8.40.0'
+      eslint-plugin-tailwindcss: '>=3.10.0'
     peerDependenciesMeta:
       '@unocss/eslint-plugin':
+        optional: true
+      eslint-plugin-tailwindcss:
         optional: true
     dependencies:
       '@antfu/eslint-define-config': 1.23.0-2
@@ -963,8 +967,8 @@ packages:
       '@typescript-eslint/parser': 6.13.1(eslint@8.54.0)(typescript@5.3.2)
       '@unocss/eslint-plugin': 0.57.7(eslint@8.54.0)(typescript@5.3.2)
       eslint: 8.54.0
-      eslint-config-flat-gitignore: 0.1.1
-      eslint-plugin-antfu: 1.0.11(eslint@8.54.0)
+      eslint-config-flat-gitignore: 0.1.2
+      eslint-plugin-antfu: 1.0.12(eslint@8.54.0)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.54.0)
       eslint-plugin-i: 2.29.0(@typescript-eslint/parser@6.13.1)(eslint@8.54.0)
       eslint-plugin-jsdoc: 46.9.0(eslint@8.54.0)
@@ -1191,7 +1195,7 @@ packages:
       eslint: '>=8.40.0'
     dependencies:
       '@stylistic/eslint-plugin-js': 1.4.1(eslint@8.54.0)
-      '@typescript-eslint/utils': 6.12.0(eslint@8.54.0)(typescript@5.3.2)
+      '@typescript-eslint/utils': 6.13.1(eslint@8.54.0)(typescript@5.3.2)
       eslint: 8.54.0
       graphemer: 1.4.0
     transitivePeerDependencies:
@@ -1541,14 +1545,6 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/scope-manager@6.12.0:
-    resolution: {integrity: sha512-5gUvjg+XdSj8pcetdL9eXJzQNTl3RD7LgUiYTl8Aabdi8hFkaGSYnaS6BLc0BGNaDH+tVzVwmKtWvu0jLgWVbw==}
-    engines: {node: ^16.0.0 || >=18.0.0}
-    dependencies:
-      '@typescript-eslint/types': 6.12.0
-      '@typescript-eslint/visitor-keys': 6.12.0
-    dev: true
-
   /@typescript-eslint/scope-manager@6.13.1:
     resolution: {integrity: sha512-BW0kJ7ceiKi56GbT2KKzZzN+nDxzQK2DS6x0PiSMPjciPgd/JRQGMibyaN2cPt2cAvuoH0oNvn2fwonHI+4QUQ==}
     engines: {node: ^16.0.0 || >=18.0.0}
@@ -1577,35 +1573,9 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/types@6.12.0:
-    resolution: {integrity: sha512-MA16p/+WxM5JG/F3RTpRIcuOghWO30//VEOvzubM8zuOOBYXsP+IfjoCXXiIfy2Ta8FRh9+IO9QLlaFQUU+10Q==}
-    engines: {node: ^16.0.0 || >=18.0.0}
-    dev: true
-
   /@typescript-eslint/types@6.13.1:
     resolution: {integrity: sha512-gjeEskSmiEKKFIbnhDXUyiqVma1gRCQNbVZ1C8q7Zjcxh3WZMbzWVfGE9rHfWd1msQtPS0BVD9Jz9jded44eKg==}
     engines: {node: ^16.0.0 || >=18.0.0}
-    dev: true
-
-  /@typescript-eslint/typescript-estree@6.12.0(typescript@5.3.2):
-    resolution: {integrity: sha512-vw9E2P9+3UUWzhgjyyVczLWxZ3GuQNT7QpnIY3o5OMeLO/c8oHljGc8ZpryBMIyympiAAaKgw9e5Hl9dCWFOYw==}
-    engines: {node: ^16.0.0 || >=18.0.0}
-    peerDependencies:
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@typescript-eslint/types': 6.12.0
-      '@typescript-eslint/visitor-keys': 6.12.0
-      debug: 4.3.4
-      globby: 11.1.0
-      is-glob: 4.0.3
-      semver: 7.5.4
-      ts-api-utils: 1.0.2(typescript@5.3.2)
-      typescript: 5.3.2
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /@typescript-eslint/typescript-estree@6.13.1(typescript@5.3.2):
@@ -1629,25 +1599,6 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils@6.12.0(eslint@8.54.0)(typescript@5.3.2):
-    resolution: {integrity: sha512-LywPm8h3tGEbgfyjYnu3dauZ0U7R60m+miXgKcZS8c7QALO9uWJdvNoP+duKTk2XMWc7/Q3d/QiCuLN9X6SWyQ==}
-    engines: {node: ^16.0.0 || >=18.0.0}
-    peerDependencies:
-      eslint: ^7.0.0 || ^8.0.0
-    dependencies:
-      '@eslint-community/eslint-utils': 4.4.0(eslint@8.54.0)
-      '@types/json-schema': 7.0.12
-      '@types/semver': 7.5.0
-      '@typescript-eslint/scope-manager': 6.12.0
-      '@typescript-eslint/types': 6.12.0
-      '@typescript-eslint/typescript-estree': 6.12.0(typescript@5.3.2)
-      eslint: 8.54.0
-      semver: 7.5.4
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: true
-
   /@typescript-eslint/utils@6.13.1(eslint@8.54.0)(typescript@5.3.2):
     resolution: {integrity: sha512-ouPn/zVoan92JgAegesTXDB/oUp6BP1v8WpfYcqh649ejNc9Qv+B4FF2Ff626kO1xg0wWwwG48lAJ4JuesgdOw==}
     engines: {node: ^16.0.0 || >=18.0.0}
@@ -1665,14 +1616,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - typescript
-    dev: true
-
-  /@typescript-eslint/visitor-keys@6.12.0:
-    resolution: {integrity: sha512-rg3BizTZHF1k3ipn8gfrzDXXSFKyOEB5zxYXInQ6z0hUvmQlhaZQzK+YmHmNViMA9HzW5Q9+bPPt90bU6GQwyw==}
-    engines: {node: ^16.0.0 || >=18.0.0}
-    dependencies:
-      '@typescript-eslint/types': 6.12.0
-      eslint-visitor-keys: 3.4.3
     dev: true
 
   /@typescript-eslint/visitor-keys@6.13.1:
@@ -2791,8 +2734,8 @@ packages:
       eslint: 8.54.0
     dev: true
 
-  /eslint-config-flat-gitignore@0.1.1:
-    resolution: {integrity: sha512-ysq0QpN63+uaxE67U0g0HeCweIpv8Ztp7yvm0nYiM2TBalRIG6KQLO5J6lAz2gkA8KVis/QsJppe+BR5VigtWQ==}
+  /eslint-config-flat-gitignore@0.1.2:
+    resolution: {integrity: sha512-PcBsqtd5QHEZH4ROvpnRN4EP0qcHh9voCCHgtyHxnJZHGspJREcZn7oPqRG/GfWt9m3C0fkC2l5CuBtMig2wXQ==}
     dependencies:
       parse-gitignore: 2.0.0
     dev: true
@@ -2836,8 +2779,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-antfu@1.0.11(eslint@8.54.0):
-    resolution: {integrity: sha512-m+RWX/D+Ep9xU7VTDYKG4UmDUV9bOa5/SU/fUwWcRyYGbEy3lgxlnhuxv+Zw5Ca/RlcabCFt+vxh62wo1RI/6w==}
+  /eslint-plugin-antfu@1.0.12(eslint@8.54.0):
+    resolution: {integrity: sha512-eVQU4oUvpq3N9FKAQwkHUm9iXUNS/jKZIEHq+l2dlSL20vKrH4rfsSSCCzGRy8kzsa7xuQEP24UoH6Wkg4hv2w==}
     peerDependencies:
       eslint: '*'
     dependencies:
@@ -3079,7 +3022,7 @@ packages:
         optional: true
     dependencies:
       '@typescript-eslint/eslint-plugin': 6.13.1(@typescript-eslint/parser@6.13.1)(eslint@8.54.0)(typescript@5.3.2)
-      '@typescript-eslint/utils': 6.12.0(eslint@8.54.0)(typescript@5.3.2)
+      '@typescript-eslint/utils': 6.13.1(eslint@8.54.0)(typescript@5.3.2)
       eslint: 8.54.0
     transitivePeerDependencies:
       - supports-color

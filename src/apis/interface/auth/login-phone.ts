@@ -34,5 +34,4 @@ export interface LoginByPhoneResponseData {}
 export const loginByPhone = request.post<
   LoginByPhoneParams,
   LoginByPhoneResponseData
->('/login/cellphone',
-)
+>('/login/cellphone')

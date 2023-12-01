@@ -5,7 +5,7 @@ import { HttpError } from './httpError'
 import { FETCH_BASE_URL } from '~/constants'
 
 export type RequestQuery<
-  T extends Record<string | number, string | number> = Record<string | number, string | number>,
+  T extends object = object,
   K extends keyof T = keyof T,
 > = {
   [P in K]: T[P]

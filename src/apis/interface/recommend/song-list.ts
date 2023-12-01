@@ -6,8 +6,7 @@ export const getRecommendSongList = request.post<
     limit: number
   },
   GetRecommendSongListResponse
->('/personalized',
-)
+>('/personalized')
 
 export interface GetRecommendSongListResponse {
   code: number

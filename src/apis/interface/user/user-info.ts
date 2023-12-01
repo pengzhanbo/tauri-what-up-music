@@ -18,8 +18,7 @@ export const userAccount = request.post<
     account: UserAccount
     profile: UserProfile
   }
->('/user/account',
-)
+>('/user/account')
 
 /**
  * 获取用户信息 , 歌单，收藏，mv, dj 数量
