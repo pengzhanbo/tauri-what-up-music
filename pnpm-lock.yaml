@@ -56,8 +56,8 @@ dependencies:
 
 devDependencies:
   '@pengzhanbo/eslint-config-react':
-    specifier: ^1.2.3
-    version: 1.2.3(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2)
+    specifier: ^1.2.4
+    version: 1.2.4(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2)
   '@tauri-apps/cli':
     specifier: ^1.5.6
     version: 1.5.6
@@ -920,13 +920,13 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@pengzhanbo/eslint-config-react@1.2.3(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2):
-    resolution: {integrity: sha512-hqaPSEftVdTnpscaTFA1ALa/G9pOszAJmgWXhGo8WQs7YtSgYLRGQnGZdpq4P2bGfjhN+jzRt6GAUeQrmA92Og==}
+  /@pengzhanbo/eslint-config-react@1.2.4(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2):
+    resolution: {integrity: sha512-cOzlLC7P9btHGS3EDo9ApVvIo48c9MKyMWDvVXbU4Of+VlkOU+x4qp1/EooDrKxdzlFiu/7QwToCXlXvUN2sCA==}
     peerDependencies:
       eslint: '>=8.40.0'
     dependencies:
       '@next/eslint-plugin-next': 14.0.3
-      '@pengzhanbo/eslint-config': 1.2.3(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2)
+      '@pengzhanbo/eslint-config': 1.2.4(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2)
       eslint: 8.54.0
       eslint-plugin-react: 7.33.2(eslint@8.54.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.54.0)
@@ -946,8 +946,8 @@ packages:
       - vue-eslint-parser
     dev: true
 
-  /@pengzhanbo/eslint-config@1.2.3(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2):
-    resolution: {integrity: sha512-r6S955RiH40+hl4mHY6cBHTA+6k0rXdN8UXrHA3tmwcshYAlewZHYd9hdz0IVJg7UTKX0j4QAsKdkTwsible+g==}
+  /@pengzhanbo/eslint-config@1.2.4(@unocss/eslint-plugin@0.57.7)(eslint@8.54.0)(typescript@5.3.2):
+    resolution: {integrity: sha512-ecIcChYO+T3/iPG6D0zO3JYqc5gcLpbk0pYXNPy8ijR1BcbnQrx6QwvRRb9jB0rq7vw7KoySDS76i6O8sDd7Yg==}
     peerDependencies:
       '@unocss/eslint-plugin': '>=0.50.0'
       eslint: '>=8.40.0'
@@ -968,7 +968,7 @@ packages:
       '@unocss/eslint-plugin': 0.57.7(eslint@8.54.0)(typescript@5.3.2)
       eslint: 8.54.0
       eslint-config-flat-gitignore: 0.1.2
-      eslint-plugin-antfu: 1.0.12(eslint@8.54.0)
+      eslint-plugin-antfu: 1.0.13(eslint@8.54.0)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.54.0)
       eslint-plugin-i: 2.29.0(@typescript-eslint/parser@6.13.1)(eslint@8.54.0)
       eslint-plugin-jsdoc: 46.9.0(eslint@8.54.0)
@@ -2779,8 +2779,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-antfu@1.0.12(eslint@8.54.0):
-    resolution: {integrity: sha512-eVQU4oUvpq3N9FKAQwkHUm9iXUNS/jKZIEHq+l2dlSL20vKrH4rfsSSCCzGRy8kzsa7xuQEP24UoH6Wkg4hv2w==}
+  /eslint-plugin-antfu@1.0.13(eslint@8.54.0):
+    resolution: {integrity: sha512-JzWEzNWZcNK4Q4Tz4VaNELhu3VgCv3obSYxUbK1UhbDBmr2v0a7H9n9xGv5GTS4LkEo905/2Gq6y0dcoBq5FZA==}
     peerDependencies:
       eslint: '*'
     dependencies:
